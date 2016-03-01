@@ -1,0 +1,15 @@
+﻿<script src="~/scripts/my_js/home/relativeobjcet_controller.js"></script>
+
+<div ng-controller="relatedObject_controller">
+    <div class="col-sm-2" ng-repeat="item in items">
+        <div class="box box-img" style="max-width:300px; cursor:pointer;" ng-click="xemsanpham(item.hreft)">
+            <div class="box-body">
+                <img ng-src="{{item.img}}" class="img-box" />
+            </div>
+            <div class="box-footer" style="text-align:center;">
+                <strong>{{item.name}}</strong>          
+            </div>
+        </div>
+    </div>
+</div>
+

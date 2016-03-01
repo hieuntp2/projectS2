@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ProjectS3.Models.SanPham>
+
+@{
+    ViewBag.Title = ViewBag.Branch;
+
+    int my_loop_4 = 0;
+    int my_number_page = Model.Count() / 4;
+    int my_current_page = 0;
+    if (Model.Count() % 4 != 0)
+    {
+        my_number_page += 1;
+    }
+}
+
+<h1 class="title text-center" style="font-family: 'Galdeano',sans-serif,nanum gothic,dotum,verdana; font-size: 50px;">
+    @ViewBag.Branch
+</h1>
+<br />
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <section id="slider">
+            <!--slider-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                @for (int i = 0; i < my_number_page; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                                    }
+                                    else
+                                    {
+                                        <li data-target="#slider-carousel" data-slide-to="@i"></li>
+                                    }
+                                }
+                            </ol>
+
+                            <div class="carousel-inner">
+                                @{
+                                    while (my_current_page < my_number_page)
+                                    {
+                                        <div class="item @(my_current_page == 0 ? "active" : "")">
+                                            @{
+                                        for (int i = 0; i < 4; i++)
+                                        {
+                                            var my_index = my_current_page * 4 + i; ;
+
+                                            if (my_index >= Model.Count())
+                                            {
+                                                break;
+                                            }
+
+                                            <div class="col-sm-3">
+                                                <a href="/home/sanpham/@Model.ElementAt(my_index).ID" style="cursor:pointer;">
+                                                    <div class="product-image-wrapper">
+                                                        <div class="single-products">
+                                                            <div class="productinfo text-center">
+                                                                <img src="@Model.ElementAt(my_index).linkanh" alt="">
+                                                                <h2>@Model.ElementAt(my_index).Ten</h2>
+                                                                <p>
+                                                                    @string.Format("{0:n0}", Model.ElementAt(my_index).DioGia) VNĐ
+                                                                </p>
+                                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        }
+
+                                            }
+                                        </div>
+                                        my_current_page += 1;
+                                    }
+                                }
+                            </div>
+                            <a style="top: 25%;    padding-left: 80px;" href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a style="top: 25%;right: -15px;" href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+    </div>
+</div>

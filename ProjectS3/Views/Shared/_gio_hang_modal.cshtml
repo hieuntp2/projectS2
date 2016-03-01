@@ -1,0 +1,108 @@
+﻿<!-- Sản phẩm -->
+<div class="modal fade" id="ThemVaoGioHang_Modal" ng-controller="them_gio_hang_modal_controller as controller">
+    <div class="modal-dialog" ng-model="product">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>{{product.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-5 no-padding">
+                        <img ng-src="{{product.img}}" class="img-box" />
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" ng-repeat="img in product.imgs track by img.number" data-slide-to="{{img.number}}" ng-class="img.number == 0? 'active': ''">
+
+                                </li>                                
+                            </ol>
+                            <div class="carousel-inner">
+                                <div ng-class="img.number == 1? 'item active': 'item left'" ng-repeat="img in product.imgs track by img.number">
+                                    <img ng-src="{{img.link}}" style="width:100%;">
+                                </div>                                
+                            </div>
+
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="fa fa-angle-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="fa fa-angle-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-7">
+                        <h4 style="color:blue;">Đơn giá: {{product.price}}</h4>
+                        <div class="input-group">
+                            <label>Số lượng</label>
+                            <input type="number" class="form-control" ng-model="product.number"/>
+                        </div>
+                        <div class="input-group">
+                            <label>Mô tả: </label>
+                            <span> {{product.description}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="themvaogiohang()" data-dismiss="modal">Thêm vào giỏ hàng</button>
+                <button type="button" class="btn btn-warning" ng-click="huy()" data-dismiss="modal">Thôi</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.Sản phẩm -->
+
+
+
+<!-- Bộ sản phẩm -->
+<div class="modal fade" id="xembosanpham_modal" ng-controller="them_gio_hang_modal_controller as controller">
+    <div class="modal-dialog" ng-model="product">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>{{product.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-5 no-padding">
+                        <img ng-src="{{product.img}}" class="img-box" />
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" ng-repeat="img in product.imgs track by img.number" data-slide-to="{{img.number}}" ng-class="img.number == 0? 'active': ''">
+
+                                </li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div ng-class="img.number == 1? 'item active': 'item left'" ng-repeat="img in product.imgs track by img.number">
+                                    <img ng-src="{{img.link}}" style="width:100%;">
+                                </div>
+                            </div>
+
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="fa fa-angle-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="fa fa-angle-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-7">
+                        <h4 style="color:blue;">Đơn giá: {{product.price}}</h4>
+                        <div class="input-group">
+                            <label>Số lượng</label>
+                            <input type="number" class="form-control" ng-model="product.number" />
+                        </div>
+                        <div class="input-group">
+                            <label>Mô tả: </label>
+                            <span> {{product.description}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="themvaogiohang()" data-dismiss="modal">Thêm vào giỏ hàng</button>
+                <button type="button" class="btn btn-warning" ng-click="huy()" data-dismiss="modal">Thôi</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+

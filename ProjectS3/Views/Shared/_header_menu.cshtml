@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ProjectS3.Models.AspNetUsers user = null;
+    if (Request.IsAuthenticated)
+    {
+        ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
+        string userid = User.Identity.GetUserId();
+        user = db.AspNetUsers.SingleOrDefault(t => t.Id == userid);
+    }
+}
+@*<header class="main-header" ng-controller="cart_controller as controller">
+        <!-- Logo -->
+        <a href="../../Home" class="logo" style="margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px;">Hàng Mã <strong>Bỉnh Phương</strong></a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" ng-click="init()">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="label label-success">{{products.length}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">Giỏ hàng có {{products.length}} sản phẩm</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li ng-repeat="item in products track by item.count_number" style="cursor: pointer;" ng-click="changeitem(item.id)">
+                                        <a>
+                                            <div class="pull-left">
+                                                <img ng-src="{{item.imgs[0].link}}" alt="User Image" />
+                                            </div>
+                                            <h4>
+                                                {{item.name}}
+                                            </h4>
+                                            <p>Số lượng: {{item.number}}</p>
+                                        </a>
+                                    </li><!-- end message -->
+                                </ul>
+                            </li>
+                            <li class="footer" ng-click="checkoutcart()"><a href="#">Thanh toán, quản lý giỏ hàng</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+        </nav>
+
+        <div onclick="redirectgiohang()" role="button" style=" right: 5px; bottom: 60px; position: fixed; border-radius: 5px 5px 5px 5px; padding: 10px 15px; font-size: 16px; z-index: 99999; cursor: pointer; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 3px; background: rgb(60, 141, 188);">
+            <a style=" color: white;">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="sr-only">Toggle navigation</span>
+                <strong style="color:white;">{{products.length}}</strong>
+            </a>
+        </div>
+    </header>
+    <script src="~/scripts/my_js/cart_controller.js"></script>*@
+
+<header id="header">
+    <div class="header-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="logo pull-left">
+                        <a href="/home"><img src="~/content/myshopcontent/images/home/logo.png" alt="" /></a>
+                    </div>
+                    <div class="shop-menu pull-left">
+                        <ul class="nav navbar-nav">
+                            @*<li><a href="/home/company">COMPANY</a></li>*@
+                            <li><a href="/home/branch/JOINUS">JOINUS</a></li>
+                            <li><a href="/home/branch/COMPAGNA">COMPAGNA</a></li>
+                            <li><a href="/home/branch/YETTS">YETTS</a></li>
+                            <li><a href="/home/branch/y'sb">y'sb</a></li>
+                            <li><a href="/home/branch/TRUGEN">TRUGEN</a></li>
+                            <li><a href="/home/branch/S+">S+</a></li>
+                            <li><a href="/home/branch/TATE">TATE</a></li>
+                            <li><a href="/home/branch/BIND">BIND</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3" style="padding: 0; padding-right: 0; margin-top: 10px;">
+                    <div class="mainmenu pull-right">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
+                            <li><a href="../../cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                <li class="dropdown">
+                                    <a>@user.UserName<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="../../cart/history">Lịch sử mua hàng</a></li>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <li><a href="../../admin">Quản lý website</a></li>
+                                        }
+                                        <li><a href="../../manage">Tài khoản</a></li>
+
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li><a href="../../account/login"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+</header><!--/header-->
+<br />
+

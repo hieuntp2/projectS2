@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Sửa bộ sản phẩm";
+}
+<div class="box">
+    <div class="box-footer">
+        <span style="margin-right: 20px;">Quay lại </span>
+        <a class="btn btn-primary" href="../../admin">Admin</a>
+    </div>
+</div>
+
+<script src="~/scripts/my_js/admin/editgroupproduct_controller.js"></script>
+
+<div class="box box-info" ng-controller="editgroupproduct_controller" ng-init="init('@ViewBag.id')">
+    <div class="box-header">
+        <h3>Bộ sản phẩm</h3>
+    </div>
+    <div class="box-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                <label class="control-label col-md-2">Tên bộ sản phẩm</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-model="Ten"/>
+                    <p style="color:red;">{{Tenmessage}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Mô tả ngắn</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-model="Mota"/>
+                    <p style="color:red;">{{MoTaMessage}}</p>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <h4>Chi tiết bộ sản phẩm</h4>
+        <div>
+            <a class="btn btn-warning" ng-click="showmodal_allproduct()">Thêm sản phẩm</a>
+            <p style="color:red;">{{SanPhamMessage}} </p>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Đơn giá</td>
+                        <td>Số lượng thường mua</td>
+                        <td>Xóa</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="product in products">
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.price}}</td>
+                        <td>
+                            <input class="form-control" type="number" value="0" ng-model="product.number" />
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" ng-click="removeproduct(product.id)">
+                                <i class="fa times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br />
+        </div>
+    </div>
+    <div class="box-footer">
+        <input type="button" ng-click="finish()" value="Sửa" class="btn btn-success" />
+       
+        <a class="btn btn-default" href="../../admin" style="float:right;">Hủy</a>
+        <input type="button" ng-click="removegroupproduct()" value="Xóa" class="btn btn-warning" style="float: right; margin-right: 10px;" />
+    </div>
+
+
+    <div class="modal fade" id="add_group_product_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Tên</td>
+                                <td>Đơn giá</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="product in allproduct" style="cursor: pointer;" ng-click="addproduct(product)">
+                                <td>{{product.id}}</td>
+                                <td>{{product.name}}</td>
+                                <td>{{product.price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+</div>
+

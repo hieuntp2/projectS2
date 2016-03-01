@@ -1,0 +1,17 @@
+﻿@model ProjectS3.Models.BaiViet
+
+<div class="box box-info">
+    <div class="box-header">
+        <h2>@Model.TieuDe</h2>
+        <hr />
+    </div>
+
+    <div class="box-body">
+        @Html.Raw(Model.NoiDung)
+    </div>
+
+    <div class="footer">
+       <p> =============================</p>
+        <small>Ngày đăng: @Model.NgayDang</small>
+    </div>
+</div>

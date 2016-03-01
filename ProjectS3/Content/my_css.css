@@ -1,0 +1,54 @@
+﻿.box {
+    box-shadow: 5px 5px 5px #D7D7D7;
+    border: 2px solid #EAEAEA;
+}
+
+.box-img {
+    box-shadow: 5px 5px 5px #D7D7D7;
+    border-top: 3px solid #FFFFFF !important;
+}
+
+.img-box {
+    width: 100%;
+    max-width: 450px;
+}
+
+.box-header h2 {
+    margin-top: 0px;
+}
+
+.box-header h1 {
+    margin-top: 0px;
+}
+
+.box-header h3 {
+    margin-top: 0px;
+}
+
+.box-header h4 {
+    margin-top: 0px;
+}
+
+.box-header h3 {
+    margin-top: 0px;
+}
+
+.box-header h5 {
+    margin-top: 0px;
+}
+
+.my_size_checkbox {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    padding: 10px;
+    cursor: pointer;
+    margin-right: 5px !important;
+}
+
+.my_div_size_checkbox{
+    display: -webkit-inline-box;
+    padding-left: 20px;
+
+}

@@ -1,0 +1,10 @@
+﻿
+product {
+	id;
+	count_number;
+	imgs ["string"];
+	name;
+	number;
+	idbosanpham;
+	comment;
+}

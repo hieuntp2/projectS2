@@ -1,0 +1,67 @@
+﻿@model ProjectS3.Models.BaiViet
+
+@{
+    ViewBag.Title = "Sửa bài viết";
+}
+@Html.Partial("_my_break_bar_top")
+<script src="~/scripts/ckeditor/ckeditor.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="box box-info">
+        <div class="box-header">
+            <h3>Thêm bài viết @Model.TieuDe</h3>
+
+            <div class="col-lg-9">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Tiêu đề</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.TieuDe, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TieuDe)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Link hình ảnh</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.linkHinh, new { @class = "form-control", @id = "linkhinh", @onchange = "changeimg()" })
+                        @Html.ValidationMessageFor(model => model.linkHinh)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <img src="@Model.linkHinh" id="preview_link_img" style="width: 200px;" />
+            </div>
+
+        </div>
+
+        <div class="box-body">
+            <div class="form-group">
+                <label>Nội dung</label>
+
+                @Html.TextAreaFor(model => model.NoiDung, new { @class = "ckeditor" })
+                @Html.ValidationMessageFor(model => model.NoiDung)
+
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <input type="submit" value="Sửa bài" class="btn btn-success" style="float:right;" />
+            <a class="btn btn-default" href="../../admin" style="margin-right:10px;">Hủy</a>
+            <a class="btn btn-warning" href="../../admin/deletebaiviet/@Model.ID" onclick="xoabaiviet()" >Xóa bài viết</a>
+        </div>
+    </div>
+}
+
+<script>
+    function changeimg() {
+        $('#preview_link_img').attr('src', $("#linkhinh").val());
+    }
+
+    function xoabaiviet(id) {
+        if (confirm("Bạn chắc chắn xóa bài viết này?")) {
+            $window.locaion.href = "../../admin/deletebaiviet/" + id;
+        }
+    }
+</script>

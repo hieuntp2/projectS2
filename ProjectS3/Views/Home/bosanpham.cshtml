@@ -1,0 +1,105 @@
+﻿@model ProjectS3.Controllers.BoSanPhamInfoIndexModal
+
+@{
+    ViewBag.Title = "bosanpham";
+    int id_item = Model.id;
+}
+<script src="~/scripts/my_js/home/home_bosanpham_controller.js"></script>
+
+<div class="box box-info" ng-controller="home_bosanpham_controller" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+    <div class="box-body row">
+        <div class="col-sm-6">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="text-align:center;">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" ng-repeat="img in slide" data-slide-to="{{img.number}}" ng-class="img.number == 1? 'active': ''"></li>
+                </ol>
+                <div class="carousel-inner" style="text-align: center; max-height: 450px;">
+                    <div ng-class="img.number == 1? 'item active': 'item'" ng-repeat="img in slide track by img.number">
+                        <img ng-src="{{img.link}}" style="cursor: -webkit-zoom-in; max-height: 450px; width: auto; display: block; margin-left: auto; margin-right: auto;" ng-click="showimage(img.link)">
+                        <div class="carousel-caption">
+                            {{img.caption}}
+                        </div>
+                    </div>
+                </div>
+
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="fa fa-angle-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="fa fa-angle-right"></span>
+                </a>
+                <small>Chọn vào hình để phóng to</small>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3>@Model.Ten</h3>
+            <p>Mô tả</p>
+
+
+            <div class="clearfix"></div>
+            <br />
+            <h4>Chi tiết bộ sản phẩm</h4>
+            <div style="overflow:auto;">
+                <table class="table table-hover table-bordered" style="min-width:350px;">
+                    <thead>
+                        <tr>
+                            <td>Mã</td>
+                            <td>Tên sản phẩm</td>
+                            <td>Số lượng</td>
+                            <td>Đơn giá</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="sanpham in products">
+                            <td>{{sanpham.id}}</td>
+                            <td>{{sanpham.name}}</td>
+                            <td>
+                                <input type="number" class="form-control" ng-model="sanpham.number" />
+                            </td>
+                            <td style="color:red;">{{sanpham.price | number}} VNĐ</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5"><small>Chú ý, số lượng mặc định là số lượng người mua hàng thường mua trong bộ sản phẩm.</small></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <a class="btn btn-success" ng-click="themvaogiohang()">Thêm vào giỏ hàng</a>
+        </div>
+    </div> 
+</div>
+
+<h4>
+    Sản phẩm khác
+</h4>
+<script src="~/scripts/my_js/home/relativeobjcet_controller.js"></script>
+<div ng-controller="relatedObject_controller" ng-init="init(@id_item, true)">
+    <div class="col-sm-2" ng-repeat="item in items">
+        <div class="box box-img" style="max-width:300px; cursor:pointer;" ng-click="xemsanpham(item.hreft)">
+            <div class="box-body">
+                <img ng-src="{{item.img}}" class="img-box" />
+            </div>
+            <div class="box-footer" style="text-align:center;">
+                <strong>{{item.name}}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>
+    Sản phẩm khác
+</h4>
+<div ng-controller="relatedObject_controller" ng-init="init(@id_item, false, true)">
+    <div class="col-sm-2" ng-repeat="item in items">
+        <div class="box box-img" style="max-width:300px; cursor:pointer;" ng-click="xemsanpham(item.hreft)">
+            <div class="box-body">
+                <img ng-src="{{item.img}}" class="img-box" />
+            </div>
+            <div class="box-footer" style="text-align:center;">
+                <strong>{{item.name}}</strong>
+            </div>
+        </div>
+    </div>
+</div>

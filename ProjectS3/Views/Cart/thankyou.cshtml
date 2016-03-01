@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Hoàn thành đặt hàng";
+}
+
+<section>
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-3">
+            <div class="box box-success">
+                <div class="box-header">
+                    <h3>Đơn hàng đã được đặt</h3>
+                </div>
+
+                <div class="box-body">
+                    <p>Cám ơn bạn đã tin dùng và đặt hàng tại cửa hàng. Mã số đơn hàng của bạn là:</p>
+                    <div class="text-center">
+                        <strong style="font-size: 45px;">@ViewBag.ID</strong>
+                    </div>                    
+                </div>
+                <div class="box-footer">
+                    <a href="../../home" class="btn btn-success">Trở về trang chủ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

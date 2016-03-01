@@ -1,0 +1,92 @@
+﻿@model ProjectS3.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "User: " + Model.HoTen;
+}
+@Html.Partial("_my_break_bar_top")
+
+<div class="box box-info">
+    <div class="box-header">
+        <h3>Thông tin người dùng: @Model.UserName</h3>
+    </div>
+
+    <div class="box-body">
+        <h4>Thông tin</h4>
+
+
+        <div class="col-md-3">
+            <img src="@Model.avatar" style="width: 200px;" />
+        </div>
+        <div class="col-md-9">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Họ tên</td>
+                    <td><strong>@Model.HoTen</strong></td>
+                </tr>
+
+                <tr>
+                    <td>Điện thoại</td>
+                    <td><strong>@Model.SoDienThoai</strong></td>
+                </tr>
+
+                <tr>
+                    <td>Địa chỉ</td>
+                    <td><strong>@Model.DiaChi</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="clearfix"></div>
+        <h4>Đơn hàng gần đây</h4>
+        <hr />
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td><strong>Mã</strong></td>
+                    <td><strong>Ngày đặt</strong></td>
+                    <td><strong>Ngày giao</strong></td>
+                    <td><strong>Tình trạng</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DonHang)
+                {
+                    <tr style="cursor:pointer;" onclick="chitietdonhang(@item.ID)">
+                        <td>@item.ID</td>
+                        <td>@item.NgayTao</td>
+                        <td>@item.ThoiGianGiao</td>
+                        <td>
+                            @switch (item.TinhTrang)
+                            {
+                                case 0:
+                                    <span class="badge bg-gray">Dã hủy</span>
+                                    break;
+                                case 1:
+                                <span class="badge bg-red">Mới, đang đợi gọi xác nhận</span>
+                                    break;
+                                case 2:
+                                <span class="badge bg-green-active">Đã gọi và đang chuẩn bị hàng</span>
+                                    break;
+                                case 3:
+                                <span class="badge bg-blue-active">Đang gửi đi</span>
+                                    break;
+                                case 4:
+                                <span class="badge bg-blue">Đã gửi đi và nhận tiền</span>
+                                    break;
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    function chitietdonhang(id) {
+        window.location.href = "../../admin/chitietdonhang/" + id;
+    }
+</script>
