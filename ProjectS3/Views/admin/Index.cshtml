@@ -82,7 +82,7 @@
                         <li><a href="#tab_products" data-toggle="tab">Sản phẩm</a></li>
                         <li><a href="#tab_baiviet" data-toggle="tab">Bài viết</a></li>
                         <li><a href="#tab_users" data-toggle="tab">Người dùng</a></li>
-
+                        <li><a href="#tab_topmenus" data-toggle="tab">Top Menu</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_orders">
@@ -282,7 +282,48 @@
                             </table>
                         </div>
 
-                    
+
+                        <div class="tab-pane" id="tab_topmenus" style="overflow:auto;">
+                            <a class="btn btn-success" href="../../admin/createheaditem">Thêm menu</a>
+                            <table class="table table-hover table-bordered" style="overflow:auto;">
+                                <thead>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>Ảnh</td>
+                                        <td>Địa chỉ tới</td>
+                                        <td>Loại</td>
+                                        <td>Xóa</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in db.HeadItem)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.id
+                                            </td>
+                                            <td>@item.image</td>
+                                            <td>@item.href</td>
+                                            <td>
+                                                @switch (item.type)
+                                                {
+                                                    case 0:
+                                                        <p>Menu chính</p>
+                                                        break;
+                                                    case 1:
+                                                    <p>Menu phụ</p>
+                                                        break;
+                                                }
+                                            </td>
+                                            <td>
+                                                <a onclick="deleteheaditem(@item.id)" class="btn btn-warning">Xóa</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- /.tab-pane -->
                     </div><!-- /.tab-content -->
                 </div>

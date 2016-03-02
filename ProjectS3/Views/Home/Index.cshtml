@@ -3,7 +3,7 @@
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
     List<ProjectS3.Models.BaiViet> baiviet = db.BaiViet.OrderBy(t => t.NgayDang).ToList();
     List<ProjectS3.Models.HeadItem> headitems = db.HeadItem.ToList();
-    bool _check_first = true;
+
 }
 
 <section>
@@ -20,26 +20,33 @@
                         </ol>
 
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-12">
-                                    <img src="~/content/myshopcontent/images/home/slide_1.jpg" class="girl img-responsive" alt="" />
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-12">
-                                    <img src="~/content/myshopcontent/images/home/slide_1.jpg" class="girl img-responsive" alt="" />
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-12">
-                                    <img src="~/content/myshopcontent/images/home/slide_1.jpg" class="girl img-responsive" alt="" />
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-12">
-                                    <img src="~/content/myshopcontent/images/home/slide_1.jpg" class="girl img-responsive" alt="" />
-                                </div>
-                            </div>
+
+
+                            @for (int i = 0; i < headitems.Count; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <div class="item active">
+                                        <div class="col-sm-12">
+                                            <a href="@headitems[i].href">
+                                                <img src="@headitems[i].image" class="girl img-responsive" alt="@headitems[i].caption" />
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <<div class="item">
+                                        <div class="col-sm-12">
+                                            <a href="@headitems[i].href">
+                                                <img src="@headitems[i].image" class="girl img-responsive" alt="@headitems[i].caption" />
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                }
+                            }
                         </div>
                     </div>
 
@@ -47,7 +54,7 @@
 
                 <div class="col-sm-2">
                     <div class="left-sidebar">
-                        <h2>Category</h2>
+                        <h2>Nhánh sản phẩm</h2>
                         <div class="panel-group category-products" id="accordian">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -96,163 +103,6 @@
         </div>
     </section><!--/slider-->
 </section>
-
-@*<div ng-controller="home_index_controller" class="row" ng-init="init()">
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="box box-solid no-padding">
-                <div class="box-body">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            @foreach (var item in headitems)
-                            {
-                                if (item.type == 0)
-                                {
-                                    if (_check_first)
-                                    {
-                                        <li data-target="#carousel-example-generic" data-slide-to="@item.id" class="active"></li>
-                                    }
-                                    else
-                                    {
-                                        <li data-target="#carousel-example-generic" data-slide-to="@item.id"></li>
-                                    }
-                                }
-                            }
-                        </ol>
-                        <div class="carousel-inner">
-                            @foreach (var item in headitems)
-                            {
-                                if (item.type == 0)
-                                {
-                                    if (_check_first)
-                                    {
-                                        <div class="item active" onclick="redirectitem('@item.href')" style="cursor:pointer;">
-                                            <img src="@item.image" alt="@item.caption">
-                                            <div class="carousel-caption">
-                                                @item.caption
-                                            </div>
-                                        </div>
-
-                                        _check_first = false;
-                                    }
-                                    else
-                                    {
-                                        <div class="item" onclick="redirectitem('@item.href')" style="cursor:pointer;">
-                                            <img src="@item.image" alt="@item.caption">
-                                            <div class="carousel-caption">
-                                                @item.caption
-                                            </div>
-                                        </div>
-                                    }
-
-                                }
-                            }
-
-                        </div>
-
-                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                            <span class="fa fa-angle-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                            <span class="fa fa-angle-right"></span>
-                        </a>
-                    </div>
-                </div><!-- /.box-body -->
-            </div>
-        </div>
-        <div class="col-sm-3" style="overflow:auto;">
-
-            @foreach (var item in headitems)
-            {
-                if (item.type == 1)
-                {
-                    <div class="box info-box bg-info" onclick="redirectitem('@item.href')" style="cursor:pointer;">
-                        <span class="info-box-icon" style="width:120px; background-color:white; padding-top:3px;"><img src="@item.image" style="width: 110px;" /></span>
-                        <div class="info-box-content">
-                            <strong class="info-box-text">@item.caption</strong>
-                        </div><!-- /.info-box-content -->
-                    </div><!-- /.info-box -->
-                }
-            }
-        </div>
-    </div>
-
-    <h4>
-        Sản phẩm
-    </h4>
-    <hr />
-
-    <div class="col-sm-3" ng-repeat="product in products">
-        <div class="box box-img" style="max-width:300px; cursor:pointer;" ng-click="xemsanpham(product.id)">
-            <div class="box-body">
-                <img ng-src="{{product.img}}" class="img-box" />
-            </div>
-            <div class="box-footer" style="text-align:center;">
-                <strong>{{product.name}}</strong>
-                <p style="color:red;">{{product.price | number}} VNĐ</p>
-                <button class="btn btn-info" ng-click="xemsanpham(product.id)"><i class="fa fa-cart-arrow-down"></i> Chi tiết</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="clearfix"></div>
-    <h4>
-        Bộ sản phẩm
-    </h4>
-    <hr />
-    <div class="col-sm-3" ng-repeat="product in groupproducts">
-        <div class="box box-img">
-            <div class="box-body">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="item active" style="cursor:pointer;" ng-click="xembosanpham(product.id)">
-                            <img ng-src="{{product.imgs[0].link}}">
-                            <div class="carousel-caption">
-                                {{product.name}}
-                            </div>
-                        </div>
-
-                        <div class="item" style="cursor:pointer;" ng-repeat="img in product.imgs">
-                            <img ng-src="{{img.link}}">
-                            <div class="carousel-caption">
-                                {{product.name}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="box-footer" style="text-align:center;">
-                    <strong>{{product.name}}</strong> <br />
-                    <button class="btn btn-info" ng-click="xembosanpham(product.id)"><i class="fa fa-cart-arrow-down"></i> Chi tiết</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="clearfix"></div>
-    <h4>
-        Bài viết
-    </h4>
-    <hr />
-    @foreach (var item in baiviet)
-{
-    <div class="col-sm-3">
-        <div class="box box-img">
-            <div class="box-header"><a href="../../home/baiviet/@item.ID"><strong>@item.TieuDe</strong></a></div>
-            <div class="box-body">
-                <img src="@item.linkHinh" class="img-box" />
-            </div>
-            <div class="box-footer" style="text-align:center;">
-                <small>@item.NgayDang</small>
-            </div>
-        </div>
-    </div>
-
-}
-
-</div>*@
-
 <script>
     function redirectitem(href) {
         window.location.href = href;
