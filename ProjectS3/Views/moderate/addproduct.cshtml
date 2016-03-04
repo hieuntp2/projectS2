@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "addproduct";
+    ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
 }
 
 
@@ -84,15 +85,24 @@
                             <label class="control-label col-md-2">Nhóm sản phẩm</label>
                             <div class="col-md-10">
                                 <select name="Branches" required class="form-control">
-                                    <option selected value="Chọn nhóm" disabled></option>
-                                    <option value="JOINUS">JOINUS</option>
-                                    <option value="COMPAGNA">COMPAGNA</option>
-                                    <option value="YETTS">YETTS</option>
-                                    <option value="y'sb">y'sb</option>
-                                    <option value="TRUGEN">TRUGEN</option>
-                                    <option value="S+">S+</option>
-                                    <option value="TATE">TATE</option>
-                                    <option value="BIND">BIND</option>
+                                    <option></option>
+                                    @foreach (var item in db.ProductBranches)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Loại sản phẩm</label>
+                            <div class="col-md-10">
+                                <select name="Type" required class="form-control">
+                                    <option></option>
+                                    @foreach (var item in db.ProductTypes)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -108,11 +118,12 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Tình trạng</label>
                             <div class="col-md-10">
-                                @Html.TextBoxFor(model => model.TinhTrang, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.TinhTrang)
+                                <select name="TinhTrang" class="form-control">
+                                    <option value="ENABLE" selected>Cho bán sản phẩm</option>
+                                    <option value="DISABLE">Không bán sản phẩm</option>
+                                </select>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="control-label col-md-2">Số lượng sản xuất</label>
                             <div class="col-md-10">

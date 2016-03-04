@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Chi tiết đơn hàng: " + Model.ID;
-    long total = 0;
+    double total = 0;
     int _cd = (int)(Model.ThoiGianGiao - DateTime.Now).TotalDays;
 
 }
@@ -86,7 +86,7 @@
                                 <td><strong>Size</strong></td>
                                 <td><strong>Đơn giá</strong></td>
                                 <td><strong>Số lượng</strong></td>
-                                <td><strong>Thành tiên</strong></td>
+                                <td><strong>Thành tiền (VNĐ) </strong></td>
 
                             </tr>
                         </thead>
@@ -97,13 +97,13 @@
                                     <td>@item.IDSanPham</td>
                                     <td>@item.SanPham.Ten</td>
                                     <td>Màu: @item.Color</td>
-                                    <td>Size: @item.Size   </td>
-                                    <td>@item.SanPham.DioGia</td>
+                                    <td>Size: @item.Size</td>
+                                    <td>@item.DioGia</td>
                                     <td>@item.SoLuong</td>
-                                    <td style="color: red; text-align: right;">@((@item.SanPham.DioGia * @item.SoLuong).ToString("#,##"))</td>
+                                    <td style="color: red; text-align: right;">@(((double)(@item.DioGia * @item.SoLuong)).ToString("#,##"))</td>
 
                                     @{
-                                total += item.SanPham.DioGia * item.SoLuong;
+                                total += (double)item.DioGia * item.SoLuong;
                                     }
                                 </tr>
                             }

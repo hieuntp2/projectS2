@@ -3,7 +3,6 @@
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
     List<ProjectS3.Models.BaiViet> baiviet = db.BaiViet.OrderBy(t => t.NgayDang).ToList();
     List<ProjectS3.Models.HeadItem> headitems = db.HeadItem.ToList();
-
 }
 
 <section>
@@ -56,46 +55,14 @@
                     <div class="left-sidebar">
                         <h2>Nhánh sản phẩm</h2>
                         <div class="panel-group category-products" id="accordian">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">JOINUS</a></h4>
+                            @foreach (var item in db.ProductBranches)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="/home/branch/@item.Name">@item.Name</a></h4>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">COMPAGNA</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">YETTS</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">y'sb</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">TRUGEN</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">S+</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">TATE</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="branch.html">BIND</a></h4>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>

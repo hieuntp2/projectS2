@@ -12,18 +12,9 @@ namespace ProjectS3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ChiTietDonHang
+    public partial class MyDynamicvalue
     {
-        public int IDDonHang { get; set; }
-        public int IDSanPham { get; set; }
-        public int SoLuong { get; set; }
-        public Nullable<int> IDBoSanPham { get; set; }
-        public string Size { get; set; }
-        public string Color { get; set; }
-        public int ID { get; set; }
-        public Nullable<double> DioGia { get; set; }
-    
-        public virtual DonHang DonHang { get; set; }
-        public virtual SanPham SanPham { get; set; }
+        public string Key { get; set; }
+        public string value { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@model ProjectS3.Controllers.SanPhamReturn
-
 @{
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
     ViewBag.Title = Model.Ten;
@@ -29,8 +28,8 @@
                 <span>
                     <span>{{price | number}}VND</span>
                     <label>Số lượng:</label>
-                    <input type="number" ng-model="soluong" />
-                    <button type="button" class="btn btn-fefault cart" ng-click="showproductsdetail()" data-toggle="modal" data-target="#myModal" @*ng-click="themvaogiohang()"*@>
+                    <input type="number" ng-model="soluong" min="1"/>
+                    <button type="button" class="btn btn-fefault cart" ng-click="showproductsdetail()" data-toggle="modal" data-target="#myModal">
                         <i class="fa fa-shopping-cart"></i>
                         Thêm vào giỏ
                     </button>

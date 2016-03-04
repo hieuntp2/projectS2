@@ -36,6 +36,9 @@ namespace ProjectS3.Models
         public virtual DbSet<ChiTietDonHang> ChiTietDonHang { get; set; }
         public virtual DbSet<DonHang> DonHang { get; set; }
         public virtual DbSet<HeadItem> HeadItem { get; set; }
+        public virtual DbSet<MyDynamicvalue> MyDynamicvalue { get; set; }
+        public virtual DbSet<ProductBranches> ProductBranches { get; set; }
+        public virtual DbSet<ProductTypes> ProductTypes { get; set; }
         public virtual DbSet<SanPham> SanPham { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<SystemInformation> SystemInformation { get; set; }

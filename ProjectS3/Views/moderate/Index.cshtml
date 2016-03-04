@@ -1,0 +1,245 @@
+﻿@{
+    ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
+
+    int count_new = db.DonHang.Where(t => t.TinhTrang == 1).Count();
+    int count_product = db.SanPham.Count();
+    int count_user = db.AspNetUsers.Count();
+
+    List<ProjectS3.Models.DonHang> _don_hang_moi = db.DonHang.Where(t => t.TinhTrang == 1).ToList();
+    List<ProjectS3.Models.DonHang> _don_hang_da_goi = db.DonHang.Where(t => t.TinhTrang == 2).ToList();
+    List<ProjectS3.Models.DonHang> _don_hang_dang_gui = db.DonHang.Where(t => t.TinhTrang == 3).ToList();
+
+    ViewBag.Title = "Quản trị";
+}
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="box box-danger">
+            <div class="box-header">
+                <h3 style="display: -webkit-inline-box;">Moderate</h3>
+                <span class="pull-right">
+                    <a class="btn btn-success" href="../../admin/addproduct">Thêm sản phẩm</a>
+                    <a class="btn btn-success" href="../../admin/addbaiviet">Thêm bài viết</a>
+                </span>
+            </div>
+
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_products" data-toggle="tab">Sản phẩm</a></li>
+                        <li><a href="#tab_baiviet" data-toggle="tab">Bài viết</a></li>
+                        <li><a href="#tab_branch" data-toggle="tab">Nhóm sản phẩm</a></li>
+                        <li><a href="#tab_type" data-toggle="tab">Loại sản phẩm</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_products">
+                            <a class="btn btn-success" href="../../moderate/addproduct">Thêm sản phẩm</a>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td><strong>Tên</strong></td>
+                                        <td><strong>Đơn giá</strong></td>
+                                        <td><strong>Hình ảnh</strong></td>
+                                        <td><strong>Tình trạng</strong></td>
+                                        <td><strong>Số lượng còn lại</strong></td>
+                                        <td><strong>Chỉnh sửa</strong></td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in db.SanPham)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="/home/sanpham/@item.ID">@item.Ten</a>
+                                                <p>Nhóm: @item.ProductBranches.Name</p>
+                                            </td>
+
+                                            <td>@item.DioGia</td>
+                                            <td>
+                                                <img src="" />
+                                            </td>
+                                            <td>@item.TinhTrang</td>
+                                            <td>@item.SoLuong</td>
+                                            <td>
+                                                <a href="../../moderate/editproduct?id=@item.ID" class="btn btn-primary">Sửa</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane" id="tab_baiviet">
+                            <a class="btn btn-success" href="../../admin/addbaiviet">Thêm bài viết</a>
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>Tiêu đề</td>
+                                        <td>Ngày đăng</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in db.BaiViet)
+                                    {
+                                        <tr onclick="editbaiviet('@item.ID')" style="cursor: pointer;">
+                                            <td>
+                                                @item.ID
+                                            </td>
+                                            <td>@item.TieuDe</td>
+                                            <td>@item.NgayDang</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane" id="tab_branch">
+                            <h4>Thêm Nhóm sản phẩm</h4>
+                            <div class="form-horizontal">
+                                <form action="/moderate/addproductbranch" method="post" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2">Tên nhóm</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control col-sm-9" name="name" placeholder="Điền Tên nhóm vào đây" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input class="btn btn-warning" type="submit" value="Thêm" style="float:right" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr />
+                            <h4>Danh sách nhóm sản phẩm đang có</h4>
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>Tên</td>
+                                        <td>Số lượng sản phẩm</td>
+                                        <td>Hiển thị</td>
+                                        <td>Xóa</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in db.ProductBranches)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Id
+                                            </td>
+                                            <td>@item.Name</td>
+                                            <td>@item.SanPham.Count</td>
+                                            <td>
+                                               
+                                               
+                                                <form action="/moderate/editproductbranch" method="post">
+                                                    <div class="col-sm-10">
+                                                        <select name="displayview" class="form-control">
+                                                            <option value="branchstyle_1" @(item.DisplayView == "branchstyle_1" ? "selected" : "")>Hiển thị 1</option>
+                                                            <option value="branchstyle_2" @(item.DisplayView == "branchstyle_2" ? "selected" : "")>Hiển thị 2</option>
+                                                            <option value="branchstyle_3" @(item.DisplayView == "branchstyle_3" ? "selected" : "")>Hiển thị 3</option>
+                                                            <option value="branchstyle_4" @(item.DisplayView == "branchstyle_4" ? "selected" : "")>Hiển thị 4</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                                                        <input type="hidden" value="@item.Id" name="id" />
+                                                    </div>
+                                                </form>                                               
+                                            </td>
+                                            <td>
+                                                <form method="post" action="/moderate/deleteproductbranch">
+                                                    <input name="idbrach" value="@item.Id" type="hidden" />
+                                                    <input value="Xóa" onclick="return deletebranches('@item.Name',@item.SanPham.Count);" type="submit" />
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane" id="tab_type">
+                            <h4>Thêm Loại sản phẩm</h4>
+                            <div class="form-horizontal">
+                                <form action="/moderate/addproducttype" method="post" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2">Tên loại</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control col-sm-9" name="name" placeholder="Điền Tên loại vào đây" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input class="btn btn-warning" type="submit" value="Thêm" style="float:right" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr />
+                            <h4>Danh sách loại sản phẩm đang có</h4>
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>Tên</td>
+                                        <td>Số lượng sản phẩm</td>
+                                        <td>Xóa</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in db.ProductTypes)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Id
+                                            </td>
+                                            <td>@item.Name</td>
+                                            <td>@item.SanPham.Count</td>
+                                            <td>
+                                                <form method="post" action="/moderate/deleteproducttype">
+                                                    <input name="idbrach" value="@item.Id" type="hidden" />
+                                                    <input value="Xóa" onclick="return deletebranches('@item.Name',@item.SanPham.Count);" type="submit" />
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.tab-content -->
+                </div>
+            </div>
+
+            <div class="box-footer"></div>
+        </div>
+
+        <script>
+
+            function editbaiviet(id) {
+                window.location.href = "../../admin/editbaiviet/" + id;
+            }
+
+            function deletebranches(name,number)
+            {
+                if(number > 0)
+                {
+                    alert("Bạn không thể xóa nhóm sản phẩm đang có nhiều hơn 1 sản phẩm!");
+                    return false;
+                }
+                var cfr = confirm("Bạn có chắc chắn xóa " + name);
+                if(cfr){
+                    return true;
+                }
+                return false;
+            }
+        </script>
+    </div>
+</div>

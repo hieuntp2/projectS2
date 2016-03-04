@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\1. My Project\12. domaupgrade\ProjectS3\Models\DBModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\1. My Project\10. ProjectS2\trunk\ProjectS3\Models\DBModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

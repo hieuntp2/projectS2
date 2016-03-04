@@ -32,6 +32,7 @@ namespace ProjectS3.Models
         public int idbosanpham { get; set; }
         public string size { get; set; }
         public string color { get; set; }
+        public float dongia { get; set; }
     }
 
     public class validateMinDay : ValidationAttribute

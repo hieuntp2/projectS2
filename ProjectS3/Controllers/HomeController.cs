@@ -151,20 +151,24 @@ namespace ProjectS3.Controllers
 
         public ActionResult sanpham(int id)
         {
-            SanPham item = db.SanPham.SingleOrDefault(t => t.ID == id);
+            SanPham item = db.SanPham.SingleOrDefault(t => t.ID == id && t.TinhTrang == "ENABLE");
             if (item != null)
             {
+                MyDynamicValues dynamic = new MyDynamicValues();
+                float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
+                float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
+
                 SanPhamReturn sanpham = new SanPhamReturn
                 {
                     Ten = item.Ten,
                     ID = item.ID,
                     MoTa = item.MoTa,
-                    DonGia = item.DioGia,
+                    DonGia = item.DioGia * hesonhan * tygia_WonVND,
                     linkanh = item.linkanh,
-                    branch = item.Branches,
-                    isInstock = (item.SoLuong != 0? true: false),
+                    branch = item.ProductBranches.Name,
+                    isInstock = (item.SoLuong != 0 ? true : false),
                     color = item.Color,
-                    size = item.Size                    
+                    size = item.Size
                 };
 
                 return View(sanpham);
@@ -237,24 +241,36 @@ namespace ProjectS3.Controllers
 
         public ActionResult branch(string id)
         {
-            if (id == "JOINUS")
+            ProductBranches branch = db.ProductBranches.SingleOrDefault(t => t.Name == id);
+            if (branch == null)
             {
-                List<SanPham> list = db.SanPham.Where(t => t.Branches == id).ToList();
-                ViewBag.Branch = "JOINUS";
-                return View("branchstyle_1", list);
+                return HttpNotFound();
             }
-            return HttpNotFound();
+            else
+            {          
+                MyDynamicValues dynamic = new MyDynamicValues();
+                float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
+                float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
+                List<SanPham> list = db.SanPham.Where(t => t.ProductBranches.Name == id && t.TinhTrang == "ENABLE").ToList();
+                ViewBag.Branch = branch.Name;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    list[i].DioGia = list[i].DioGia * tygia_WonVND * hesonhan;
+                }
+                return View(branch.DisplayView, list);
+            }
         }
     }
     public class listSanPham
     {
-        
+
     }
     public class SanPhamReturn
     {
         public string Ten { get; set; }
         public int ID { get; set; }
-        public int DonGia { get; set; }
+        public double DonGia { get; set; }
         public string MoTa { get; set; }
         public string linkanh { get; set; }
         public string branch { get; set; }
@@ -290,7 +306,7 @@ namespace ProjectS3.Controllers
     {
         public string Ten { get; set; }
         public int ID { get; set; }
-        public int DonGia { get; set; }
+        public double DonGia { get; set; }
         public string MoTa { get; set; }
         public string linkanh { get; set; }
 

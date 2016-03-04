@@ -1,0 +1,175 @@
+﻿@model ProjectS3.Models.SanPham
+
+@{
+    ViewBag.Title = "addproduct";
+    ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
+}
+
+<script src="~/scripts/my_js/admin_addproduct.js"></script>
+<script src="~/scripts/ckeditor/ckeditor.js"></script>
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="box">
+            <div class="box-footer">
+                <span style="margin-right: 20px;">Quay lại </span>
+                <a class="btn btn-primary" href="../../admin">Admin</a>
+            </div>
+        </div>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "id_form_edit_product" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="box box-primary" ng-controller="admin_addproduct_controller">
+                <div class="box-header">
+                    <h4>Sửa sản phẩm</h4>
+                </div>
+                <div class="box-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        <input type="hidden" name="ID" value="@Model.ID" />
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tên sản phẩm</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Ten, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Ten)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Đơn giá</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.DioGia, new { @type = "number", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DioGia)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Link ảnh</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.linkanh, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.linkanh)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Màu sắc</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Color, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Color)
+                            </div>
+                            <p class="control-label col-md-5 col-md-offset-2">Nếu có nhiều hơn một màu, thì mỗi màu cách nhau bằng dấu phẩy ","</p>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Kích thước</label>
+                            <div class="col-md-10">
+                                <div class="my_div_size_checkbox">
+                                    <input type="checkbox" id="id_size_value_s" class="my_size_checkbox" @(Model.Size != null? (Model.Size.Contains(" S") ? "checked" : ""):"") /> S
+                                </div>
+                                <div class="my_div_size_checkbox">
+                                    <input type="checkbox" id="id_size_value_m" class="my_size_checkbox" @(Model.Size != null? (Model.Size.Contains(" M") ? "checked" : ""):"") /> M
+                                </div>
+                                <div class="my_div_size_checkbox">
+                                    <input type="checkbox" id="id_size_value_l" class="my_size_checkbox" @(Model.Size != null? (Model.Size.Contains(" L") ? "checked" : ""):"") /> L
+                                </div>
+                                <div class="my_div_size_checkbox">
+                                    <input type="checkbox" id="id_size_value_xl" class="my_size_checkbox" @(Model.Size != null ? (Model.Size.Contains(" XL") ? "checked" : "") : "") /> XL
+                                </div>
+                                <small>Nếu có nhiều size, mỗi size</small>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="Size" id="my_hidden_input_size" />
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Nhóm sản phẩm</label>
+                            <div class="col-md-10">
+                                <select name="Branches" required class="form-control">
+                                    <option></option>
+                                    @foreach (var item in db.ProductBranches)
+                                    {
+                                        <option value="@item.Id" @(Model.Branches == item.Id ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Loại sản phẩm</label>
+                            <div class="col-md-10">
+                                <select name="Type" required class="form-control">
+                                    <option></option>
+                                    @foreach (var item in db.ProductTypes)
+                                    {
+                                        <option value="@item.Id" @(Model.Type == item.Id ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Mô tả sản phẩm</label>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.MoTa, new { @class = "ckeditor" })
+                                @Html.ValidationMessageFor(model => model.MoTa)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tình trạng</label>
+                            <div class="col-md-10">
+                                <select name="TinhTrang" class="form-control">
+                                    <option value="ENABLE" @(Model.TinhTrang == "ENABLE" ? "selected" : "")>Cho bán sản phẩm</option>
+                                    <option value="DISABLE" @(Model.TinhTrang == "DISABLE" ? "selected" : "")>Không bán sản phẩm</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <input type="submit" value="Sửa thông tin" class="btn btn-success" />
+                    <a class="btn btn-default" href="../../admin">Hủy</a>
+
+                    <form action="/moderate/deleteproduct">
+                        <input value="@Model.ID" type="hidden" name="id"/>
+                        <input type="submit" value="Xóa" class="btn btn-danger" onclick="return deleteproduct()"/>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#id_form_edit_product').submit(function () {
+
+            // chỉnh sửa giá trị cho Size
+            var my_size = "";
+            if ($("#id_size_value_s").is(':checked')) {
+                my_size += " S";
+            }
+            if ($("#id_size_value_m").is(':checked')) {
+                my_size += " M";
+            }
+            if ($("#id_size_value_l").is(':checked')) {
+                my_size += " L";
+            }
+            if ($("#id_size_value_xl").is(':checked')) {
+                my_size += " XL";
+            }
+            $("#my_hidden_input_size").val(my_size);
+
+            return true; // return false to cancel form action
+        });
+    });
+
+    function deleteproduct(name)
+    {
+        var cfr = confirm("Bạn có chắc chắn xóa không?");
+        if (cfr) {
+            return true;
+        }
+        return false;
+    }
+</script>

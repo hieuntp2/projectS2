@@ -23,18 +23,21 @@ namespace ProjectS3.Models
     
         public int ID { get; set; }
         public string Ten { get; set; }
-        public int DioGia { get; set; }
+        public double DioGia { get; set; }
         public string linkanh { get; set; }
         public string MoTa { get; set; }
         public string TinhTrang { get; set; }
         public Nullable<int> SoLuong { get; set; }
-        public string Branches { get; set; }
+        public Nullable<int> Branches { get; set; }
         public string Color { get; set; }
         public string Size { get; set; }
+        public Nullable<int> Type { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietBoSanPham> ChiTietBoSanPham { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonHang> ChiTietDonHang { get; set; }
+        public virtual ProductBranches ProductBranches { get; set; }
+        public virtual ProductTypes ProductTypes { get; set; }
     }
 }

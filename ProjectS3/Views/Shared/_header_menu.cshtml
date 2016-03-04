@@ -1,9 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity
 @{
     ProjectS3.Models.AspNetUsers user = null;
+    ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
     if (Request.IsAuthenticated)
-    {
-        ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
+    {        
         string userid = User.Identity.GetUserId();
         user = db.AspNetUsers.SingleOrDefault(t => t.Id == userid);
     }
@@ -19,7 +19,11 @@
                     <div class="shop-menu pull-left">
                         <ul class="nav navbar-nav">
                             @*<li><a href="/home/company">COMPANY</a></li>*@
-                            <li><a href="/home/branch/JOINUS">JOINUS</a></li>
+                            @foreach(var item in db.ProductBranches)
+                            {
+                                <li><a href="/home/branch/@item.Name">@item.Name</a></li>
+                            }
+                           
                             @*<li><a href="/home/branch/COMPAGNA">COMPAGNA</a></li>
                             <li><a href="/home/branch/YETTS">YETTS</a></li>
                             <li><a href="/home/branch/y'sb">y'sb</a></li>
@@ -45,9 +49,14 @@
                                         {
                                             <li><a href="../../admin">Quản lý website</a></li>
                                         }
+                                        
+                                        @if (User.IsInRole("Moderate"))
+                                        {
+                                            <li><a href="../../moderate">Quản lý sản phẩm/ bài viết</a></li>
+                                        }
                                         <li><a href="../../manage">Tài khoản</a></li>
 
-                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                         {
                                             @Html.AntiForgeryToken()
                                             <li><a href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>

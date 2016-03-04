@@ -194,8 +194,11 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\moderateController.cs" />
     <Compile Include="Controllers\MyEngines\GMailer.cs" />
-    <Compile Include="Controllers\MyEngines\SystemInfo.cs" />
+    <Compile Include="Controllers\MyEngines\MyDynamicValues.cs" />
+    <Compile Include="Controllers\MyEngines\MyStaticFunction.cs" />
+    <Compile Include="Controllers\MyEngines\MySystemLog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -259,7 +262,16 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyDynamicvalue.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MyModels.cs" />
+    <Compile Include="Models\ProductBranches.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductTypes.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -1108,14 +1120,14 @@
     <Content Include="Views\Shared\_main_sidebar.cshtml" />
     <Content Include="Views\Shared\_my_break_bar_top.cshtml" />
     <Content Include="Views\Shared\_relatetiveObject.cshtml" />
-    <Content Include="Views\admin\addbaiviet.cshtml" />
-    <Content Include="Views\admin\addgroupproduct.cshtml" />
-    <Content Include="Views\admin\addproduct.cshtml" />
+    <Content Include="Views\moderate\addbaiviet.cshtml" />
+    <Content Include="Views\moderate\addgroupproduct.cshtml" />
+    <Content Include="Views\moderate\addproduct.cshtml" />
     <Content Include="Views\admin\chitietdonhang.cshtml" />
     <Content Include="Views\admin\createheaditem.cshtml" />
-    <Content Include="Views\admin\editbaiviet.cshtml" />
-    <Content Include="Views\admin\editgroupproduct.cshtml" />
-    <Content Include="Views\admin\editproduct.cshtml" />
+    <Content Include="Views\moderate\editbaiviet.cshtml" />
+    <Content Include="Views\moderate\editgroupproduct.cshtml" />
+    <Content Include="Views\moderate\editproduct.cshtml" />
     <Content Include="Views\admin\Index.cshtml" />
     <Content Include="Views\admin\userinfor.cshtml" />
     <Content Include="Views\Cart\history.cshtml" />
@@ -1128,6 +1140,8 @@
     <Content Include="Views\Home\sanpham.cshtml" />
     <Content Include="Views\Home\branchstyle_1.cshtml" />
     <Content Include="Views\Home\branchstyle_2.cshtml" />
+    <Content Include="Views\moderate\Index.cshtml" />
+    <Content Include="Views\admin\role.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

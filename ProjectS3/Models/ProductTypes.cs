@@ -12,18 +12,18 @@ namespace ProjectS3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ChiTietDonHang
+    public partial class ProductTypes
     {
-        public int IDDonHang { get; set; }
-        public int IDSanPham { get; set; }
-        public int SoLuong { get; set; }
-        public Nullable<int> IDBoSanPham { get; set; }
-        public string Size { get; set; }
-        public string Color { get; set; }
-        public int ID { get; set; }
-        public Nullable<double> DioGia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductTypes()
+        {
+            this.SanPham = new HashSet<SanPham>();
+        }
     
-        public virtual DonHang DonHang { get; set; }
-        public virtual SanPham SanPham { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SanPham> SanPham { get; set; }
     }
 }

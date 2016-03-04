@@ -110,6 +110,7 @@
           <Property Name="Size" Type="nvarchar" MaxLength="50" />
           <Property Name="Color" Type="nvarchar" MaxLength="50" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DioGia" Type="float" />
         </EntityType>
         <EntityType Name="DonHang">
           <Key>
@@ -134,20 +135,43 @@
           <Property Name="href" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="type" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MyDynamicvalue">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ProductBranches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="DisplayView" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ten" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="DioGia" Type="int" Nullable="false" />
+          <Property Name="DioGia" Type="float" Nullable="false" />
           <Property Name="linkanh" Type="ntext" Nullable="false" />
           <Property Name="MoTa" Type="ntext" Nullable="false" />
           <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
           <Property Name="SoLuong" Type="int" />
-          <Property Name="Branches" Type="nvarchar" MaxLength="250" />
+          <Property Name="Branches" Type="int" />
           <Property Name="Color" Type="nvarchar" MaxLength="100" />
           <Property Name="Size" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -282,6 +306,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SanPham_ProductBranches">
+          <End Role="ProductBranches" Type="Self.ProductBranches" Multiplicity="0..1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductBranches">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="Branches" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SanPham_ProductTypes">
+          <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="0..1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ProjectS3ModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -295,6 +343,9 @@
           <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HeadItem" EntityType="Self.HeadItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyDynamicvalue" EntityType="Self.MyDynamicvalue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductBranches" EntityType="Self.ProductBranches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemInformation" EntityType="Self.SystemInformation" Schema="dbo" store:Type="Tables" />
@@ -334,6 +385,14 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="DonHang" EntitySet="DonHang" />
           </AssociationSet>
+          <AssociationSet Name="FK_SanPham_ProductBranches" Association="Self.FK_SanPham_ProductBranches">
+            <End Role="ProductBranches" EntitySet="ProductBranches" />
+            <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SanPham_ProductTypes" Association="Self.FK_SanPham_ProductTypes">
+            <End Role="ProductTypes" EntitySet="ProductTypes" />
+            <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -351,6 +410,9 @@
           <EntitySet Name="ChiTietDonHang" EntityType="ProjectS3Model.ChiTietDonHang" />
           <EntitySet Name="DonHang" EntityType="ProjectS3Model.DonHang" />
           <EntitySet Name="HeadItem" EntityType="ProjectS3Model.HeadItem" />
+          <EntitySet Name="MyDynamicvalue" EntityType="ProjectS3Model.MyDynamicvalue" />
+          <EntitySet Name="ProductBranches" EntityType="ProjectS3Model.ProductBranches" />
+          <EntitySet Name="ProductTypes" EntityType="ProjectS3Model.ProductTypes" />
           <EntitySet Name="SanPham" EntityType="ProjectS3Model.SanPham" />
           <EntitySet Name="sysdiagrams" EntityType="ProjectS3Model.sysdiagrams" />
           <EntitySet Name="SystemInformation" EntityType="ProjectS3Model.SystemInformation" />
@@ -381,6 +443,14 @@
           <AssociationSet Name="FK_ChiTietDonHang_SanPham1" Association="ProjectS3Model.FK_ChiTietDonHang_SanPham1">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SanPham_ProductBranches" Association="ProjectS3Model.FK_SanPham_ProductBranches">
+            <End Role="ProductBranches" EntitySet="ProductBranches" />
+            <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SanPham_ProductTypes" Association="ProjectS3Model.FK_SanPham_ProductTypes">
+            <End Role="ProductTypes" EntitySet="ProductTypes" />
+            <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="ProjectS3Model.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -494,6 +564,7 @@
           <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DioGia" Type="Double" />
           <NavigationProperty Name="DonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_DonHang1" FromRole="ChiTietDonHang" ToRole="DonHang" />
           <NavigationProperty Name="SanPham" Relationship="ProjectS3Model.FK_ChiTietDonHang_SanPham1" FromRole="ChiTietDonHang" ToRole="SanPham" />
         </EntityType>
@@ -522,22 +593,49 @@
           <Property Name="href" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="MyDynamicvalue">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductBranches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayView" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SanPham" Relationship="ProjectS3Model.FK_SanPham_ProductBranches" FromRole="ProductBranches" ToRole="SanPham" />
+        </EntityType>
+        <EntityType Name="ProductTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SanPham" Relationship="ProjectS3Model.FK_SanPham_ProductTypes" FromRole="ProductTypes" ToRole="SanPham" />
+        </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ten" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DioGia" Type="Int32" Nullable="false" />
+          <Property Name="DioGia" Type="Double" Nullable="false" />
           <Property Name="linkanh" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MoTa" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
-          <Property Name="Branches" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Branches" Type="Int32" />
           <Property Name="Color" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
           <NavigationProperty Name="ChiTietBoSanPham" Relationship="ProjectS3Model.FK_ChiTietBoSanPham_SanPham" FromRole="SanPham" ToRole="ChiTietBoSanPham" />
           <NavigationProperty Name="ChiTietDonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_SanPham1" FromRole="SanPham" ToRole="ChiTietDonHang" />
+          <NavigationProperty Name="ProductBranches" Relationship="ProjectS3Model.FK_SanPham_ProductBranches" FromRole="SanPham" ToRole="ProductBranches" />
+          <NavigationProperty Name="ProductTypes" Relationship="ProjectS3Model.FK_SanPham_ProductTypes" FromRole="SanPham" ToRole="ProductTypes" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -644,11 +742,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SanPham_ProductBranches">
+          <End Type="ProjectS3Model.ProductBranches" Role="ProductBranches" Multiplicity="0..1" />
+          <End Type="ProjectS3Model.SanPham" Role="SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductBranches">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="Branches" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SanPham_ProductTypes">
+          <End Type="ProjectS3Model.ProductTypes" Role="ProductTypes" Multiplicity="0..1" />
+          <End Type="ProjectS3Model.SanPham" Role="SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="ProjectS3Model.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="ProjectS3Model.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -747,6 +869,7 @@
           <EntitySetMapping Name="ChiTietDonHang">
             <EntityTypeMapping TypeName="ProjectS3Model.ChiTietDonHang">
               <MappingFragment StoreEntitySet="ChiTietDonHang">
+                <ScalarProperty Name="DioGia" ColumnName="DioGia" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="Size" ColumnName="Size" />
@@ -782,9 +905,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MyDynamicvalue">
+            <EntityTypeMapping TypeName="ProjectS3Model.MyDynamicvalue">
+              <MappingFragment StoreEntitySet="MyDynamicvalue">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductBranches">
+            <EntityTypeMapping TypeName="ProjectS3Model.ProductBranches">
+              <MappingFragment StoreEntitySet="ProductBranches">
+                <ScalarProperty Name="DisplayView" ColumnName="DisplayView" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="ProjectS3Model.ProductTypes">
+              <MappingFragment StoreEntitySet="ProductTypes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SanPham">
             <EntityTypeMapping TypeName="ProjectS3Model.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="Branches" ColumnName="Branches" />
