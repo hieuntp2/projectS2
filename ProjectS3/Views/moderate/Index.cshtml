@@ -1,15 +1,9 @@
-﻿@{
+﻿@model IEnumerable<ProjectS3.Models.SanPham>
+
+@{
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
 
-    int count_new = db.DonHang.Where(t => t.TinhTrang == 1).Count();
     int count_product = db.SanPham.Count();
-    int count_user = db.AspNetUsers.Count();
-
-    List<ProjectS3.Models.DonHang> _don_hang_moi = db.DonHang.Where(t => t.TinhTrang == 1).ToList();
-    List<ProjectS3.Models.DonHang> _don_hang_da_goi = db.DonHang.Where(t => t.TinhTrang == 2).ToList();
-    List<ProjectS3.Models.DonHang> _don_hang_dang_gui = db.DonHang.Where(t => t.TinhTrang == 3).ToList();
-
-    ViewBag.Title = "Quản trị";
 }
 
 <div class="row">
@@ -18,8 +12,8 @@
             <div class="box-header">
                 <h3 style="display: -webkit-inline-box;">Moderate</h3>
                 <span class="pull-right">
-                    <a class="btn btn-success" href="../../admin/addproduct">Thêm sản phẩm</a>
-                    <a class="btn btn-success" href="../../admin/addbaiviet">Thêm bài viết</a>
+                    <a class="btn btn-success" href="../../moderate/addproduct">Thêm sản phẩm</a>
+                    <a class="btn btn-success" href="../../moderate/addbaiviet">Thêm bài viết</a>
                 </span>
             </div>
 
@@ -33,10 +27,38 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_products">
-                            <a class="btn btn-success" href="../../moderate/addproduct">Thêm sản phẩm</a>
+                            <div class="col-sm-3">
+                                <a class="btn btn-success" href="../../moderate/addproduct">Thêm sản phẩm</a>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-horizontal">
+                                    <form method="get" action="/moderate/index">
+                                        <div class="col-sm-3">
+                                            <label>Lọc theo dòng sản phẩm</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                           
+                                            <select class="form-control">
+                                                <option value="0" selected>Tất cả</option>
+                                                @foreach (var item in db.ProductBranches)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="submit" value="Lọc" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <hr />
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <td><strong>ID</strong></td>
                                         <td><strong>Tên</strong></td>
                                         <td><strong>Đơn giá</strong></td>
                                         <td><strong>Hình ảnh</strong></td>
@@ -47,17 +69,20 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach (var item in db.SanPham)
+                                    @foreach (var item in Model)
                                     {
                                         <tr>
+                                            <td>@item.ID</td>
                                             <td>
                                                 <a href="/home/sanpham/@item.ID">@item.Ten</a>
                                                 <p>Nhóm: @item.ProductBranches.Name</p>
                                             </td>
 
-                                            <td>@item.DioGia</td>
                                             <td>
-                                                <img src="" />
+                                                @string.Format("{0:n0}", @item.DioGia)
+                                            </td>
+                                            <td>
+                                                <img src="@item.linkanh" style="height: 100px;" />
                                             </td>
                                             <td>@item.TinhTrang</td>
                                             <td>@item.SoLuong</td>
@@ -84,13 +109,13 @@
                                 <tbody>
                                     @foreach (var item in db.BaiViet)
                                     {
-                                        <tr onclick="editbaiviet('@item.ID')" style="cursor: pointer;">
-                                            <td>
-                                                @item.ID
-                                            </td>
-                                            <td>@item.TieuDe</td>
-                                            <td>@item.NgayDang</td>
-                                        </tr>
+                                    <tr onclick="editbaiviet('@item.ID')" style="cursor: pointer;">
+                                        <td>
+                                            @item.ID
+                                        </td>
+                                        <td>@item.TieuDe</td>
+                                        <td>@item.NgayDang</td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
@@ -129,37 +154,35 @@
                                 <tbody>
                                     @foreach (var item in db.ProductBranches)
                                     {
-                                        <tr>
-                                            <td>
-                                                @item.Id
-                                            </td>
-                                            <td>@item.Name</td>
-                                            <td>@item.SanPham.Count</td>
-                                            <td>
-                                               
-                                               
-                                                <form action="/moderate/editproductbranch" method="post">
-                                                    <div class="col-sm-10">
-                                                        <select name="displayview" class="form-control">
-                                                            <option value="branchstyle_1" @(item.DisplayView == "branchstyle_1" ? "selected" : "")>Hiển thị 1</option>
-                                                            <option value="branchstyle_2" @(item.DisplayView == "branchstyle_2" ? "selected" : "")>Hiển thị 2</option>
-                                                            <option value="branchstyle_3" @(item.DisplayView == "branchstyle_3" ? "selected" : "")>Hiển thị 3</option>
-                                                            <option value="branchstyle_4" @(item.DisplayView == "branchstyle_4" ? "selected" : "")>Hiển thị 4</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <input type="submit" value="Lưu" class="btn btn-primary" />
-                                                        <input type="hidden" value="@item.Id" name="id" />
-                                                    </div>
-                                                </form>                                               
-                                            </td>
-                                            <td>
-                                                <form method="post" action="/moderate/deleteproductbranch">
-                                                    <input name="idbrach" value="@item.Id" type="hidden" />
-                                                    <input value="Xóa" onclick="return deletebranches('@item.Name',@item.SanPham.Count);" type="submit" />
-                                                </form>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            @item.Id
+                                        </td>
+                                        <td>@item.Name</td>
+                                        <td>@item.SanPham.Count</td>
+                                        <td>
+                                            <form action="/moderate/editproductbranch" method="post">
+                                                <div class="col-sm-10">
+                                                    <select name="displayview" class="form-control">
+                                                        <option value="branchstyle_1" @(item.DisplayView == "branchstyle_1" ? "selected" : "")>Hiển thị 1</option>
+                                                        <option value="branchstyle_2" @(item.DisplayView == "branchstyle_2" ? "selected" : "")>Hiển thị 2</option>
+                                                        <option value="branchstyle_3" @(item.DisplayView == "branchstyle_3" ? "selected" : "")>Hiển thị 3</option>
+                                                        <option value="branchstyle_4" @(item.DisplayView == "branchstyle_4" ? "selected" : "")>Hiển thị 4</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                                                    <input type="hidden" value="@item.Id" name="id" />
+                                                </div>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="/moderate/deleteproductbranch">
+                                                <input name="idbrach" value="@item.Id" type="hidden" />
+                                                <input value="Xóa" onclick="return deletebranches('@item.Name',@item.SanPham.Count);" type="submit" />
+                                            </form>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
@@ -197,19 +220,19 @@
                                 <tbody>
                                     @foreach (var item in db.ProductTypes)
                                     {
-                                        <tr>
-                                            <td>
-                                                @item.Id
-                                            </td>
-                                            <td>@item.Name</td>
-                                            <td>@item.SanPham.Count</td>
-                                            <td>
-                                                <form method="post" action="/moderate/deleteproducttype">
-                                                    <input name="idbrach" value="@item.Id" type="hidden" />
-                                                    <input value="Xóa" onclick="return deletebranches('@item.Name',@item.SanPham.Count);" type="submit" />
-                                                </form>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            @item.Id
+                                        </td>
+                                        <td>@item.Name</td>
+                                        <td>@item.SanPham.Count</td>
+                                        <td>
+                                            <form method="post" action="/moderate/deleteproducttype">
+                                                <input name="idbrach" value="@item.Id" type="hidden" />
+                                                <input value="Xóa" onclick="return deletebranches('@item.Name',@item.SanPham.Count);" type="submit" />
+                                            </form>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
@@ -227,15 +250,13 @@
                 window.location.href = "../../admin/editbaiviet/" + id;
             }
 
-            function deletebranches(name,number)
-            {
-                if(number > 0)
-                {
+            function deletebranches(name, number) {
+                if (number > 0) {
                     alert("Bạn không thể xóa nhóm sản phẩm đang có nhiều hơn 1 sản phẩm!");
                     return false;
                 }
                 var cfr = confirm("Bạn có chắc chắn xóa " + name);
-                if(cfr){
+                if (cfr) {
                     return true;
                 }
                 return false;

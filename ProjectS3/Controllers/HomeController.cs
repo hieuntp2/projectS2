@@ -12,15 +12,15 @@ namespace ProjectS3.Controllers
         ProjectS3Entities db = new ProjectS3Entities();
         public ActionResult Index()
         {
-            //GMailer.GmailUsername = "hieuntp2@gmail.com";
-            //GMailer.GmailPassword = "blu3night";
+            GMailer.GmailUsername = "hieuntp2@gmail.com";
+            GMailer.GmailPassword = "blu3night";
 
-            //GMailer mailer = new GMailer();
-            //mailer.ToEmail = "hieuntp2@gmail.com";
-            //mailer.Subject = "Verify your email id";
-            //mailer.Body = "Thanks for Registering your account.<br> please verify your email id by clicking the link <br> <a href='youraccount.com/verifycode=12323232'>verify</a>";
-            //mailer.IsHtml = true;
-            //mailer.Send();
+            GMailer mailer = new GMailer();
+            mailer.ToEmail = "hieuntp2@gmail.com";
+            mailer.Subject = "Verify your email id";
+            mailer.Body = "Thanks for Registering your account.<br> please verify your email id by clicking the link <br> <a href='youraccount.com/verifycode=12323232'>verify</a>";
+            mailer.IsHtml = true;
+            mailer.Send();
 
             return View();
         }

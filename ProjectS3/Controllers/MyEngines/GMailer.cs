@@ -23,25 +23,33 @@ namespace ProjectS3.Controllers.MyEngines
         static GMailer()
         {
             GmailHost = "smtp.gmail.com";
-            GmailPort = 25; // Gmail can use ports 25, 465 & 587; but must be 25 for medium trust environment.
+            GmailPort = 587; // Gmail can use ports 25, 465 & 587; but must be 25 for medium trust environment.
             GmailSSL = true;
         }
 
         public void Send()
         {
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = GmailHost;
-            smtp.Port = GmailPort;
-            smtp.EnableSsl = GmailSSL;
-            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential(GmailUsername, GmailPassword);
+            var fromAddress = new MailAddress("hieuntp2@gmail.com", "From Hieu");
+            var toAddress = new MailAddress("hieuntp2@gmail.com", "To Name");
+            const string fromPassword = "blu3night";
+            const string subject = "Subject";
+            const string body = "Body";
 
-            using (var message = new MailMessage(GmailUsername, ToEmail))
+            var smtp = new SmtpClient
             {
-                message.Subject = Subject;
-                message.Body = Body;
-                message.IsBodyHtml = IsHtml;
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
                 smtp.Send(message);
             }
         }
