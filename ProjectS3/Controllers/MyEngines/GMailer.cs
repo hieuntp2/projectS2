@@ -4,36 +4,25 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
-
+using ProjectS3.Models;
 namespace ProjectS3.Controllers.MyEngines
 {
     public class GMailer
     {
-        public static string GmailUsername { get; set; }
-        public static string GmailPassword { get; set; }
-        public static string GmailHost { get; set; }
-        public static int GmailPort { get; set; }
-        public static bool GmailSSL { get; set; }
-
-        public string ToEmail { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
-        public bool IsHtml { get; set; }
-
         static GMailer()
         {
-            GmailHost = "smtp.gmail.com";
-            GmailPort = 587; // Gmail can use ports 25, 465 & 587; but must be 25 for medium trust environment.
-            GmailSSL = true;
         }
 
-        public void Send()
+        public void Send(string subject, string messagebody)
         {
-            var fromAddress = new MailAddress("hieuntp2@gmail.com", "From Hieu");
-            var toAddress = new MailAddress("hieuntp2@gmail.com", "To Name");
-            const string fromPassword = "blu3night";
-            const string subject = "Subject";
-            const string body = "Body";
+            MyDynamicValues mydynamic = new MyDynamicValues();
+            string myemail = mydynamic.getValue("toemail");
+
+            var fromAddress = new MailAddress("myemail", "Inthef.vn");
+            var toAddress = new MailAddress(myemail, "Website Inthef.vn");
+            const string fromPassword = "Inth3f.vn";
+            string mysj = "Inthef.vn: " + subject;
+            string body = messagebody;
 
             var smtp = new SmtpClient
             {
@@ -46,7 +35,7 @@ namespace ProjectS3.Controllers.MyEngines
             };
             using (var message = new MailMessage(fromAddress, toAddress)
             {
-                Subject = subject,
+                Subject = mysj,
                 Body = body
             })
             {

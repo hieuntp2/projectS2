@@ -92,6 +92,10 @@ namespace ProjectS3.Controllers
                 }
 
                 db.SaveChanges();
+                
+                // sendmessage to gmail
+                GMailer gmail = new GMailer();
+                gmail.Send("Đơn đặt hàng mới", "Đơn đặt hàng mới + " + dh.ID + ". Ngày hết hạn: " + dh.ThoiGianGiao);
                 return dh.ID.ToString();
             }
 
