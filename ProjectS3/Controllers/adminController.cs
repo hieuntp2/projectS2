@@ -17,7 +17,33 @@ namespace ProjectS3.Controllers
         // GET: /admin/
         public ActionResult Index()
         {
+            MyDynamicValues mydynamic = new MyDynamicValues();
+            string mytoemail = mydynamic.getValue("toemail");
+            string myfromemail = mydynamic.getValue("fromemail");
+            string mypassword = mydynamic.getValue("password");
+
+            ViewBag.mytoemail = mytoemail;
+            ViewBag.myfromemail = myfromemail;
+            ViewBag.mypassword = mypassword;
+
             return View();
+        }
+
+        public ActionResult testSendEmail()
+        {
+            MyEngines.GMailer gmail = new MyEngines.GMailer();
+            gmail.Send("Test email!", "This is test-email");
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult editemail(string fromemail, string password, string toemail)
+        {
+            MyDynamicValues mydynamic = new MyDynamicValues();
+            mydynamic.setValue("toemail", toemail);
+            mydynamic.setValue("fromemail", fromemail);
+            mydynamic.setValue("password", password);
+
+            return RedirectToAction("Index");
         }
 
         //////////////////////////
@@ -138,7 +164,7 @@ namespace ProjectS3.Controllers
         public async Task<ActionResult> edittygia(string tygia)
         {
             MyDynamicValues dynamic = new MyDynamicValues();
-            if(MyEngines.MyStaticFunction.MyFloatParse(tygia) <= 0)
+            if (MyEngines.MyStaticFunction.MyFloatParse(tygia) <= 0)
             {
                 return RedirectToAction("Index");
             }

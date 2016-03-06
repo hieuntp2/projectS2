@@ -16,10 +16,12 @@ namespace ProjectS3.Controllers.MyEngines
         public void Send(string subject, string messagebody)
         {
             MyDynamicValues mydynamic = new MyDynamicValues();
-            string myemail = mydynamic.getValue("toemail");
+            string mytoemail = mydynamic.getValue("toemail");
+            string myfromemail = mydynamic.getValue("fromemail");
+            string mypassword = mydynamic.getValue("password");
 
             var fromAddress = new MailAddress("myemail", "Inthef.vn");
-            var toAddress = new MailAddress(myemail, "Website Inthef.vn");
+            var toAddress = new MailAddress(mytoemail, "Website Inthef.vn");
             const string fromPassword = "Inth3f.vn";
             string mysj = "Inthef.vn: " + subject;
             string body = messagebody;
