@@ -9,12 +9,12 @@
     List<ProjectS3.Models.DonHang> _don_hang_da_goi = db.DonHang.Where(t => t.TinhTrang == 2).ToList();
     List<ProjectS3.Models.DonHang> _don_hang_dang_gui = db.DonHang.Where(t => t.TinhTrang == 3).ToList();
     List<ProjectS3.Models.DonHang> _don_hang_bihuy = db.DonHang.Where(t => t.TinhTrang == 3).ToList();
-    
+
     ProjectS3.Controllers.MyDynamicValues dynamicvalue = new ProjectS3.Controllers.MyDynamicValues();
 
     System.Globalization.CultureInfo ci = (System.Globalization.CultureInfo)System.Globalization.CultureInfo.CurrentCulture.Clone();
-    ci.NumberFormat.CurrencyDecimalSeparator = ".";    
-    
+    ci.NumberFormat.CurrencyDecimalSeparator = ".";
+
     // Ty Gia
     string my_temp_tygia = dynamicvalue.getValue("tygia_WonVND");
     if (my_temp_tygia == null)
@@ -23,7 +23,7 @@
     }
 
     float my_tygia = float.Parse(my_temp_tygia, System.Globalization.NumberStyles.Any, ci);
-    
+
     // He So Nhan
     string my_temp_heso = dynamicvalue.getValue("hesonhan");
     if (my_temp_heso == null)
@@ -266,10 +266,10 @@
                                             @switch (item.type)
                                                 {
                                                     case 0:
-                                                <p>Menu chính</p>
+                                            <p>Menu chính</p>
                                                         break;
                                                     case 1:
-                                                <p>Menu phụ</p>
+                                            <p>Menu phụ</p>
                                                         break;
                                                 }
                                         </td>

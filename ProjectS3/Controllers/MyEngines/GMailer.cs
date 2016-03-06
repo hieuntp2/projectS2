@@ -20,9 +20,9 @@ namespace ProjectS3.Controllers.MyEngines
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");
 
-            var fromAddress = new MailAddress("myemail", "Inthef.vn");
+            var fromAddress = new MailAddress(myfromemail, "Inthef.vn");
             var toAddress = new MailAddress(mytoemail, "Website Inthef.vn");
-            const string fromPassword = "Inth3f.vn";
+            string fromPassword = mypassword;
             string mysj = "Inthef.vn: " + subject;
             string body = messagebody;
 
