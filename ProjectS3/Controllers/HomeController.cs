@@ -255,7 +255,7 @@ namespace ProjectS3.Controllers
                 float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
 
                 List<BranchListProdcut> list = (from sanpham in db.SanPham
-                                                where sanpham.Type == branch.Id && sanpham.TinhTrang == "ENABLE"
+                                                where sanpham.Branches == branch.Id && sanpham.TinhTrang == "ENABLE"
                                                 select new BranchListProdcut()
                                                     {
                                                         ID = sanpham.ID,

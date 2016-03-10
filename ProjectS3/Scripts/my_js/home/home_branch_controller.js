@@ -1,87 +1,69 @@
 ﻿app.controller('home_branch_controller', ['$scope', '$scope', '$rootScope', '$http', 'my_function_services', 'cart_service',
     function ($scope, $scope, $rootScope, $http, my_function_services, cart_service) {
-
-        $scope.id = "";
-        $scope.name = "";
-        $scope.price = "";
-        $scope.imgs = "";
-        $scope.product = {};
-        $scope.soluong = 1;
-        $scope.first_img = "";
-        $scope.product.detail = "";
-        $scope.tempProducts = [];
-        $scope.listColors = [];
-        $scope.listSize = [];
-        $scope.modal_error_message = "";
-        $scope.listproductimage = {};
-
         // new variables
         $scope.BannerImages = [];
         $scope.myCount = 0;
         $scope.products = [];
-        $scope.branches = [];
+        $scope.catelories = [];
+
         $scope.init = function (sanpham, myimagebanner) {
             cart_service.init();
             $scope.initBannerImage(myimagebanner);
+            for (var i = 0; i < sanpham.length; i++) {
+                // pasre and add to list image
+                $scope.listproductimage = my_function_services.pasreimg(sanpham[i].linkImage);
 
-            for(var i = 0; i < sanpham.length; i++)
-            {
                 var myObject = {};
-                myObject.ID = sanpham.ID
-                myObject.Name = sanpham.Ten;
-                myObject.Price = sanpham.DioGia;
-                myObject.BranchID = sanpham.ProductBranches.Id;
-                myObject.BranchName = sanpham.ProductBranches.Name;
-                myObject.TypeID = sanpham.Type;
-                myObject.TypeName = sanpham.ProductTypes.Name;
-                myObject.linkImage = sanpham.linkanh;                
+                myObject.ID = sanpham[i].ID
+                myObject.Name = sanpham[i].Name;
+                myObject.Price = sanpham[i].Price;
+                myObject.BranchID = sanpham[i].BranchID;
+                myObject.BranchName = sanpham[i].BranchName;
+                myObject.TypeID = sanpham[i].TypeID;
+                myObject.TypeName = sanpham[i].TypeName;
+                myObject.isShow = true;
+
+                myObject.currentImage = $scope.listproductimage[0];
 
                 $scope.products.push(myObject);
-
-                $scope.pushBranches(myObject);
+                $scope.pushCatelories(myObject);
             }
-
-            $scope.pushBranches = function(product)
-            {
-                for(var i = 0; i < $scope.branches.length; i++)
-                {
-                    if($scope.branches[i].ID == product.BranchID)
-                    {
-                        return;
-                    }
-                }
-
-                var newBranch = {};
-                newBranch.ID = product.BranchID;
-                newBranch.Name = product.BranchName;
-                $scope.branches.push(newBranch);
-            }
-
-            //$scope.id = sanpham.ID;
-            //$scope.name = sanpham.Ten;
-            //$scope.price = sanpham.DonGia;
-            //$scope.imgs = my_function_services.pasreimg(sanpham.linkanh);
-            //$scope.first_img = $scope.imgs[0];
-            //$scope.product.imgs = $scope.imgs;
-            //$scope.product.name = $scope.name;
-            //$scope.product.number = $scope.soluong;
-            //$scope.product.price = $scope.price;
-            //$scope.product.color = sanpham.color;
-            //$scope.product.size = sanpham.size;
-            //$scope.product.detail = sanpham.MoTa;
-            //$scope.product.id = sanpham.ID;
-            //$scope.isStock = sanpham.isInstock;
-
-            //$scope.processProductInfor();
         }
 
-        $scope.initBannerImage = function(list)
-        {
+        $scope.pushCatelories = function (product) {
+            for (var i = 0; i < $scope.catelories.length; i++) {
+                if ($scope.catelories[i].ID == product.TypeID) {
+                    return;
+                }
+            }
+
+            var newBranch = {};
+            newBranch.ID = product.TypeID;
+            newBranch.Name = product.TypeName;
+            $scope.catelories.push(newBranch);
+        }
+
+        $scope.showAllProduct = function () {
+            for (var i = 0; i < $scope.products.length; i++) {
+                $scope.products[i].isShow = true;
+            }
+        }
+
+        $scope.showItemInCatelory = function (id) {
+            for (var i = 0; i < $scope.products.length; i++) {
+                if ($scope.products[i].TypeID == id) {
+                    $scope.products[i].isShow = true;
+                }
+                else {
+                    $scope.products[i].isShow = false;
+                }
+            }
+        }
+
+        $scope.initBannerImage = function (list) {
             var tempLink = "";
-            for (var i = 0; i < list.length; i++)
-            {
-                if(list[i] != ';' || i == list.length - 1)
-                {
+            for (var i = 0; i < list.length; i++) {
+                if (list[i] != ';' || i == list.length - 1) {
                     tempLink += list[i];
                 }
                 else {
@@ -94,15 +76,13 @@
 
                     $scope.myCount += 1;
                 }
-            }            
+            }
         }
 
-        $scope.processProductInfor = function()
-        {
+        $scope.processProductInfor = function () {
             // process color
             var arr = $scope.product.color.split(';');
-            for (var i = 0; i < arr.length; i++)
-            {
+            for (var i = 0; i < arr.length; i++) {
                 var color = {};
                 color.index = i;
                 color.name = arr[i];
@@ -125,11 +105,9 @@
             $scope.first_img = img;
         }
 
-        $scope.showproductsdetail = function()
-        {
+        $scope.showproductsdetail = function () {
             $scope.tempProducts = [];
-            for (var i = 0; i < $scope.soluong; i++)
-            {
+            for (var i = 0; i < $scope.soluong; i++) {
                 var item = {};
                 item.soluong = 1;
                 item.color = "";
@@ -139,10 +117,8 @@
             }
         }
 
-        $scope.removefromTempList = function (id_temp)
-        {
-            for(var i = 0; i < $scope.tempProducts.length; i++)
-            {
+        $scope.removefromTempList = function (id_temp) {
+            for (var i = 0; i < $scope.tempProducts.length; i++) {
                 if ($scope.tempProducts[i].idInList == id_temp) {
                     $scope.tempProducts.splice(i, 1);
                     break;
@@ -160,10 +136,8 @@
         $scope.themnhieuvaogiohang = function () {
 
             // validate
-            for (var i = 0; i < $scope.tempProducts.length; i++)
-            {
-                if ($scope.tempProducts[i].size.trim() == "")
-                {
+            for (var i = 0; i < $scope.tempProducts.length; i++) {
+                if ($scope.tempProducts[i].size.trim() == "") {
                     $scope.modal_error_message = "Bạn điền thiếu Kích thước, vui lòng kiểm tra lại.";
                     return;
                 }
@@ -171,12 +145,12 @@
                 if ($scope.tempProducts[i].color.trim() == "") {
                     $scope.modal_error_message = "Bạn điền thiếu Màu sắc, vui lòng kiểm tra lại.";
                     return;
-                }               
+                }
             }
 
             $scope.product.number = $scope.soluong;
             cart_service.add_list_product_to_cart($scope.product, $scope.tempProducts);
-           
+
             alert("Đã thêm vào giỏ hàng");
             $('#myModal').modal('hide');
         }
