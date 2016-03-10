@@ -32,6 +32,7 @@
         <AssociationConnector Association="ProjectS3Model.FK_SanPham_ProductBranches" />
         <AssociationConnector Association="ProjectS3Model.FK_SanPham_ProductTypes" />
         <AssociationConnector Association="ProjectS3Model.AspNetUserRoles" />
+        <AssociationConnector Association="ProjectS3Model.FK_SanPham_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

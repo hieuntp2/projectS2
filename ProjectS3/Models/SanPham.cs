@@ -32,6 +32,8 @@ namespace ProjectS3.Models
         public string Color { get; set; }
         public string Size { get; set; }
         public Nullable<int> Type { get; set; }
+        public Nullable<System.DateTime> LastUpdateDate { get; set; }
+        public string UserUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietBoSanPham> ChiTietBoSanPham { get; set; }
@@ -39,5 +41,6 @@ namespace ProjectS3.Models
         public virtual ICollection<ChiTietDonHang> ChiTietDonHang { get; set; }
         public virtual ProductBranches ProductBranches { get; set; }
         public virtual ProductTypes ProductTypes { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

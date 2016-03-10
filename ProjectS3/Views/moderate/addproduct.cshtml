@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
-        @Html.Partial("_my_break_bar_top")
+        @Html.Partial("_my_break_bar_top_moderate")
         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "id_form_add_product" }))
         {
             @Html.AntiForgeryToken()
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <input type="submit" value="Thêm mới" class="btn btn-success" />
+                    <input type="submit" value="Lưu" class="btn btn-success" />
                     <a class="btn btn-default" href="../../admin">Hủy</a>
                 </div>
 

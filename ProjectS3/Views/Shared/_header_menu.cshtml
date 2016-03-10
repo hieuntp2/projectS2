@@ -19,18 +19,18 @@
                     <div class="shop-menu pull-left">
                         <ul class="nav navbar-nav">
                             @*<li><a href="/home/company">COMPANY</a></li>*@
-                            @foreach(var item in db.ProductBranches)
+                            @foreach (var item in db.ProductBranches)
                             {
                                 <li><a href="/home/branch/@item.Name">@item.Name</a></li>
                             }
-                           
+
                             @*<li><a href="/home/branch/COMPAGNA">COMPAGNA</a></li>
-                            <li><a href="/home/branch/YETTS">YETTS</a></li>
-                            <li><a href="/home/branch/y'sb">y'sb</a></li>
-                            <li><a href="/home/branch/TRUGEN">TRUGEN</a></li>
-                            <li><a href="/home/branch/S+">S+</a></li>
-                            <li><a href="/home/branch/TATE">TATE</a></li>
-                            <li><a href="/home/branch/BIND">BIND</a></li>*@
+                                <li><a href="/home/branch/YETTS">YETTS</a></li>
+                                <li><a href="/home/branch/y'sb">y'sb</a></li>
+                                <li><a href="/home/branch/TRUGEN">TRUGEN</a></li>
+                                <li><a href="/home/branch/S+">S+</a></li>
+                                <li><a href="/home/branch/TATE">TATE</a></li>
+                                <li><a href="/home/branch/BIND">BIND</a></li>*@
                         </ul>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                                         {
                                             <li><a href="../../admin">Quản lý website</a></li>
                                         }
-                                        
+
                                         @if (User.IsInRole("Moderate"))
                                         {
                                             <li><a href="../../moderate">Quản lý sản phẩm/ bài viết</a></li>

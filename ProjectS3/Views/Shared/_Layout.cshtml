@@ -70,12 +70,15 @@
     <link href="~/content/my_css.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+
 </head><!--/head-->
-<body ng-app="main_app">
+<body ng-app="main_app" class="fixed">
     @Html.Partial("_header_menu")
+
     @RenderBody()
     @Html.Partial("_gio_hang_modal")
+
+
     @Html.Partial("_footer")
     @RenderSection("Scripts", false)
 </body>

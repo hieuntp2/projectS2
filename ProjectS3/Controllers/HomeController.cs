@@ -237,17 +237,40 @@ namespace ProjectS3.Controllers
                 return HttpNotFound();
             }
             else
-            {          
+            {
+                //MyDynamicValues dynamic = new MyDynamicValues();
+                //float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
+                //float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
+                //List<SanPham> list = db.SanPham.Where(t => t.ProductBranches.Name == id && t.TinhTrang == "ENABLE").ToList();
+                //ViewBag.Branch = branch.Name;
+
+                //for (int i = 0; i < list.Count; i++)
+                //{
+                //    list[i].DioGia = list[i].DioGia * tygia_WonVND * hesonhan;
+                //    list[i].linkanh = list[i].linkanh.Split(';')[0];
+                //}
+
                 MyDynamicValues dynamic = new MyDynamicValues();
                 float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
                 float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
-                List<SanPham> list = db.SanPham.Where(t => t.ProductBranches.Name == id && t.TinhTrang == "ENABLE").ToList();
-                ViewBag.Branch = branch.Name;
 
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].DioGia = list[i].DioGia * tygia_WonVND * hesonhan;
-                }
+                List<BranchListProdcut> list = (from sanpham in db.SanPham
+                                                where sanpham.Type == branch.Id && sanpham.TinhTrang == "ENABLE"
+                                                select new BranchListProdcut()
+                                                    {
+                                                        ID = sanpham.ID,
+                                                        Name = sanpham.Ten,
+                                                        Price = sanpham.DioGia * tygia_WonVND * hesonhan,
+                                                        BranchID = sanpham.ProductBranches.Id,
+                                                        BranchName = sanpham.ProductBranches.Name,
+                                                        TypeID = (int)sanpham.Type,
+                                                        TypeName = sanpham.ProductTypes.Name,
+                                                        linkImage = sanpham.linkanh
+                                                    }
+                                                    ).ToList();
+                ViewBag.Branch = branch.Name;
+                ViewBag.BanngerImages = branch.linkBanerImage;
+
                 return View(branch.DisplayView, list);
             }
         }
@@ -303,4 +326,15 @@ namespace ProjectS3.Controllers
         public int GiaThuongMua { get; set; }
     }
 
+    public class BranchListProdcut
+    {
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string BranchName { get; set; }
+        public int BranchID { get; set; }
+        public string linkImage { get; set; }
+        public string TypeName { get; set; }
+        public int TypeID { get; set; }
+        public double Price { get; set; }
+    }
 }

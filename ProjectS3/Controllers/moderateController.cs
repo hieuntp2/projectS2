@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace ProjectS3.Controllers
 {
@@ -50,6 +50,8 @@ namespace ProjectS3.Controllers
             item.Branches = sanpham.Branches;
             item.Type = sanpham.Type;
             item.Size = sanpham.Size;
+            item.LastUpdateDate = DateTime.Now;
+            item.UserUpdate = User.Identity.GetUserId();
             db.SanPham.Add(item);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -59,7 +61,7 @@ namespace ProjectS3.Controllers
         public ActionResult deleteproduct(int id)
         {
             SanPham sp = db.SanPham.SingleOrDefault(t => t.ID == id);
-            if(sp == null)
+            if (sp == null)
             {
                 return HttpNotFound();
             }
@@ -101,10 +103,11 @@ namespace ProjectS3.Controllers
                 item.Branches = sanpham.Branches;
                 item.Size = sanpham.Size;
                 item.Type = sanpham.Type;
+                item.LastUpdateDate = DateTime.Now;
+                item.UserUpdate = User.Identity.GetUserId();
 
                 db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChangesAsync();
-
                 return RedirectToAction("Index");
             }
             else
@@ -337,7 +340,7 @@ namespace ProjectS3.Controllers
         }
 
         [HttpPost]
-        public ActionResult editproductbranch(int id, string displayview)
+        public ActionResult editproductbranch(int id, string displayview, string linkBannerImages)
         {
             ProductBranches br = db.ProductBranches.SingleOrDefault(t => t.Id == id);
             if (br == null)
@@ -346,6 +349,7 @@ namespace ProjectS3.Controllers
             }
 
             br.DisplayView = displayview;
+            br.linkBanerImage = linkBannerImages;
             db.Entry(br).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -1,4 +1,4 @@
-﻿app.controller('home_bosanpham_controller', ['$scope', '$scope', '$rootScope', '$http', 'my_function_services', 'cart_service',
+﻿app.controller('home_branch_controller', ['$scope', '$scope', '$rootScope', '$http', 'my_function_services', 'cart_service',
     function ($scope, $scope, $rootScope, $http, my_function_services, cart_service) {
 
         $scope.id = "";
@@ -14,24 +14,87 @@
         $scope.listSize = [];
         $scope.modal_error_message = "";
         $scope.listproductimage = {};
-        $scope.init = function (sanpham) {
-            cart_service.init();
-            $scope.id = sanpham.ID;
-            $scope.name = sanpham.Ten;
-            $scope.price = sanpham.DonGia;
-            $scope.imgs = my_function_services.pasreimg(sanpham.linkanh);
-            $scope.first_img = $scope.imgs[0];
-            $scope.product.imgs = $scope.imgs;
-            $scope.product.name = $scope.name;
-            $scope.product.number = $scope.soluong;
-            $scope.product.price = $scope.price;
-            $scope.product.color = sanpham.color;
-            $scope.product.size = sanpham.size;
-            $scope.product.detail = sanpham.MoTa;
-            $scope.product.id = sanpham.ID;
-            $scope.isStock = sanpham.isInstock;
 
-            $scope.processProductInfor();
+        // new variables
+        $scope.BannerImages = [];
+        $scope.myCount = 0;
+        $scope.products = [];
+        $scope.branches = [];
+        $scope.init = function (sanpham, myimagebanner) {
+            cart_service.init();
+            $scope.initBannerImage(myimagebanner);
+
+            for(var i = 0; i < sanpham.length; i++)
+            {
+                var myObject = {};
+                myObject.ID = sanpham.ID
+                myObject.Name = sanpham.Ten;
+                myObject.Price = sanpham.DioGia;
+                myObject.BranchID = sanpham.ProductBranches.Id;
+                myObject.BranchName = sanpham.ProductBranches.Name;
+                myObject.TypeID = sanpham.Type;
+                myObject.TypeName = sanpham.ProductTypes.Name;
+                myObject.linkImage = sanpham.linkanh;                
+
+                $scope.products.push(myObject);
+
+                $scope.pushBranches(myObject);
+            }
+
+            $scope.pushBranches = function(product)
+            {
+                for(var i = 0; i < $scope.branches.length; i++)
+                {
+                    if($scope.branches[i].ID == product.BranchID)
+                    {
+                        return;
+                    }
+                }
+
+                var newBranch = {};
+                newBranch.ID = product.BranchID;
+                newBranch.Name = product.BranchName;
+                $scope.branches.push(newBranch);
+            }
+
+            //$scope.id = sanpham.ID;
+            //$scope.name = sanpham.Ten;
+            //$scope.price = sanpham.DonGia;
+            //$scope.imgs = my_function_services.pasreimg(sanpham.linkanh);
+            //$scope.first_img = $scope.imgs[0];
+            //$scope.product.imgs = $scope.imgs;
+            //$scope.product.name = $scope.name;
+            //$scope.product.number = $scope.soluong;
+            //$scope.product.price = $scope.price;
+            //$scope.product.color = sanpham.color;
+            //$scope.product.size = sanpham.size;
+            //$scope.product.detail = sanpham.MoTa;
+            //$scope.product.id = sanpham.ID;
+            //$scope.isStock = sanpham.isInstock;
+
+            //$scope.processProductInfor();
+        }
+
+        $scope.initBannerImage = function(list)
+        {
+            var tempLink = "";
+            for (var i = 0; i < list.length; i++)
+            {
+                if(list[i] != ';' || i == list.length - 1)
+                {
+                    tempLink += list[i];
+                }
+                else {
+                    var myObject = {};
+                    myObject.link = tempLink;
+                    myObject.number = $scope.myCount;
+
+                    tempLink = "";
+                    $scope.BannerImages.push(myObject);
+
+                    $scope.myCount += 1;
+                }
+            }            
         }
 
         $scope.processProductInfor = function()

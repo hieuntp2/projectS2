@@ -8,11 +8,12 @@ app.service('my_function_services', function ($http) {
         var item = {};
         item.link = "";
         for (var i = 0; i < text.length; i++) {
-            if (text[i] != ' ') {
+            if (text[i] != ';') {
                 item.link = item.link + text[i];
             }
             else {
                 item.number = count;
+                item.link = item.link.trim();
                 imgs.push(item);
                 item = {};
                 item.link = "";
@@ -42,6 +43,13 @@ app.service('my_function_services', function ($http) {
 
         return item;
     }
+
+    var convertProductListImages = function (mystring) {
+        var list = {};
+        list = mystring.split(';');
+        return list;
+    }
+
 
     return {
         pasreimg: pasreimg,

@@ -21,6 +21,7 @@ namespace ProjectS3.Models
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.DonHang = new HashSet<DonHang>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
+            this.SanPham = new HashSet<SanPham>();
         }
     
         public string Id { get; set; }
@@ -48,5 +49,7 @@ namespace ProjectS3.Models
         public virtual ICollection<DonHang> DonHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SanPham> SanPham { get; set; }
     }
 }

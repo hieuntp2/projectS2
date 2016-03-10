@@ -47,8 +47,31 @@
     margin-right: 5px !important;
 }
 
-.my_div_size_checkbox{
+.my_div_size_checkbox {
     display: -webkit-inline-box;
     padding-left: 20px;
+}
 
+.my_product_image {
+    height: inherit !important;
+    width: auto !important;
+    height: 100px;
+    width: 100px;
+    display: table-cell;
+    margin-left: auto;
+    margin-right: auto;
+    cursor:pointer;
+}
+
+.my_div_product_image {
+    height: 100px;
+    display: -webkit-inline-box;
+}
+
+.my_div_products_banner{
+
+}
+
+.my_img_products_banner{
+        width: 100%;
 }

@@ -23,6 +23,7 @@ namespace ProjectS3.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string DisplayView { get; set; }
+        public string linkBanerImage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }
