@@ -14,7 +14,9 @@
         $scope.listSize = [];
         $scope.modal_error_message = "";
         $scope.listproductimage = {};
-        $scope.init = function (sanpham) {
+        $scope.sameProductsPage = [];
+
+        $scope.init = function (sanpham, sameProducts) {
             cart_service.init();
             $scope.id = sanpham.ID;
             $scope.name = sanpham.Ten;
@@ -31,15 +33,38 @@
             $scope.product.id = sanpham.ID;
             $scope.isStock = sanpham.isInstock;
 
+            $scope.processSameProduct(sameProducts);
+            alert($scope.sameProductsPage[0][0].length);
+
             $scope.processProductInfor();
         }
 
-        $scope.processProductInfor = function()
-        {
+        $scope.processSameProduct = function (sameProducts) {
+            var number_page = Math.floor(sameProducts.length / 3);
+            $scope.sameProductsPage = [];
+
+            for (var i = 0; i < number_page; i++) {
+                
+                var products = [];
+                
+                for (var j = 0; j < 2; j++) {
+                    var current_index = i * 3 + j;
+                    if (current_index == sameProducts.length - 1) {
+                        break;
+                    }
+                    else {
+                        products.push(sameProducts[current_index]);
+                    }                   
+                }
+
+                $scope.sameProductsPage[i].push(products);
+            }
+        }
+
+        $scope.processProductInfor = function () {
             // process color
             var arr = $scope.product.color.split(';');
-            for (var i = 0; i < arr.length; i++)
-            {
+            for (var i = 0; i < arr.length; i++) {
                 var color = {};
                 color.index = i;
                 color.name = arr[i];
@@ -62,11 +87,9 @@
             $scope.first_img = img;
         }
 
-        $scope.showproductsdetail = function()
-        {
+        $scope.showproductsdetail = function () {
             $scope.tempProducts = [];
-            for (var i = 0; i < $scope.soluong; i++)
-            {
+            for (var i = 0; i < $scope.soluong; i++) {
                 var item = {};
                 item.soluong = 1;
                 item.color = "";
@@ -76,10 +99,8 @@
             }
         }
 
-        $scope.removefromTempList = function (id_temp)
-        {
-            for(var i = 0; i < $scope.tempProducts.length; i++)
-            {
+        $scope.removefromTempList = function (id_temp) {
+            for (var i = 0; i < $scope.tempProducts.length; i++) {
                 if ($scope.tempProducts[i].idInList == id_temp) {
                     $scope.tempProducts.splice(i, 1);
                     break;
@@ -97,10 +118,8 @@
         $scope.themnhieuvaogiohang = function () {
 
             // validate
-            for (var i = 0; i < $scope.tempProducts.length; i++)
-            {
-                if ($scope.tempProducts[i].size.trim() == "")
-                {
+            for (var i = 0; i < $scope.tempProducts.length; i++) {
+                if ($scope.tempProducts[i].size.trim() == "") {
                     $scope.modal_error_message = "Bạn điền thiếu Kích thước, vui lòng kiểm tra lại.";
                     return;
                 }
@@ -108,12 +127,12 @@
                 if ($scope.tempProducts[i].color.trim() == "") {
                     $scope.modal_error_message = "Bạn điền thiếu Màu sắc, vui lòng kiểm tra lại.";
                     return;
-                }               
+                }
             }
 
             $scope.product.number = $scope.soluong;
             cart_service.add_list_product_to_cart($scope.product, $scope.tempProducts);
-           
+
             alert("Đã thêm vào giỏ hàng");
             $('#myModal').modal('hide');
         }

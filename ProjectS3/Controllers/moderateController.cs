@@ -13,17 +13,20 @@ namespace ProjectS3.Controllers
         ProjectS3Entities db = new ProjectS3Entities();
 
         // GET: moderate
-        public ActionResult Index(int id = 0)
+        public ActionResult Index(int id = -1)
         {
             List<SanPham> sanphams = new List<SanPham>();
-            if (id == null || id == 0)
+            if (id == -1)
             {
                 sanphams = db.SanPham.OrderByDescending(t => t.ID).ToList();
+              
             }
             else
             {
                 sanphams = db.SanPham.Where(t => t.ProductBranches.Id == id).OrderByDescending(t => t.ID).ToList();
             }
+
+            ViewBag.ID = id;
             return View(sanphams);
         }
 

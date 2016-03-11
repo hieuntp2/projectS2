@@ -126,6 +126,14 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Số lượng sản xuất</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.SoLuong, new { @type = "number", @Value = 1, @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SoLuong)
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="box-footer">

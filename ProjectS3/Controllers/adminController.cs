@@ -36,12 +36,12 @@ namespace ProjectS3.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult editemail(string fromemail, string password, string toemail)
+        public async Task<ActionResult> editemail(string fromemail, string password, string toemail)
         {
             MyDynamicValues mydynamic = new MyDynamicValues();
-            mydynamic.setValue("toemail", toemail);
-            mydynamic.setValue("fromemail", fromemail);
-            mydynamic.setValue("password", password);
+            await mydynamic.setValue("toemail", toemail);
+            await mydynamic.setValue("fromemail", fromemail);
+            await mydynamic.setValue("password", password);
 
             return RedirectToAction("Index");
         }

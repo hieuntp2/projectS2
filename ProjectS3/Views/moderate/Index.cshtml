@@ -30,19 +30,18 @@
                             <div class="col-sm-3">
                                 <a class="btn btn-success" href="../../moderate/addproduct">Thêm sản phẩm</a>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 <div class="form-horizontal">
                                     <form method="get" action="/moderate/index">
                                         <div class="col-sm-3">
                                             <label>Lọc theo dòng sản phẩm</label>
                                         </div>
                                         <div class="col-sm-6">
-
-                                            <select class="form-control">
-                                                <option value="0" selected>Tất cả</option>
+                                            <select class="form-control" name="id">
+                                                <option value="0">Tất cả</option>
                                                 @foreach (var item in db.ProductBranches)
                                                 {
-                                                    <option value="@item.Id">@item.Name</option>
+                                                    <option value="@item.Id" @(ViewBag.id == @item.Id? "selected":"")>@item.Name</option>
                                                 }
                                             </select>
                                         </div>
@@ -51,6 +50,10 @@
                                         </div>
                                     </form>
                                 </div>
+                            </div>
+
+                            <div class="col-sm-1">
+                                <p>Số lượng: @Model.Count()</p>
                             </div>
 
                             <div class="clearfix"></div>
@@ -83,7 +86,7 @@
                                                 @string.Format("{0:n0}", @item.DioGia)
                                             </td>
                                             <td>
-                                                <img src="@item.linkanh" style="height: 100px;" />
+                                                <img src="@item.linkanh.Split(';')[0]" style="height: 100px;" />
                                             </td>
                                             <td>@item.TinhTrang</td>
                                             <td>@item.SoLuong</td>

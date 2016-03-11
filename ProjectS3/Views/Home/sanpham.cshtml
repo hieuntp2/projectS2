@@ -2,13 +2,13 @@
 @{
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
     ViewBag.Title = Model.Ten;
-    List<ProjectS3.Models.BoSanPham> listrelate = db.BoSanPham.ToList();
+
     int id_item = Model.ID;
 }
 
 <script src="~/scripts/my_js/home/home_sanpham_controller.js"></script>
 
-<section ng-controller="home_bosanpham_controller" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+<section ng-controller="home_bosanpham_controller" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model), @Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.sameProduct))">
     <h1 class="title text-center" style="font-family: 'Galdeano',sans-serif,nanum gothic,dotum,verdana; font-size: 50px;">
         @Model.branch
     </h1>
@@ -16,41 +16,13 @@
 
     <div class="product-details">
         <!--product-details-->
-        <div class="col-sm-3 col-sm-offset-2 text-center">
-            <div class="view-product">
-                <img src="{{first_img.link}}" title="Phóng to" alt="Phóng to" style="cursor:pointer;" data-toggle="modal" data-target="#myModalImage">
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="product-information">
-                <h2>{{name}}</h2>
-                <p></p>
-                <span>
-                    <span>{{price | number}}VND</span>
-                    <label>Số lượng:</label>
-                    <input type="number" ng-model="soluong" min="1" />
-                    <button type="button" class="btn btn-fefault cart" ng-click="showproductsdetail()" data-toggle="modal" data-target="#myModal">
-                        <i class="fa fa-shopping-cart"></i>
-                        Thêm vào giỏ
-                    </button>
-                </span>
-                <p>
-                    <b>Tình trạng:</b>
-                    <span ng-show="{{isStock}}">Còn sản phẩm</span>
-                    <span ng-hide="{{isStock}}">Hết sản phẩm</span>
-                </p>
-                <p><b>Brand:</b> @Model.branch</p>
-                <p><b>Mô tả:</b> @Html.Raw(Model.MoTa)</p>
-                <p><b>Màu:</b> {{product.color}}</p>
-                <p><b>Kích thước:</b> {{product.size}}</p>
-            </div>
 
-            <div class="product-information">
-                <h2>Hình ảnh</h2>
+        <div class="col-sm-12">
+            <div class="col-sm-1 col-sm-offset-1" style="padding-right: 0px; padding-left: 0px;">
                 <div id="similar-product" class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                        <div class="item active">
+                        <div class="item active text-center">
                             <div class="my_div_product_image" ng-repeat="img in imgs" ng-mouseenter="hoverimageproduct(img)">
                                 <img ng-src="{{img.link}}" alt="{{img.number}}" class="my_product_image">
                             </div>
@@ -58,6 +30,72 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-4 text-center">
+                <div class="view-product">
+                    <img src="{{first_img.link}}" title="Phóng to" alt="Phóng to" style="cursor:-webkit-zoom-in;" data-toggle="modal" data-target="#myModalImage">
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="product-information">
+                    <h2>{{name}}</h2>
+                    <p></p>
+                    <span>
+                        <span>{{price | number}}VND</span>
+                        <label>Số lượng:</label>
+                        <input type="number" ng-model="soluong" min="1" />
+                        <button type="button" class="btn btn-fefault cart" ng-click="showproductsdetail()" data-toggle="modal" data-target="#myModal">
+                            <i class="fa fa-shopping-cart"></i>
+                            Thêm vào giỏ
+                        </button>
+                    </span>
+                    <p>
+                        <b>Tình trạng:</b>
+                        <span ng-show="{{isStock}}">Còn sản phẩm</span>
+                        <span ng-hide="{{isStock}}">Hết sản phẩm</span>
+                    </p>
+                    <p><b>Thương hiệu:</b> @Model.branch</p>
+                    <p><b>Mô tả:</b> @Html.Raw(Model.MoTa)</p>
+                    <p><b>Màu:</b> {{product.color}}</p>
+                    <p><b>Kích thước:</b> {{product.size}}</p>
+                </div>
+
+                <br />
+                <!--Anthor Product-->
+                <div class="recommended_items">
+                    <!--recommended_items-->
+                    <h2 class="title text-center">Xem thêm</h2>
+
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend1.jpg" alt="">
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!--/Anthor Product-->
+            </div>
+        </div>
+
+        <hr />
+        <div class="col-sm-12">
+
         </div>
     </div>
 
@@ -120,9 +158,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    function showMenu() {
-
-    }
-</script>

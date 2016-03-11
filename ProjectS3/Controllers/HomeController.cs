@@ -161,6 +161,22 @@ namespace ProjectS3.Controllers
                     size = item.Size
                 };
 
+                List<BranchListProdcut> sameProduct = (from prduc in db.SanPham
+                                                       where prduc.Branches == item.Branches && prduc.TinhTrang == "ENABLE"
+                                                       select new BranchListProdcut()
+                                                       {
+                                                           ID = prduc.ID,
+                                                           Name = prduc.Ten,
+                                                           Price = prduc.DioGia * tygia_WonVND * hesonhan,
+                                                           BranchID = prduc.ProductBranches.Id,
+                                                           BranchName = prduc.ProductBranches.Name,
+                                                           TypeID = (int)prduc.Type,
+                                                           TypeName = prduc.ProductTypes.Name,
+                                                           linkImage = prduc.linkanh
+                                                       }
+                                                    ).ToList();
+
+                ViewBag.sameProduct = sameProduct;
                 return View(sanpham);
             }
             return HttpNotFound();
@@ -238,18 +254,6 @@ namespace ProjectS3.Controllers
             }
             else
             {
-                //MyDynamicValues dynamic = new MyDynamicValues();
-                //float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
-                //float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
-                //List<SanPham> list = db.SanPham.Where(t => t.ProductBranches.Name == id && t.TinhTrang == "ENABLE").ToList();
-                //ViewBag.Branch = branch.Name;
-
-                //for (int i = 0; i < list.Count; i++)
-                //{
-                //    list[i].DioGia = list[i].DioGia * tygia_WonVND * hesonhan;
-                //    list[i].linkanh = list[i].linkanh.Split(';')[0];
-                //}
-
                 MyDynamicValues dynamic = new MyDynamicValues();
                 float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
                 float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
@@ -268,6 +272,7 @@ namespace ProjectS3.Controllers
                                                         linkImage = sanpham.linkanh
                                                     }
                                                     ).ToList();
+
                 ViewBag.Branch = branch.Name;
                 ViewBag.BanngerImages = branch.linkBanerImage;
 

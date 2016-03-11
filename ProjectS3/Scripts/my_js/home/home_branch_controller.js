@@ -5,6 +5,7 @@
         $scope.myCount = 0;
         $scope.products = [];
         $scope.catelories = [];
+        $scope.myColum = 1;
 
         $scope.init = function (sanpham, myimagebanner) {
             cart_service.init();
@@ -22,11 +23,28 @@
                 myObject.TypeID = sanpham[i].TypeID;
                 myObject.TypeName = sanpham[i].TypeName;
                 myObject.isShow = true;
-
-                myObject.currentImage = $scope.listproductimage[0];
+                myObject.currentImage = $scope.listproductimage[0];               
 
                 $scope.products.push(myObject);
                 $scope.pushCatelories(myObject);
+            }
+
+            $scope.divideItemToColum();
+        }
+
+        // Chia sản phẩm được hiển thị (isshow = true) vào 3 cột.
+        $scope.divideItemToColum = function()
+        {
+            for(var i = 0; i < $scope.products.length; i++)
+            {
+                if ($scope.products[i].isShow)
+                {
+                    $scope.products[i].columNumber = $scope.myColum;
+                    $scope.myColum += 1;
+                    if ($scope.myColum == 4) {
+                        $scope.myColum = 1;
+                    }
+                }               
             }
         }
 
