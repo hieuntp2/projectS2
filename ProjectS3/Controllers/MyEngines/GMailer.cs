@@ -72,7 +72,7 @@ namespace ProjectS3.Controllers.MyEngines
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
-                Port = 25,
+                Port = 587,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = true,
