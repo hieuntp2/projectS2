@@ -63,6 +63,10 @@ namespace ProjectS3
                 ClientId = "899516168115-a1mslpo8ghi1rcmdk00p5jlkoik4pfa1.apps.googleusercontent.com",
                 ClientSecret = "ouHHpS_tzk0TO2uP2MecAovO"
             });
+
+
         }
+
+
     }
 }
