@@ -34,8 +34,6 @@
             $scope.isStock = sanpham.isInstock;
 
             $scope.processSameProduct(sameProducts);
-            alert($scope.sameProductsPage[0][0].length);
-
             $scope.processProductInfor();
         }
 
@@ -46,18 +44,20 @@
             for (var i = 0; i < number_page; i++) {
                 
                 var products = [];
-                
-                for (var j = 0; j < 2; j++) {
+                products.number_page = i;
+
+                for (var j = 0; j < 3; j++) {
                     var current_index = i * 3 + j;
                     if (current_index == sameProducts.length - 1) {
                         break;
                     }
                     else {
+                        sameProducts[current_index].linkanh = sameProducts[current_index].linkImage.split(';')[0];
                         products.push(sameProducts[current_index]);
                     }                   
                 }
 
-                $scope.sameProductsPage[i].push(products);
+                $scope.sameProductsPage.push(products);
             }
         }
 

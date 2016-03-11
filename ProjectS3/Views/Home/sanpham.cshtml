@@ -59,6 +59,7 @@
                     <p><b>Kích thước:</b> {{product.size}}</p>
                 </div>
 
+
                 <br />
                 <!--Anthor Product-->
                 <div class="recommended_items">
@@ -67,14 +68,18 @@
 
                     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-4">
+                            <div ng-repeat="page in sameProductsPage" ng-class="page.number_page == 0? 'item active': 'item'">
+                                <div class="col-sm-4" ng-repeat="item in page">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="images/home/recommend1.jpg" alt="">
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
+                                                <a ng-href="/home/sanpham/{{item.ID}}" >
+                                                    <div style="height: 200px; margin:auto;" class="my_home_sanpham_simple_div">
+                                                        <img ng-src="{{item.linkanh}}" alt="" class="my_home_sanpham_simple_img">
+                                                    </div>                                                  
+                                                    <h2>{{item.Price}}</h2>
+                                                    <p>{{item.Name}}</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
