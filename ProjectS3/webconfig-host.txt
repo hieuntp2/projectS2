@@ -11,7 +11,6 @@
   <connectionStrings>
     <add name="DefaultConnection" connectionString="data source=2941051b-5a05-4173-a864-a5bc00f39350.sqlserver.sequelizer.com;initial catalog=db2941051b5a054173a864a5bc00f39350;persist security info=True;user id=gzuvrtaazakrhupg;password=oF3q8fBJJvgxuqdUxwPRAFAM5WHVGTLnZiuBSA4jCmqsMLMP7Ms5gZVQeotjDNbY;integrated security=False;" providerName="System.Data.SqlClient" />
     <add name="ProjectS3Entities" connectionString="metadata=res://*/Models.DBModel.csdl|res://*/Models.DBModel.ssdl|res://*/Models.DBModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=2941051b-5a05-4173-a864-a5bc00f39350.sqlserver.sequelizer.com;initial catalog=db2941051b5a054173a864a5bc00f39350;persist security info=True;user id=gzuvrtaazakrhupg;password=oF3q8fBJJvgxuqdUxwPRAFAM5WHVGTLnZiuBSA4jCmqsMLMP7Ms5gZVQeotjDNbY;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
-
   </connectionStrings>
   <appSettings>
     <add key="webpages:Version" value="3.0.0.0" />
@@ -20,6 +19,7 @@
     <add key="UnobtrusiveJavaScriptEnabled" value="true" />
   </appSettings>
   <system.web>
+    <globalization culture="en-US" uiCulture="en-US" />
     <authentication mode="None" />
     <compilation debug="true" targetFramework="4.5.1" />
     <httpRuntime targetFramework="4.5.1" />
@@ -38,6 +38,22 @@
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <dependentAssembly>
+        <assemblyIdentity name="log4net" publicKeyToken="669E0DDF0BB1AA2A" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.2.15.0" newVersion="1.2.15.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31BF3856AD364E35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.6.5135.21930" newVersion="1.6.5135.21930" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Antlr3.Runtime" publicKeyToken="EB42632606E9261F" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.AI.Agent.Intercept" publicKeyToken="31BF3856AD364E35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.2.1.0" newVersion="1.2.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
         <assemblyIdentity name="Microsoft.Owin.Security" publicKeyToken="31bf3856ad364e35" />
         <bindingRedirect oldVersion="0.0.0.0-3.0.1.0" newVersion="3.0.1.0" />
       </dependentAssembly>
@@ -55,7 +71,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Newtonsoft.Json" culture="neutral" publicKeyToken="30ad4fe6b2a6aeed" />
-        <bindingRedirect oldVersion="0.0.0.0-7.0.0.0" newVersion="7.0.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.0.0" newVersion="8.0.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Optimization" publicKeyToken="31bf3856ad364e35" />
@@ -63,7 +79,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="0.0.0.0-1.5.2.14234" newVersion="1.5.2.14234" />
+        <bindingRedirect oldVersion="0.0.0.0-1.6.5135.21930" newVersion="1.6.5135.21930" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
@@ -71,15 +87,27 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="1.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
         <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
       </dependentAssembly>
       <dependentAssembly>
+        <assemblyIdentity name="log4net" publicKeyToken="669e0ddf0bb1aa2a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.2.15.0" newVersion="1.2.15.0" />
+      </dependentAssembly>
+      <dependentAssembly>
         <assemblyIdentity name="System.Net.Http.Primitives" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-4.2.29.0" newVersion="4.2.29.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.AI.Agent.Intercept" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.2.1.0" newVersion="1.2.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Antlr3.Runtime" publicKeyToken="eb42632606e9261f" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" />
       </dependentAssembly>
     </assemblyBinding>
   </runtime>
