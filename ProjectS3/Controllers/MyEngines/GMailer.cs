@@ -17,8 +17,8 @@ namespace ProjectS3.Controllers.MyEngines
             string body = messagebody;
 
 
-            var fromAddress = new MailAddress(myfromemail, "From Name");
-            var toAddress = new MailAddress(mytoemail, "To Name");
+            var fromAddress = new MailAddress(myfromemail, "Website Inthef.vn");
+            var toAddress = new MailAddress(mytoemail, "Admin Inthef.vn");
             string fromPassword = mypassword;
 
             var smtp = new SmtpClient

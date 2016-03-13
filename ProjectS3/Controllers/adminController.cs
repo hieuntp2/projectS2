@@ -32,7 +32,7 @@ namespace ProjectS3.Controllers
         public ActionResult testSendEmail()
         {
             MyEngines.GMailer gmail = new MyEngines.GMailer();
-            gmail.Send("Test email!", "This is test-email");
+            gmail.Send("Test email!", "Nếu bạn thấy email này, có nghĩa website đã được cài đặt thành công gửi email thông báo đến admin.");
             return RedirectToAction("Index");
         }
 
@@ -178,14 +178,33 @@ namespace ProjectS3.Controllers
         /// <param name="tygia"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> hesonhangia(string tygia)
+        public async Task<ActionResult> hesonhangia(string my_heso_1, string my_heso_1_2, string my_heso_2_3, string my_heso_3)
         {
             MyDynamicValues dynamic = new MyDynamicValues();
-            if (MyEngines.MyStaticFunction.MyFloatParse(tygia) <= 0)
+            if (MyEngines.MyStaticFunction.MyFloatParse(my_heso_1) <= 0)
             {
                 return RedirectToAction("Index");
             }
-            await dynamic.setValue("hesonhan", tygia);
+            await dynamic.setValue("hesonhan_1", my_heso_1);
+
+            if (MyEngines.MyStaticFunction.MyFloatParse(my_heso_1_2) <= 0)
+            {
+                return RedirectToAction("Index");
+            }
+            await dynamic.setValue("hesonhan_1_2", my_heso_1_2);
+
+            if (MyEngines.MyStaticFunction.MyFloatParse(my_heso_2_3) <= 0)
+            {
+                return RedirectToAction("Index");
+            }
+            await dynamic.setValue("hesonhan_2_3", my_heso_2_3);
+
+            if (MyEngines.MyStaticFunction.MyFloatParse(my_heso_3) <= 0)
+            {
+                return RedirectToAction("Index");
+            }
+            await dynamic.setValue("hesonhan_3", my_heso_3);
+
             return RedirectToAction("Index");
         }
     }
