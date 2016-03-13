@@ -1,7 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Hàng mã Bỉnh Phương";
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
-    List<ProjectS3.Models.BaiViet> baiviet = db.BaiViet.OrderBy(t => t.NgayDang).ToList();
     List<ProjectS3.Models.HeadItem> headitems = db.HeadItem.ToList();
 }
 
