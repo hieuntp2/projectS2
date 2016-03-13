@@ -60,8 +60,8 @@ namespace ProjectS3
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "792547762801-sdv1eqkjn7kt3tmr3gp536s7v4rgg65d.apps.googleusercontent.com",
-                ClientSecret = "IdYagJc57PfV8o7KaRzvO8LJ"
+                ClientId = "638322026914-6k6ibelabdgl7fst50qpdghgns2tla3s.apps.googleusercontent.com",
+                ClientSecret = "lQjKVAI2EOZNG-WcFPGVORjC"
             });
 
 

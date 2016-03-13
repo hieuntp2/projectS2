@@ -24,6 +24,8 @@ namespace ProjectS3.Controllers.MyEngines
 {
     public class GMailer
     {
+        //static string[] Scopes = { GmailService.Scope.GmailReadonly };
+        //static string ApplicationName = "Gmail API .NET Quickstart";
         //public void Send(string subject, string messagebody)
         //{
         //    MyDynamicValues mydynamic = new MyDynamicValues();
@@ -37,6 +39,32 @@ namespace ProjectS3.Controllers.MyEngines
         //    string mysj = "Inthef.vn: " + subject;
         //    string body = messagebody;
 
+        //    UserCredential credential;
+
+        //    string url_file = System.Web.VirtualPathUtility.ToAbsolute("~/App_Data/client_secret.json");
+
+        //    using (var stream = new FileStream(url_file, FileMode.Open, FileAccess.Read))
+        //    {
+        //        string credPath = System.Environment.GetFolderPath(
+        //            System.Environment.SpecialFolder.Personal);
+        //        credPath = Path.Combine(credPath, ".credentials/gmail-dotnet-quickstart.json");
+
+        //        credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+        //            GoogleClientSecrets.Load(stream).Secrets,
+        //            Scopes,
+        //            "user",
+        //            CancellationToken.None,
+        //            new FileDataStore(credPath, true)).Result;
+        //        Console.WriteLine("Credential file saved to: " + credPath);
+        //    }
+
+        //    // Create Gmail API service.
+        //    var gmail = new GmailService(new BaseClientService.Initializer()
+        //    {
+        //        HttpClientInitializer = credential,
+        //        ApplicationName = ApplicationName,
+        //    });
+
         //    var msg = new AE.Net.Mail.MailMessage
         //    {
         //        Subject = mysj,
@@ -48,7 +76,7 @@ namespace ProjectS3.Controllers.MyEngines
         //    var msgStr = new StringWriter();
         //    msg.Save(msgStr);
 
-        //    var gmail = new GmailService();
+            
         //    var result = gmail.Users.Messages.Send(new Message
         //    {
         //        Raw = Base64UrlEncode(msgStr.ToString())
@@ -59,16 +87,17 @@ namespace ProjectS3.Controllers.MyEngines
         //private static string Base64UrlEncode(string input)
         //{
         //    var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
-        //     //Special "url-safe" base64 encode.
+        //    //Special "url-safe" base64 encode.
         //    return Convert.ToBase64String(inputBytes)
         //      .Replace('+', '-')
         //      .Replace('/', '_')
         //      .Replace("=", "");
         //}
 
-        static GMailer()
-        {
-        }
+
+        //static GMailer()
+        //{
+        //}
 
         //public void Send(string subject, string messagebody)
         //{
@@ -188,35 +217,60 @@ namespace ProjectS3.Controllers.MyEngines
         //    }
         //}
 
+        //public void Send(string subject, string messagebody)
+        //{
+        //    var msg = new AE.Net.Mail.MailMessage
+        //    {
+        //        Subject = "Your Subject",
+        //        Body = "Hello, World, from Gmail API!",
+        //        From = new MailAddress("inthef.vn@gmail.com")
+        //    };
+        //    msg.To.Add(new MailAddress("hieuntp2@gmail.com"));
+        //    msg.ReplyTo.Add(msg.From); // Bounces without this!!
+        //    var msgStr = new StringWriter();
+        //    msg.Save(msgStr);
+
+        //    var gmail = new Google.Apis.Gmail.v1.GmailService();
+        //    var result = gmail.Users.Messages.Send(new Message
+        //    {
+        //        Raw = Base64UrlEncode(msgStr.ToString())
+        //    }, "me").Execute();
+        //    Console.WriteLine("Message ID {0} sent.", result.Id);
+        //}
+
+        //private static string Base64UrlEncode(string input)
+        //{
+        //    var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
+        //    // Special "url-safe" base64 encode.
+        //    return Convert.ToBase64String(inputBytes)
+        //      .Replace('+', '-')
+        //      .Replace('/', '_')
+        //      .Replace("=", "");
+        //}
+
         public void Send(string subject, string messagebody)
         {
-            var msg = new AE.Net.Mail.MailMessage
-            {
-                Subject = "Your Subject",
-                Body = "Hello, World, from Gmail API!",
-                From = new MailAddress("inthef.vn@gmail.com")
-            };
-            msg.To.Add(new MailAddress("hieuntp2@gmail.com"));
-            msg.ReplyTo.Add(msg.From); // Bounces without this!!
-            var msgStr = new StringWriter();
-            msg.Save(msgStr);
+            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("hieuntp2@gmail.com"));  // replace with valid value 
+            message.From = new MailAddress("1012134@student.hcmus.edu.vn");  // replace with valid value
+            message.Subject = "Your email subject";
+            message.Body = string.Format(body, "Hieu", "1012134@student.hcmus.edu.vn", "This is message");
+            message.IsBodyHtml = true;
 
-            var gmail = new Google.Apis.Gmail.v1.GmailService();
-            var result = gmail.Users.Messages.Send(new Message
+            using (var smtp = new SmtpClient())
             {
-                Raw = Base64UrlEncode(msgStr.ToString())
-            }, "me").Execute();
-            Console.WriteLine("Message ID {0} sent.", result.Id);
-        }
-
-        private static string Base64UrlEncode(string input)
-        {
-            var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
-            // Special "url-safe" base64 encode.
-            return Convert.ToBase64String(inputBytes)
-              .Replace('+', '-')
-              .Replace('/', '_')
-              .Replace("=", "");
+                var credential = new NetworkCredential
+                {
+                    UserName = "1012134@student.hcmus.edu.vn",  // replace with valid value
+                    Password = "blu3night"  // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp-mail.outlook.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(message);              
+            }
         }
     }
 }
