@@ -122,19 +122,13 @@ namespace ProjectS3.Controllers
                     for (int i = 0; i < chitiet.Count; i++)
                     {
                         int tempid = chitiet[i].id;
-                        SanPham sp = db.SanPham.SingleOrDefault(t => t.ID == tempid);
-                        if (sp == null)
-                        {
-                            MyEngines.MySystemLog.WriteLog("ERROR: /Cart/xacnhan:  Add to cart error: ID San Phan Cant not found: " + chitiet[i].id);
-                            continue;
-                        }
 
                         ChiTietDonHang item = new ChiTietDonHang();
                         item.IDDonHang = dh.ID;
                         item.IDSanPham = chitiet[i].id;
                         item.SoLuong = chitiet[i].soluong;
                         item.IDBoSanPham = chitiet[i].idbosanpham;
-                        item.DioGia = sp.DioGia * tygia_WonVND * hesonhan;
+                        item.DioGia = chitiet[i].dongia;
 
                         item.Size = chitiet[i].size;
                         item.Color = chitiet[i].color;
