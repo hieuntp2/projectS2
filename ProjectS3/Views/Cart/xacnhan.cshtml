@@ -21,7 +21,6 @@
                 </div>
 
                 <div class="box-body">
-
                     <div class="box box-info box-body" style="box-shadow: 5px 5px 5px #D7D7D7; border-top: 3px solid #FFFFFF !important;">
                         <h4>Thông tin người nhận</h4>
                         <div>
@@ -84,10 +83,16 @@
                         <div class="g-recaptcha" data-sitekey="6LdZwRoTAAAAANl9rFXqe4d8SOSXsvwB1fBSz64f" ng-model="validaterobot"></div>
                         <p style="color:red;">{{captchaAlert}}</p>
                     </div>
+
                 </div>
                 <div class="box-footer clearfix">
                     <button style="float:right;" class="btn btn-success" ng-click="xacnhan()">Mua hàng</button>
                     <button style="float:left;" class="btn btn-warning" ng-click="back()">Trở lại</button>
+                </div>
+
+
+                <div class="overlay" ng-show="isProcessing">
+                    <i class="fa fa-refresh fa-spin"></i>
                 </div>
             </div>
         </div>

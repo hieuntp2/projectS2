@@ -14,7 +14,7 @@
     <script src="~/scripts/my_js/home/home_index_controller.js"></script>
     <script src="~/scripts/jquery-2.1.4.min.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
-    <script src="~/content/myshopcontent/js/jquery.scrollUp.min.js"></script>
+
     <script src="~/content/myshopcontent/js/price-range.js"></script>
     <script src="~/content/myshopcontent/js/jquery.prettyPhoto.js"></script>
     <script src="~/content/myshopcontent/js/main.js"></script>
@@ -83,7 +83,7 @@
     @RenderBody()
     @Html.Partial("_gio_hang_modal")
 
-
+    <a href="/cart" class="btn btn-warning" id="mycartstatic" style="bottom: 5px; right: 10px; position: fixed;"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a>
     @Html.Partial("_footer")
     @RenderSection("Scripts", false)
 </body>

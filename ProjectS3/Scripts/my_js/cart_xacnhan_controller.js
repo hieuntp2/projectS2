@@ -9,6 +9,7 @@
         $scope.accecttoken = "";
         $scope.validaterobot = "";
         $scope.hoten = "";
+        $scope.isProcessing = false;
 
         $scope.init = function (diachi, dienthoai, thoigian, hoten) {
             cart_service.init();
@@ -53,14 +54,14 @@
 
             if ($scope.products.length >= 1) {
                 var config = $scope.getaccokent();
-
                 var response = grecaptcha.getResponse();
-
                 if(response.length == 0)
                 {
                     $scope.captchaAlert = "Bạn cần xác nhận mình không phải là robot!";
                     return;
                 }
+
+                $scope.isProcessing = true;
 
                 $http.post('../../cart/xacnhan',
                       {
@@ -73,20 +74,22 @@
                       }, config
                   ).
                 success(function (data, status, headers, config) {
-
                     if (data == null) {
                         cart_service.clean();
                         $window.location.href = "../cart/thankyou?ID=" + data;
                     }
                     else {
+                        $scope.isProcessing = false;
                         alert("Lỗi khi xác nhận mua hàng!");
                     }
                 }).
                 error(function (data, status, headers, config) {
+                    $scope.isProcessing = false;
                     alert("Lỗi khi xác nhận mua hàng!")
                 });
             }
             else {
+                $scope.isProcessing = false;
                 alert("Giỏ hàng trống! Bạn cần chọn sản phẩm trước");
             }
         }

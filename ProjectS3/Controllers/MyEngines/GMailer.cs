@@ -7,7 +7,7 @@ namespace ProjectS3.Controllers.MyEngines
 {
     public class GMailer
     {
-        public Task Send(string subject, string messagebody)
+        public void Send(string subject, string messagebody)
         {
             MyDynamicValues mydynamic = new MyDynamicValues();
             string mytoemail = mydynamic.getValue("toemail");
@@ -38,10 +38,8 @@ namespace ProjectS3.Controllers.MyEngines
                 Body = body
             })
             {
-                smtp.SendMailAsync(message);
+                smtp.Send(message);
             }
-
-            return null;
         }
     }
 }
