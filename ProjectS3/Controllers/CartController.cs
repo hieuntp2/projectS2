@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using ProjectS3.Controllers.MyEngines;
 using Newtonsoft.Json;
 using System.Net;
+using System.Text.RegularExpressions;
 namespace ProjectS3.Controllers
 {
     public class CartController : Controller
@@ -50,7 +51,7 @@ namespace ProjectS3.Controllers
             List<SanPhamTrongGioHang> chitiet, string captval)
         {            
             //secret that was generated in key value pair
-            const string secret = "6LdcvhoTAAAAACcr5w_9ShJ5eI98k4oveNDYy1EX";
+            const string secret = "6LdZwRoTAAAAAEOn-B188a6bk-Yr7wrRhf8yLT6j";
 
             var client = new WebClient();
             var reply =
@@ -145,7 +146,13 @@ namespace ProjectS3.Controllers
 
                     // sendmessage to gmail
                     GMailer gmail = new GMailer();
-                    gmail.Send("Đơn đặt hàng mới", "Đơn đặt hàng mới + " + dh.ID + ". Ngày hết hạn: " + dh.ThoiGianGiao);
+
+                    string mylink = "<a hreft='http://inthef.vn/admin''>Website</a>";
+                    Regex r = new Regex(@"(https?://[^\s]+)");
+                    mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
+
+                    var messagebody = "Đơn đặt hàng mới + " + dh.ID + mylink + ". Ngày hết hạn: " + dh.ThoiGianGiao;
+                    gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
                     return dh.ID.ToString();
                 }
             }

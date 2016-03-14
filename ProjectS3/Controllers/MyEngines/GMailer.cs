@@ -1,12 +1,13 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using System.Threading.Tasks;
 
 
 namespace ProjectS3.Controllers.MyEngines
 {
     public class GMailer
     {
-        public void Send(string subject, string messagebody)
+        public Task Send(string subject, string messagebody)
         {
             MyDynamicValues mydynamic = new MyDynamicValues();
             string mytoemail = mydynamic.getValue("toemail");
@@ -37,12 +38,10 @@ namespace ProjectS3.Controllers.MyEngines
                 Body = body
             })
             {
-                smtp.Send(message);
-#if DEBUG
-#else
-                smtp.Send(message);
-#endif
+                smtp.SendMailAsync(message);
             }
+
+            return null;
         }
     }
 }
