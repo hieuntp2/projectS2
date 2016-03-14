@@ -74,7 +74,7 @@
                       }, config
                   ).
                 success(function (data, status, headers, config) {
-                    if (data == null) {
+                    if (data != null) {
                         cart_service.clean();
                         $window.location.href = "../cart/thankyou?ID=" + data;
                     }

@@ -141,11 +141,11 @@ namespace ProjectS3.Controllers
                     // sendmessage to gmail
                     GMailer gmail = new GMailer();
 
-                    string mylink = "<a hreft='http://inthef.vn/admin''>Website</a>";
+                    string mylink = "<a hreft='http://inthef.vn/admin'>Đơn đặt hàng</a>";
                     Regex r = new Regex(@"(https?://[^\s]+)");
                     mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
 
-                    var messagebody = "Đơn đặt hàng mới + " + dh.ID + mylink + ". Ngày hết hạn: " + dh.ThoiGianGiao;
+                    var messagebody = "Đơn đặt hàng mới + " + dh.ID + mylink + ". <br/> Ngày hết hạn: " + dh.ThoiGianGiao;
                     gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
                     return dh.ID.ToString();
                 }
