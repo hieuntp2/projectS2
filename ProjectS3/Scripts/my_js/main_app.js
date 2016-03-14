@@ -60,6 +60,8 @@ app.service('my_function_services', function ($http) {
 app.service('cart_service', function ($window) {
 
     var cart = [];
+    var lastupdate;
+
     var count_number = 0;
 
     var add_product_to_cart = function (product, idbosanpham, tenbosanpham) {
@@ -85,6 +87,10 @@ app.service('cart_service', function ($window) {
 
         item.count_number = count_number + 1;
         count_number += 1;
+
+        var currenttime = new Date();
+        lastupdate = currenttime;
+        alert(lastupdate);
         cart.push(item);
         save_cart();
     }
@@ -113,21 +119,34 @@ app.service('cart_service', function ($window) {
             count_number += 1;
             cart.push(item);
         }
-        save_cart();
-        
+        var currenttime = new Date();
+        lastupdate = currenttime;
+        save_cart();        
     }
 
     var save_cart = function () {
         localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("lastupdate", lastupdate);
     }
 
     var loadcart = function () {
         cart = JSON.parse(localStorage.getItem("cart"));
+        lastupdate = localStorage.getItem("lastupdate");
         remove_double_item();
     }
 
     var init = function () {
-        loadcart();
+        var now = new Date();
+        lastupdate = new Date(localStorage.getItem("lastupdate"));
+
+        var diff = Math.abs(now.getTime() - lastupdate.getTime()) / 3600000;
+        if (diff < 18) {
+            loadcart();
+        }
+        else {
+            // Nếu lâu hơn 1 giờ thì xóa các sản phẩm trong bộ nhớ tạm
+            clean();
+        }       
     }
 
     var clean = function () {
@@ -169,6 +188,13 @@ app.service('cart_service', function ($window) {
         }
         return null;
     }
+
+    var getLastUpdate = function ()
+    {
+        lastupdate = localStorage.getItem("lastupdate");
+        return lastupdate;
+    }
+
     return {
         add_product_to_cart: add_product_to_cart,
         init: init,
@@ -179,7 +205,8 @@ app.service('cart_service', function ($window) {
         removeproduct: removeproduct,
         getitemincart: getitemincart,
         save_cart: save_cart,
-        add_list_product_to_cart: add_list_product_to_cart
+        add_list_product_to_cart: add_list_product_to_cart,
+        getLastUpdate: getLastUpdate
     }
 })
 

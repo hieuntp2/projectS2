@@ -2,12 +2,14 @@
     function ($scope, $rootScope, $http, $window, my_function_services, cart_service) {
         $scope.products = [];
         $scope.totalamount = 0;
+        $scope.lastUpdate;
 
         $scope.init = function () {
             cart_service.init();
             cart_service.remove_double_item();
             $scope.products = cart_service.getcart();
             $scope.counttotalamount();
+            $scope.lastUpdate = cart_service.getLastUpdate();
         }
 
         $scope.counttotalamount = function () {

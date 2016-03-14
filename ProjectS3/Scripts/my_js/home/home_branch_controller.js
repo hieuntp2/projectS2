@@ -12,14 +12,14 @@
             $scope.initBannerImage(myimagebanner);
             for (var i = 0; i < sanpham.length; i++) {
                 // pasre and add to list image
-                $scope.listproductimage = my_function_services.pasreimg(sanpham[i].linkImage);
+                $scope.listproductimage = my_function_services.pasreimg(sanpham[i].linkanh);
 
                 var myObject = {};
                 myObject.ID = sanpham[i].ID
-                myObject.Name = sanpham[i].Name;
-                myObject.Price = sanpham[i].Price;
-                myObject.BranchID = sanpham[i].BranchID;
-                myObject.BranchName = sanpham[i].BranchName;
+                myObject.Name = sanpham[i].Ten;
+                myObject.Price = sanpham[i].DonGia;
+                myObject.BranchID = sanpham[i].brandID;
+                myObject.BranchName = sanpham[i].branch;
                 myObject.TypeID = sanpham[i].TypeID;
                 myObject.TypeName = sanpham[i].TypeName;
                 myObject.isShow = true;
@@ -148,7 +148,7 @@
             $scope.product.number = $scope.soluong;
             cart_service.add_product_to_cart($scope.product);
             $rootScope.$broadcast('cart_index_controller::recount_amount');
-            alert("Đã thêm vào giỏ hàng");
+            window.location.href = "../../cart";
         }
 
         $scope.themnhieuvaogiohang = function () {
@@ -169,8 +169,8 @@
             $scope.product.number = $scope.soluong;
             cart_service.add_list_product_to_cart($scope.product, $scope.tempProducts);
 
-            alert("Đã thêm vào giỏ hàng");
             $('#myModal').modal('hide');
+            window.location.href = "../../cart";
         }
 
         $scope.showimage = function (link) {

@@ -62,7 +62,7 @@
     margin-right: auto;
     cursor: pointer;
     margin-left: 0px !important;
-    padding-top:5px;
+    padding-top: 5px;
 }
 
 .my_div_product_image {
@@ -76,10 +76,21 @@
 .my_img_products_banner {
     width: 100%;
 }
-.my_home_sanpham_simple_img{
 
+.my_home_sanpham_simple_img {
 }
 
-.my_home_sanpham_simple_div{
+.my_home_sanpham_simple_div {
+    display: flex;
+    align-items: center;
+}
+
+.home_brand_div_cover_prodcut_image {
+    height: 370px;
+    display: flex;
+    align-items: center;
+}
+
+.product-image-wrapper:hover{
 
 }

@@ -16,14 +16,13 @@
 
     <div class="product-details">
         <!--product-details-->
-
         <div class="col-sm-12">
             <div class="col-sm-1 col-sm-offset-1" style="padding-right: 0px; padding-left: 0px;">
                 <div id="similar-product" class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active text-center">
-                            <div class="my_div_product_image" ng-repeat="img in imgs" ng-mouseenter="hoverimageproduct(img)">
+                            <div class="my_div_product_image hvr-grow" ng-repeat="img in imgs" ng-mouseenter="hoverimageproduct(img)">
                                 <img ng-src="{{img.link}}" alt="{{img.number}}" class="my_product_image">
                             </div>
                         </div>
@@ -53,54 +52,52 @@
                         <span ng-show="{{isStock}}">Còn sản phẩm</span>
                         <span ng-hide="{{isStock}}">Hết sản phẩm</span>
                     </p>
-                    <p><b>Thương hiệu:</b> @Model.branch</p>
-                    <p><b>Mô tả:</b> @Html.Raw(Model.MoTa)</p>
+                    <p><b>Thương hiệu:</b> @Model.branch</p>                   
                     <p><b>Màu:</b> {{product.color}}</p>
                     <p><b>Kích thước:</b> {{product.size}}</p>
+                    <p><b>Mô tả:</b> @Html.Raw(Model.MoTa)</p>
                 </div>
+            </div>
+        </div>
 
+        <div class="clearfix"></div>
+        <hr />
 
-                <br />
-                <!--Anthor Product-->
-                <div class="recommended_items">
-                    <!--recommended_items-->
-                    <h2 class="title text-center">Xem thêm</h2>
+        <div class="col-sm-12">
+            <!--Anthor Product-->
+            <div class="recommended_items">
+                <!--recommended_items-->
+                <h2 class="title text-center">Xem thêm</h2>
 
-                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div ng-repeat="page in sameProductsPage" ng-class="page.number_page == 0? 'item active': 'item'">
-                                <div class="col-sm-4" ng-repeat="item in page">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <a ng-href="/home/sanpham/{{item.ID}}" >
-                                                    <div style="height: 200px; margin:auto;" class="my_home_sanpham_simple_div">
-                                                        <img ng-src="{{item.linkanh}}" alt="" class="my_home_sanpham_simple_img">
-                                                    </div>                                                  
-                                                    <h2>{{item.Price}}</h2>
-                                                    <p>{{item.Name}}</p>
-                                                </a>
-                                            </div>
+                <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div ng-repeat="page in sameProductsPage" ng-class="page.number_page == 0? 'item active': 'item'">
+                            <div class="col-sm-2" ng-repeat="item in page">
+                                <div class="product-image-wrapper hvr-box-shadow-outset" style="height:320px;">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center" style="max-width: 200px;">
+                                            <a ng-href="/home/sanpham/{{item.ID}}" style="text-decoration:none;">
+                                                <div style="height: 200px; max-width:200px; margin:auto;" class="my_home_sanpham_simple_div">
+                                                    <img ng-src="{{item.linkanh}}" alt="" class="my_home_sanpham_simple_img" style=" max-width: 200px;">
+                                                </div>
+                                                <h2>{{item.DonGia | number}} VNĐ</h2>
+                                                <p>{{item.Ten}}</p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
                     </div>
+                    <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 </div>
-                <!--/Anthor Product-->
             </div>
-        </div>
-
-        <hr />
-        <div class="col-sm-12">
-
+            <!--/Anthor Product-->
         </div>
     </div>
 

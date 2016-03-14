@@ -38,6 +38,10 @@ namespace ProjectS3.Controllers.MyEngines
             })
             {
                 smtp.Send(message);
+#if DEBUG
+#else
+                smtp.Send(message);
+#endif
             }
         }
     }

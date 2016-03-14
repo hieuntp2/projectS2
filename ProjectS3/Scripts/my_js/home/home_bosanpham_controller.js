@@ -36,7 +36,7 @@
             }
             
             $rootScope.$broadcast('cart_index_controller::recount_amount');
-            alert("Đã thêm vào giỏ hàng");           
+            window.location.href = "../../cart";
         }
 
         $scope.showimage = function(link)

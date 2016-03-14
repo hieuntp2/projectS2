@@ -144,16 +144,12 @@ namespace ProjectS3.Controllers
             SanPham item = db.SanPham.SingleOrDefault(t => t.ID == id && t.TinhTrang == "ENABLE");
             if (item != null)
             {
-                MyDynamicValues dynamic = new MyDynamicValues();
-                float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
-                float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
-
                 SanPhamReturn sanpham = new SanPhamReturn
                 {
                     Ten = item.Ten,
                     ID = item.ID,
                     MoTa = item.MoTa,
-                    DonGia = item.DioGia * hesonhan * tygia_WonVND,
+                    DonGia = item.DioGia,
                     linkanh = item.linkanh,
                     branch = item.ProductBranches.Name,
                     isInstock = (item.SoLuong != 0 ? true : false),
@@ -161,18 +157,18 @@ namespace ProjectS3.Controllers
                     size = item.Size
                 };
 
-                List<BranchListProdcut> sameProduct = (from prduc in db.SanPham
+                List<SanPhamReturn> sameProduct = (from prduc in db.SanPham
                                                        where prduc.Branches == item.Branches && prduc.TinhTrang == "ENABLE"
-                                                       select new BranchListProdcut()
+                                                       select new SanPhamReturn()
                                                        {
                                                            ID = prduc.ID,
-                                                           Name = prduc.Ten,
-                                                           Price = prduc.DioGia * tygia_WonVND * hesonhan,
-                                                           BranchID = prduc.ProductBranches.Id,
-                                                           BranchName = prduc.ProductBranches.Name,
+                                                           Ten = prduc.Ten,
+                                                           DonGia = prduc.DioGia,
+                                                           brandID = prduc.ProductBranches.Id,
+                                                           branch = prduc.ProductBranches.Name,
                                                            TypeID = (int)prduc.Type,
                                                            TypeName = prduc.ProductTypes.Name,
-                                                           linkImage = prduc.linkanh
+                                                           linkanh = prduc.linkanh
                                                        }
                                                     ).ToList();
 
@@ -254,22 +250,18 @@ namespace ProjectS3.Controllers
             }
             else
             {
-                MyDynamicValues dynamic = new MyDynamicValues();
-                float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
-                float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
-
-                List<BranchListProdcut> list = (from sanpham in db.SanPham
+                List<SanPhamReturn> list = (from sanpham in db.SanPham
                                                 where sanpham.Branches == branch.Id && sanpham.TinhTrang == "ENABLE"
-                                                select new BranchListProdcut()
+                                            select new SanPhamReturn()
                                                     {
                                                         ID = sanpham.ID,
-                                                        Name = sanpham.Ten,
-                                                        Price = sanpham.DioGia * tygia_WonVND * hesonhan,
-                                                        BranchID = sanpham.ProductBranches.Id,
-                                                        BranchName = sanpham.ProductBranches.Name,
+                                                        Ten = sanpham.Ten,
+                                                        DonGia = sanpham.DioGia,
+                                                        brandID = sanpham.ProductBranches.Id,
+                                                        branch = sanpham.ProductBranches.Name,
                                                         TypeID = (int)sanpham.Type,
                                                         TypeName = sanpham.ProductTypes.Name,
-                                                        linkImage = sanpham.linkanh
+                                                        linkanh = sanpham.linkanh
                                                     }
                                                     ).ToList();
 
@@ -280,21 +272,62 @@ namespace ProjectS3.Controllers
             }
         }
     }
-    public class listSanPham
-    {
 
-    }
     public class SanPhamReturn
     {
         public string Ten { get; set; }
         public int ID { get; set; }
-        public double DonGia { get; set; }
+        private double _dongia;
+
+        public double DonGia
+        {
+            get
+            {
+                return this._dongia;
+            }
+            set
+            {
+                MyDynamicValues dynamic = new MyDynamicValues();
+                float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
+                double temp_Gia = value * tygia_WonVND;
+                float hesonhan = 1;
+
+                if (temp_Gia < 1000000)
+                {
+                    hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan_1"));
+                }
+                else
+                    if (temp_Gia < 2000000)
+                    {
+                        hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan_1_2"));
+                    }
+                    else
+                        if (temp_Gia < 3000000)
+                        {
+                            hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan_2_3"));
+                        }
+                        else
+                        {
+                            hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan_3"));
+                        }
+                this._dongia = hesonhan * temp_Gia;
+
+                // Làm tròn đến trăm nghìn
+                this._dongia = this._dongia / 1000;
+                this._dongia = Math.Round(this._dongia, 0) * 1000;
+            }
+        }
         public string MoTa { get; set; }
         public string linkanh { get; set; }
         public string branch { get; set; }
         public bool isInstock { get; set; }
         public string color { get; set; }
         public string size { get; set; }
+
+        public int brandID { get; set; }
+        public int TypeID { get; set; }
+        public string TypeName { get; set; }
+
     }
 
     public class BoSanPhamIndexModal
@@ -327,19 +360,18 @@ namespace ProjectS3.Controllers
         public double DonGia { get; set; }
         public string MoTa { get; set; }
         public string linkanh { get; set; }
-
         public int GiaThuongMua { get; set; }
     }
 
-    public class BranchListProdcut
-    {
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string BranchName { get; set; }
-        public int BranchID { get; set; }
-        public string linkImage { get; set; }
-        public string TypeName { get; set; }
-        public int TypeID { get; set; }
-        public double Price { get; set; }
-    }
+    //public class BranchListProdcut
+    //{
+    //    public string Name { get; set; }
+    //    public int ID { get; set; }
+    //    public string BranchName { get; set; }
+    //    public int BranchID { get; set; }
+    //    public string linkImage { get; set; }
+    //    public string TypeName { get; set; }
+    //    public int TypeID { get; set; }
+    //    public double Price { get; set; }
+    //}
 }

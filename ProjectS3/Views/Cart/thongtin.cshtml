@@ -19,13 +19,14 @@
                     <h3>
                         Thông tin nơi nhận hàng
                     </h3>
-                </div>
+                </div>               
                 @using (Html.BeginForm("thongtin", "cart", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
+                {  
                     <div class="box-body">
 
-                        @Html.AntiForgeryToken()
-
+                    @Html.AntiForgeryToken()
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <div class="form-group">
                             <div class="col-md-3 control-label">
                                 <label>Tên người mua</label>
@@ -76,7 +77,63 @@
                                 <p style="color:red;">@Html.ValidationMessageFor(m => m.ThoiGianGiao)</p>
                             </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="col-md-3 control-label">
+                                <label>Tên người mua</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control" })                                  
+                                </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.HoTen)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SoDienThoai, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control"})
+                                </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.SoDienThoai)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DiaChiGiao, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa  fa-map-marker"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.DiaChiGiao, new { @class = "form-control"})
+                                </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.DiaChiGiao)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ThoiGianGiao, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.ThoiGianGiao, new { @class = "form-control", @id = "datetimepicker1", @Value = DateTime.Now })
+                                </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.ThoiGianGiao)</p>
+                            </div>
+                        </div>
+                    }
+                 
+                </div>
                     <div class="box-footer clearfix">
                         <button style="float:right;" type="submit" class="btn btn-success">Tiếp tục thanh toán</button>
                         <button style="float:left; margin-right:5px;" class="btn btn-warning" onclick="backtocart()">Giỏ hàng</button>

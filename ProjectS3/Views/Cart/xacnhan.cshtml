@@ -13,7 +13,7 @@
 <section style="min-height:500px;">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            <div class="box box-info" ng-controller="cart_xacnhan_controller" ng-init="init('@Model.DiaChiGiao', '@Model.SoDienThoai', '@Model.ThoiGianGiao')">
+            <div class="box box-info" ng-controller="cart_xacnhan_controller" ng-init="init('@Model.DiaChiGiao', '@Model.SoDienThoai', '@Model.ThoiGianGiao', '@Model.HoTen')">
                 <div class="box-header">
                     <h3>
                         Xác nhận nhận mua hàng
@@ -26,7 +26,7 @@
                         <h4>Thông tin người nhận</h4>
                         <div>
                             <div class="col-lg-3"><span>Người nhận: </span></div>
-                            <div class="col-lg-9"><strong>@user.HoTen</strong></div>
+                            <div class="col-lg-9"><strong>@Model.HoTen</strong></div>
                             <br />
                             <div class="col-lg-3"><span>Số điện thoại: </span></div>
                             <div class="col-lg-9"><strong>@Model.SoDienThoai</strong></div>
@@ -75,11 +75,15 @@
                                     <td colspan="3"></td>
                                     <td>Tổng tiền</td>
                                     <td style="color:red;">{{totalamount | number}} VNĐ</td>
-
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
+
+                    <div class="g-recaptcha"
+                         data-sitekey="6LdcvhoTAAAAAK2A2TIexrNZTxuo-v_15tE_6rMj" ng-model="validaterobot"></div>
+                    <br />
+                    <input type="submit" value="Submit">
                 </div>
                 <div class="box-footer clearfix">
                     <button style="float:right;" class="btn btn-success" ng-click="xacnhan()">Mua hàng</button>

@@ -15,7 +15,7 @@
         $scope.modal_error_message = "";
         $scope.listproductimage = {};
         $scope.sameProductsPage = [];
-
+        $scope.max_product_per_page = 6;
         $scope.init = function (sanpham, sameProducts) {
             cart_service.init();
             $scope.id = sanpham.ID;
@@ -38,7 +38,7 @@
         }
 
         $scope.processSameProduct = function (sameProducts) {
-            var number_page = Math.floor(sameProducts.length / 3);
+            var number_page = Math.floor(sameProducts.length / $scope.max_product_per_page);
             $scope.sameProductsPage = [];
 
             for (var i = 0; i < number_page; i++) {
@@ -46,13 +46,13 @@
                 var products = [];
                 products.number_page = i;
 
-                for (var j = 0; j < 3; j++) {
-                    var current_index = i * 3 + j;
+                for (var j = 0; j < $scope.max_product_per_page; j++) {
+                    var current_index = i * $scope.max_product_per_page + j;
                     if (current_index == sameProducts.length - 1) {
                         break;
                     }
                     else {
-                        sameProducts[current_index].linkanh = sameProducts[current_index].linkImage.split(';')[0];
+                        sameProducts[current_index].linkanh = sameProducts[current_index].linkanh.split(';')[0];
                         products.push(sameProducts[current_index]);
                     }                   
                 }
@@ -112,7 +112,8 @@
             $scope.product.number = $scope.soluong;
             cart_service.add_product_to_cart($scope.product);
             $rootScope.$broadcast('cart_index_controller::recount_amount');
-            alert("Đã thêm vào giỏ hàng");
+            
+            window.location.href = "../../cart";
         }
 
         $scope.themnhieuvaogiohang = function () {
@@ -132,9 +133,8 @@
 
             $scope.product.number = $scope.soluong;
             cart_service.add_list_product_to_cart($scope.product, $scope.tempProducts);
-
-            alert("Đã thêm vào giỏ hàng");
             $('#myModal').modal('hide');
+            window.location.href = "../../cart";
         }
 
         $scope.showimage = function (link) {

@@ -23,6 +23,10 @@ namespace ProjectS3.Models
         [Required]
         [Display(Name = "Điện thoại liên lạc")]
         public string SoDienThoai { get; set; }
+
+        [Required]
+        [Display(Name = "Họ và Tên")]
+        public string HoTen { get; set; }
     }
 
     public class SanPhamTrongGioHang

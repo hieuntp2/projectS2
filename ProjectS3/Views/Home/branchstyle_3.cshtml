@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjectS3.Controllers.BranchListProdcut>
+﻿@model IEnumerable<ProjectS3.Controllers.SanPhamReturn>
 
 @{
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
@@ -37,7 +37,7 @@
 
     <hr />
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-2" style="padding-left: 50px;">
             <div class="left-sidebar">
                 <h2>Category</h2>
                 <div class="panel-group category-products" id="accordian">
@@ -60,68 +60,22 @@
             <div class="features_items">
 
                 <!--First colum-->
-                <div class="col-sm-4">
-                    <div class="col-sm-12" ng-repeat="product in products" ng-show="product.isShow && product.columNumber == 1">
-                        <div class="product-image-wrapper">
-                            <div class="single-products" style="cursor:pointer;">
-                                <a ng-href="../../home/sanpham/{{product.ID}}">
-                                    <div class="productinfo text-center">
-                                        <img ng-src="{{product.currentImage.link}}" alt="" />
-                                        <h2>{{product.Price | number}}VND</h2>
-                                        <p>{{product.Name}}</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Second colum-->
-                <div class="col-sm-4">
-                    <div class="col-sm-12" ng-repeat="product in products" ng-show="product.isShow && product.columNumber == 2">
-                        <div class="product-image-wrapper">
-                            <div class="single-products" style="cursor:pointer;">
-                                <a ng-href="../../home/sanpham/{{product.ID}}">
-                                    <div class="productinfo text-center">
-                                        <img ng-src="{{product.currentImage.link}}" alt="" />
-                                        <h2>{{product.Price | number}}VND</h2>
-                                        <p>{{product.Name}}</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Third colum-->
-                <div class="col-sm-4">
-                    <div class="col-sm-12" ng-repeat="product in products" ng-show="product.isShow && product.columNumber == 3">
-                        <div class="product-image-wrapper">
-                            <div class="single-products" style="cursor:pointer;">
-                                <a ng-href="../../home/sanpham/{{product.ID}}">
-                                    <div class="productinfo text-center">
-                                        <img ng-src="{{product.currentImage.link}}" alt="" />
-                                        <h2>{{product.Price | number}}VND</h2>
-                                        <p>{{product.Name}}</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*<div class="col-sm-4" ng-repeat="product in products" ng-show="product.isShow">
-                    <div class="product-image-wrapper">
+            
+                <div class="col-sm-4" ng-repeat="product in products" ng-show="product.isShow">
+                    <div class="product-image-wrapper hvr-box-shadow-outset">
                         <div class="single-products" style="cursor:pointer;">
-                            <a ng-href="../../home/sanpham/{{product.ID}}">
+                            <a ng-href="../../home/sanpham/{{product.ID}}" style="text-decoration:none;">
                                 <div class="productinfo text-center">
-                                    <img ng-src="{{product.currentImage.link}}" alt="" />
+                                    <div class="home_brand_div_cover_prodcut_image">
+                                        <img ng-src="{{product.currentImage.link}}" alt="" />
+                                    </div>
                                     <h2>{{product.Price | number}}VND</h2>
                                     <p>{{product.Name}}</p>
                                 </div>
                             </a>
                         </div>
                     </div>
-                </div>*@
+                </div>
             </div>
         </div>
     </div>

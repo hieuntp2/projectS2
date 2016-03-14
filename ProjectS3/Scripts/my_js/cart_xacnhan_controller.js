@@ -7,7 +7,10 @@
         $scope.thoigian = "";
         $scope.chitiets = [];
         $scope.accecttoken = "";
-        $scope.init = function (diachi, dienthoai, thoigian) {
+        $scope.validaterobot = "";
+        $scope.hoten = "";
+
+        $scope.init = function (diachi, dienthoai, thoigian, hoten) {
             cart_service.init();
             cart_service.remove_double_item();
             $scope.products = cart_service.getcart();
@@ -16,6 +19,7 @@
             $scope.diachi = diachi,
             $scope.dienthoai = dienthoai,
             $scope.thoigian = thoigian;
+            $scope.hoten = hoten;
 
             var form = $('#__AjaxAntiForgeryForm');
             $scope.accecttoken = $('input[name="__RequestVerificationToken"]', form).val();
@@ -34,7 +38,7 @@
             $rootScope.$broadcast('them_gio_hang_modal_controller::show', id);
         }
 
-        $scope.getaccokent =  function() {
+        $scope.getaccokent = function () {
             var token = angular.element("input[name='__RequestVerificationToken']").val();
 
             var config = {
@@ -47,20 +51,27 @@
 
         $scope.xacnhan = function () {
 
-            if ($scope.products.length >= 1)
-            {              
+            if ($scope.products.length >= 1) {
                 var config = $scope.getaccokent();
                 $http.post('../../cart/xacnhan',
                       {
                           diachi: $scope.diachi,
                           dienthoai: $scope.dienthoai,
                           thoigian: $scope.thoigian,
-                          chitiet: $scope.chitiets
+                          chitiet: $scope.chitiets,
+                          hoten: $scope.hoten,
+                          gEcaptchaResponse: $scope.validaterobot
                       }, config
                   ).
                 success(function (data, status, headers, config) {
-                    cart_service.clean();
-                    $window.location.href = "../cart/thankyou?ID="+data;
+
+                    if (data == null) {
+                        cart_service.clean();
+                        $window.location.href = "../cart/thankyou?ID=" + data;
+                    }
+                    else {
+                        alert("Lỗi khi xác nhận mua hàng!");
+                    }
                 }).
                 error(function (data, status, headers, config) {
                     alert("Lỗi khi xác nhận mua hàng!")
