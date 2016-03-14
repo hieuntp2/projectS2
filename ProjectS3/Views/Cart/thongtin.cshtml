@@ -36,8 +36,9 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input class="form-control" value="@user.HoTen" type="text" required disabled />
+                                    @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control", @Value=user.HoTen })                                    
                                 </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.HoTen)</p>
                             </div>
                         </div>
                         <div class="form-group">

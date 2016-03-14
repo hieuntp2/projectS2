@@ -53,6 +53,15 @@
 
             if ($scope.products.length >= 1) {
                 var config = $scope.getaccokent();
+
+                var response = grecaptcha.getResponse();
+
+                if(response.length == 0)
+                {
+                    $scope.captchaAlert = "Bạn cần xác nhận mình không phải là robot!";
+                    return;
+                }
+
                 $http.post('../../cart/xacnhan',
                       {
                           diachi: $scope.diachi,
@@ -60,7 +69,7 @@
                           thoigian: $scope.thoigian,
                           chitiet: $scope.chitiets,
                           hoten: $scope.hoten,
-                          gEcaptchaResponse: $scope.validaterobot
+                          captval: response
                       }, config
                   ).
                 success(function (data, status, headers, config) {

@@ -47,10 +47,8 @@ namespace ProjectS3.Controllers
         //[Authorize]
         [HttpPost]
         public string xacnhan(string diachi, string dienthoai, string thoigian, string hoten,
-            List<SanPhamTrongGioHang> chitiet)
-        {
-            // captcha
-            var response = Request["g-recaptcha-response"];
+            List<SanPhamTrongGioHang> chitiet, string captval)
+        {            
             //secret that was generated in key value pair
             const string secret = "6LdcvhoTAAAAACcr5w_9ShJ5eI98k4oveNDYy1EX";
 
@@ -58,7 +56,7 @@ namespace ProjectS3.Controllers
             var reply =
                 client.DownloadString(
                     string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}",
-                secret, response));
+                secret, captval));
 
             var captchaResponse = JsonConvert.DeserializeObject<CaptchaResponse>(reply);
 
