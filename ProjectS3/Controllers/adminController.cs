@@ -29,10 +29,10 @@ namespace ProjectS3.Controllers
             return View();
         }
 
-        public ActionResult testSendEmail()
+        public async Task<ActionResult> testSendEmail()
         {
             MyEngines.GMailer gmail = new MyEngines.GMailer();
-            gmail.Send("Test email!", "Nếu bạn thấy email này, có nghĩa website đã được cài đặt thành công gửi email thông báo đến admin.");
+            await gmail.Send("Test email!", "Nếu bạn thấy email này, có nghĩa website đã được cài đặt thành công gửi email thông báo đến admin.");
             return RedirectToAction("Index");
         }
 
@@ -63,7 +63,7 @@ namespace ProjectS3.Controllers
             }
         }
 
-        public ActionResult doitrangthaidonhang(int id, int tinhtrang)
+        public async Task<ActionResult> doitrangthaidonhang(int id, int tinhtrang)
         {
             DonHang item = db.DonHang.SingleOrDefault(t => t.ID == id);
 
@@ -71,7 +71,7 @@ namespace ProjectS3.Controllers
             {
                 item.TinhTrang = (short)tinhtrang;
                 db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             else
@@ -93,7 +93,7 @@ namespace ProjectS3.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult createheaditem(HeadItem model)
+        public async Task<ActionResult> createheaditem(HeadItem model)
         {
             HeadItem item = db.HeadItem.Create();
             if (ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace ProjectS3.Controllers
                 item.type = model.type;
 
                 db.HeadItem.Add(item);
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
                 return RedirectToAction("index");
             }
             else
@@ -113,13 +113,13 @@ namespace ProjectS3.Controllers
             }
         }
 
-        public ActionResult deleteheaditem(int id)
+        public async Task<ActionResult> deleteheaditem(int id)
         {
             HeadItem item = db.HeadItem.SingleOrDefault(t => t.id == id);
             if (item != null)
             {
                 db.HeadItem.Remove(item);
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
             }
             return RedirectToAction("Index");
         }
@@ -130,23 +130,23 @@ namespace ProjectS3.Controllers
         }
 
         [HttpPost]
-        public ActionResult addUserToRole(string username, string roleid)
+        public async Task<ActionResult> addUserToRole(string username, string roleid)
         {
             AspNetUsers user = db.AspNetUsers.SingleOrDefault(t => t.UserName == username);
             AspNetRoles role = db.AspNetRoles.SingleOrDefault(t => t.Id == roleid);
             role.AspNetUsers.Add(user);
             db.Entry(role).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("role");
         }
 
-        public ActionResult removeUserRole(string username, string roleid)
+        public async Task<ActionResult> removeUserRole(string username, string roleid)
         {
             AspNetUsers user = db.AspNetUsers.SingleOrDefault(t => t.UserName == username);
             AspNetRoles role = db.AspNetRoles.SingleOrDefault(t => t.Id == roleid);
             role.AspNetUsers.Remove(user);
             db.Entry(role).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("role");
         }
 

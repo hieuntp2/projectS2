@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace ProjectS3.Controllers
 {
@@ -19,7 +20,7 @@ namespace ProjectS3.Controllers
             if (id == -1)
             {
                 sanphams = db.SanPham.OrderByDescending(t => t.ID).ToList();
-              
+
             }
             else
             {
@@ -40,7 +41,7 @@ namespace ProjectS3.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult addproduct([Bind(Include = "ID,Ten,DioGia,linkanh,MoTa,TinhTrang,SoLuong,Color,Size,Branches,Type")] SanPham sanpham)
+        public async Task<ActionResult> addproduct([Bind(Include = "ID,Ten,DioGia,linkanh,MoTa,TinhTrang,SoLuong,Color,Size,Branches,Type")] SanPham sanpham)
         {
             SanPham item = db.SanPham.Create();
             item.DioGia = sanpham.DioGia;
@@ -56,12 +57,12 @@ namespace ProjectS3.Controllers
             item.LastUpdateDate = DateTime.Now;
             item.UserUpdate = User.Identity.GetUserId();
             db.SanPham.Add(item);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult deleteproduct(int id)
+        public async Task<ActionResult> deleteproduct(int id)
         {
             SanPham sp = db.SanPham.SingleOrDefault(t => t.ID == id);
             if (sp == null)
@@ -71,7 +72,7 @@ namespace ProjectS3.Controllers
 
             sp.TinhTrang = "DISABLE";
             db.Entry(sp).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -91,7 +92,7 @@ namespace ProjectS3.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult editproduct([Bind(Include = "ID,Ten,DioGia,linkanh,MoTa,TinhTrang,SoLuong,Color,Size,Branches,Type")] SanPham sanpham)
+        public async Task<ActionResult> editproduct([Bind(Include = "ID,Ten,DioGia,linkanh,MoTa,TinhTrang,SoLuong,Color,Size,Branches,Type")] SanPham sanpham)
         {
             SanPham item = db.SanPham.SingleOrDefault(t => t.ID == sanpham.ID);
             if (item != null)
@@ -110,7 +111,7 @@ namespace ProjectS3.Controllers
                 item.UserUpdate = User.Identity.GetUserId();
 
                 db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             else
@@ -122,14 +123,14 @@ namespace ProjectS3.Controllers
         //////////////////////////
         /////// Group Product ////
         //////////////////////////
-        public ActionResult removegroupproduct(int id)
+        public async Task<ActionResult> removegroupproduct(int id)
         {
             BoSanPham item = db.BoSanPham.SingleOrDefault(t => t.ID == id);
             if (item != null)
             {
                 db.ChiTietBoSanPham.RemoveRange(item.ChiTietBoSanPham);
                 db.BoSanPham.Remove(item);
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
             }
 
             return RedirectToAction("Index");
@@ -141,7 +142,7 @@ namespace ProjectS3.Controllers
         }
 
         [HttpPost]
-        public ActionResult addgroupproduct(AddGroupProductModel model)
+        public async Task<ActionResult> addgroupproduct(AddGroupProductModel model)
         {
             if (model.products.Count <= 0)
             {
@@ -162,25 +163,18 @@ namespace ProjectS3.Controllers
 
                 db.ChiTietBoSanPham.Add(item);
             }
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
             return View();
         }
 
         public ActionResult editgroupproduct(int id)
         {
-            if (id != null)
-            {
-                ViewBag.id = id;
-                return View();
-            }
-            else
-            {
-                return HttpNotFound();
-            }
+            ViewBag.id = id;
+            return View();
         }
 
         [HttpPost]
-        public ActionResult editgroupproduct(EditGroupProductModel model)
+        public async Task<ActionResult> editgroupproduct(EditGroupProductModel model)
         {
             if (model.products.Count <= 0)
             {
@@ -210,7 +204,7 @@ namespace ProjectS3.Controllers
 
                     db.ChiTietBoSanPham.Add(item);
                 }
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
                 return View();
             }
 
@@ -259,7 +253,7 @@ namespace ProjectS3.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult addbaiviet(BaiViet model)
+        public async Task<ActionResult> addbaiviet(BaiViet model)
         {
             model.NgayDang = DateTime.Now;
             if (ModelState.IsValid)
@@ -271,7 +265,7 @@ namespace ProjectS3.Controllers
                 item.TieuDe = model.TieuDe;
 
                 db.BaiViet.Add(item);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -292,13 +286,13 @@ namespace ProjectS3.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult editbaiviet(BaiViet model)
+        public async Task<ActionResult> editbaiviet(BaiViet model)
         {
             model.NgayDang = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Entry(model).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -319,7 +313,7 @@ namespace ProjectS3.Controllers
         /////// Product Branches ////
         //////////////////////////
         [HttpPost]
-        public ActionResult deleteproductbranch(int idbrach)
+        public async Task<ActionResult> deleteproductbranch(int idbrach)
         {
             ProductBranches br = db.ProductBranches.SingleOrDefault(t => t.Id == idbrach);
             if (br == null)
@@ -328,7 +322,7 @@ namespace ProjectS3.Controllers
             }
 
             db.ProductBranches.Remove(br);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -343,7 +337,7 @@ namespace ProjectS3.Controllers
         }
 
         [HttpPost]
-        public ActionResult editproductbranch(int id, string displayview, string linkBannerImages)
+        public async Task<ActionResult> editproductbranch(int id, string displayview, string linkBannerImages)
         {
             ProductBranches br = db.ProductBranches.SingleOrDefault(t => t.Id == id);
             if (br == null)
@@ -354,7 +348,7 @@ namespace ProjectS3.Controllers
             br.DisplayView = displayview;
             br.linkBanerImage = linkBannerImages;
             db.Entry(br).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -362,7 +356,7 @@ namespace ProjectS3.Controllers
         /////// Product Type /////
         //////////////////////////
         [HttpPost]
-        public ActionResult deleteproducttype(int idbrach)
+        public async Task<ActionResult> deleteproducttype(int idbrach)
         {
             ProductTypes br = db.ProductTypes.SingleOrDefault(t => t.Id == idbrach);
             if (br == null)
@@ -371,17 +365,17 @@ namespace ProjectS3.Controllers
             }
 
             db.ProductTypes.Remove(br);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult addproducttype(string name)
+        public async Task<ActionResult> addproducttype(string name)
         {
             ProductTypes br = db.ProductTypes.Create();
             br.Name = name;
             db.ProductTypes.Add(br);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

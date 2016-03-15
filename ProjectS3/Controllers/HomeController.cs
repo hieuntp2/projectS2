@@ -362,16 +362,4 @@ namespace ProjectS3.Controllers
         public string linkanh { get; set; }
         public int GiaThuongMua { get; set; }
     }
-
-    //public class BranchListProdcut
-    //{
-    //    public string Name { get; set; }
-    //    public int ID { get; set; }
-    //    public string BranchName { get; set; }
-    //    public int BranchID { get; set; }
-    //    public string linkImage { get; set; }
-    //    public string TypeName { get; set; }
-    //    public int TypeID { get; set; }
-    //    public double Price { get; set; }
-    //}
 }

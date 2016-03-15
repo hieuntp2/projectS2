@@ -5,10 +5,10 @@
     int count_product = db.SanPham.Count();
     int count_user = db.AspNetUsers.Count();
 
-    List<ProjectS3.Models.DonHang> _don_hang_moi = db.DonHang.Where(t => t.TinhTrang == 1).ToList();
-    List<ProjectS3.Models.DonHang> _don_hang_da_goi = db.DonHang.Where(t => t.TinhTrang == 2).ToList();
-    List<ProjectS3.Models.DonHang> _don_hang_dang_gui = db.DonHang.Where(t => t.TinhTrang == 3).ToList();
-    List<ProjectS3.Models.DonHang> _don_hang_bihuy = db.DonHang.Where(t => t.TinhTrang == 3).ToList();
+    List<ProjectS3.Models.DonHang> _don_hang_moi = db.DonHang.Where(t => t.TinhTrang == 1).OrderByDescending(t=>t.ID).ToList();
+    List<ProjectS3.Models.DonHang> _don_hang_da_goi = db.DonHang.Where(t => t.TinhTrang == 2).OrderByDescending(t => t.ID).ToList();
+    List<ProjectS3.Models.DonHang> _don_hang_dang_gui = db.DonHang.Where(t => t.TinhTrang == 3).OrderByDescending(t => t.ID).ToList();
+    List<ProjectS3.Models.DonHang> _don_hang_bihuy = db.DonHang.Where(t => t.TinhTrang == 4).OrderByDescending(t => t.ID).ToList();
 
     ProjectS3.Controllers.MyDynamicValues dynamicvalue = new ProjectS3.Controllers.MyDynamicValues();
 

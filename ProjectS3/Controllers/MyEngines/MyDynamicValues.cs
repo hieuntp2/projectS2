@@ -30,7 +30,7 @@ namespace ProjectS3.Controllers
             }              
         }
 
-        public void removeValue(string key)
+        public async Task removeValue(string key)
         {
             MyDynamicvalue info = db.MyDynamicvalue.SingleOrDefault(t => t.Key == key);
 
@@ -41,7 +41,7 @@ namespace ProjectS3.Controllers
             else
             {
                 db.MyDynamicvalue.Remove(info);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }  
 

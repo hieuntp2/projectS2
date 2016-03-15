@@ -102,6 +102,7 @@
                 item.soluong = $scope.products[i].number;
                 item.color = $scope.products[i].color;
                 item.size = $scope.products[i].size;
+                item.dongia = $scope.products[i].price;
 
                 item.idbosanpham = $scope.products[i].idbosanpham;
                 $scope.chitiets.push(item);

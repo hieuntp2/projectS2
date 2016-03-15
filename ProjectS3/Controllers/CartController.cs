@@ -9,6 +9,7 @@ using ProjectS3.Controllers.MyEngines;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 namespace ProjectS3.Controllers
 {
     public class CartController : Controller
@@ -47,7 +48,7 @@ namespace ProjectS3.Controllers
 
         //[Authorize]
         [HttpPost]
-        public string xacnhan(string diachi, string dienthoai, string thoigian, string hoten,
+        public async Task<string> xacnhan(string diachi, string dienthoai, string thoigian, string hoten,
             List<SanPhamTrongGioHang> chitiet, string captval)
         {            
             //secret that was generated in key value pair
@@ -100,10 +101,7 @@ namespace ProjectS3.Controllers
                     {
                         return null;
                     }
-                    MyDynamicValues dynamic = new MyDynamicValues();
-                    float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
-                    float hesonhan = MyStaticFunction.MyFloatParse(dynamic.getValue("hesonhan"));
-
+                   
                     DonHang dh = db.DonHang.Create();
 
                     if(User.Identity.IsAuthenticated)
@@ -136,7 +134,7 @@ namespace ProjectS3.Controllers
                         db.ChiTietDonHang.Add(item);
                     }
 
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
 
                     // sendmessage to gmail
                     GMailer gmail = new GMailer();
@@ -146,7 +144,7 @@ namespace ProjectS3.Controllers
                     mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
 
                     var messagebody = "Đơn đặt hàng mới + " + dh.ID + mylink + ". <br/> Ngày hết hạn: " + dh.ThoiGianGiao;
-                    gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
+                    await gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
                     return dh.ID.ToString();
                 }
             }
