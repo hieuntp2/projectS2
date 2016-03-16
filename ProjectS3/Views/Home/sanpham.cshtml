@@ -122,12 +122,12 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="tempproduct in tempProducts track by tempproduct.idInList">
-                                <td>
+                                <td style="width:30%;">
                                     <select class="form-control" ng-model="tempproduct.color" ng-required>
                                         <option ng-repeat="color in listColors">{{color.name}}</option>
                                     </select>
                                 </td>
-                                <td>
+                                <td style="width:30%;">
                                     <select class="form-control" ng-model="tempproduct.size" ng-required>
                                         <option ng-repeat="size in listSize">{{size.name}}</option>
                                     </select>

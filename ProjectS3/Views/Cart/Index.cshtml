@@ -27,9 +27,10 @@
                         </thead>
 
                         <tbody>
-                            <tr ng-repeat="product in products track by product.count_number" style="cursor:pointer;" ng-click="chooseproduct(product.id)">
+                            <tr ng-repeat="product in products track by product.count_number" >
                                 <td>
-                                    {{product.name}}<br />
+                                    <a ng-href="../../home/sanpham/{{product.id}}">{{product.name}}</a>
+                                   <br />
                                     <p>Kích thước: {{product.size}}</p>
                                     <p>Màu: {{product.color}}</p>
                                 </td>
@@ -40,7 +41,7 @@
                                 </td>
 
                                 <td style="color:red;">{{product.number * product.price | number}} VNĐ</td>
-                                <td><button class="btn btn-warning" ng-click="deleteproduct(product.count_number)">Xóa</button></td>
+                                <td><button class="btn btn-default" ng-click="deleteproduct(product.count_number)">Xóa</button></td>
                             </tr>
                         </tbody>
 

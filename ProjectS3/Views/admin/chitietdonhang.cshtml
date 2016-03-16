@@ -6,7 +6,7 @@
     int _cd = (int)(Model.ThoiGianGiao - DateTime.Now).TotalDays;
 
     string avatar = "";
-    if(User.Identity.IsAuthenticated)
+    if (Model.UserID != null)
     {
         ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
         avatar = db.AspNetUsers.SingleOrDefault(t => t.Id == Model.UserID).avatar;
@@ -15,8 +15,8 @@
     {
         avatar = "../../content/defaultavatar.png";
     }
-    
-    
+
+
 }
 <section>
     <div class="row">
@@ -37,7 +37,16 @@
                         <table class="table table-bordered">
                             <tr>
                                 <td>Người đặt</td>
-                                <td><strong>@Model.HoTen</strong></td>
+                                <td>
+                                    @if(Model.UserID != null)
+                                    {
+                                        <strong><a href="../../admin/userinfor/@Model.UserID">@Model.HoTen</a></strong> <span style="color:blue;"> - Thành viên</span>
+                                    }
+                                    else
+                                    {
+                                        <strong>@Model.HoTen</strong> <span style="color:blue;"> - Tài khoản không đăng ký</span>
+                                    }
+                                </td>
                             </tr>
 
                             <tr>
@@ -107,7 +116,7 @@
                             {
                                 <tr>
                                     <td>@item.IDSanPham</td>
-                                    <td>@item.SanPham.Ten</td>
+                                    <td><a href="../../home/sanpham/@item.IDSanPham">@item.SanPham.Ten</a> </td>
                                     <td>Màu: @item.Color</td>
                                     <td>Size: @item.Size</td>
                                     <td>@item.DioGia</td>
