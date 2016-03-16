@@ -104,9 +104,14 @@ namespace ProjectS3.Controllers
                    
                     DonHang dh = db.DonHang.Create();
 
-                    if(User.Identity.IsAuthenticated)
+                    if (User.Identity.IsAuthenticated)
                     {
                         dh.UserID = User.Identity.GetUserId();
+                    }
+                    else
+                    {
+                        // this is default account for user dont login
+                        dh.UserID = null;
                     }
                  
                     dh.SoDienThoai = dienthoai;
@@ -139,11 +144,11 @@ namespace ProjectS3.Controllers
                     // sendmessage to gmail
                     GMailer gmail = new GMailer();
 
-                    string mylink = "<a hreft='http://inthef.vn/admin'>Đơn đặt hàng</a>";
+                    string mylink = "http://inthef.vn/admin";
                     Regex r = new Regex(@"(https?://[^\s]+)");
                     mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
 
-                    var messagebody = "Đơn đặt hàng mới + " + dh.ID + mylink + ". <br/> Ngày hết hạn: " + dh.ThoiGianGiao;
+                    var messagebody = "Đơn đặt hàng mới: " + dh.ID + ". Ngày hết hạn: " + dh.ThoiGianGiao + ". Kiểm tra đơn hàng: " + mylink;
                     await gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
                     return dh.ID.ToString();
                 }
