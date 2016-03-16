@@ -150,7 +150,7 @@
                                         {
                                     <tr style="cursor:pointer;" onclick="chitietdonhang(@item.ID)">
                                         <td>@item.ID</td>
-                                        <td>@item.AspNetUsers.HoTen</td>
+                                        <td>@item.HoTen</td>
                                         <td>@item.ThoiGianGiao <strong style="color:red;"> còn @((int)(item.ThoiGianGiao - DateTime.Now).TotalDays) ngày</strong></td>
                                         <td>
                                             <span class="badge bg-red">Mới, đang đợi gọi xác nhận</span>
@@ -220,7 +220,7 @@
                                         {
                                     <tr style="cursor:pointer;" onclick="chitietdonhang(@item.ID)">
                                         <td>@item.ID</td>
-                                        <td>@item.AspNetUsers.HoTen</td>
+                                        <td>@item.HoTen</td>
                                         <td>@item.ThoiGianGiao <strong style="color:red;"> còn @((int)(item.ThoiGianGiao - DateTime.Now).TotalDays) ngày</strong></td>
                                         <td>
                                             <span class="badge bg-blue-active">Đang gửi đi</span>
@@ -256,10 +256,7 @@
                                             <img src="@item.avatar" style="width:25px;" />
                                         </td>
                                         <td>@item.HoTen</td>
-                                        <td>
-                                            <span style="color:red;">@item.DonHang.Where(t => t.TinhTrang > 1).Count()</span>
-                                            /
-                                            <span style="color:blue;">@item.DonHang.Count()</span>
+                                        <td>                                            
                                         </td>
                                     </tr>
                                     }
