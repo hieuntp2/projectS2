@@ -124,6 +124,7 @@
           <Property Name="SoDienThoai" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="NgayTao" Type="datetime" Nullable="false" />
           <Property Name="Comment" Type="ntext" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="HeadItem">
           <Key>
@@ -763,6 +764,7 @@
           <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietDonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_DonHang1" FromRole="DonHang" ToRole="ChiTietDonHang" />
+          <Property Name="HoTen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ChiTietDonHang_DonHang1">
           <End Type="ProjectS3Model.DonHang" Role="DonHang" Multiplicity="1" />
@@ -972,6 +974,7 @@
           <EntitySetMapping Name="DonHang">
             <EntityTypeMapping TypeName="ProjectS3Model.DonHang">
               <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />

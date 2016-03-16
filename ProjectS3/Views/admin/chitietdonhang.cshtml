@@ -5,6 +5,18 @@
     double total = 0;
     int _cd = (int)(Model.ThoiGianGiao - DateTime.Now).TotalDays;
 
+    string avatar = "";
+    if(User.Identity.IsAuthenticated)
+    {
+        ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
+        avatar = db.AspNetUsers.SingleOrDefault(t => t.Id == Model.UserID).avatar;
+    }
+    else
+    {
+        avatar = "../../content/defaultavatar.png";
+    }
+    
+    
 }
 <section>
     <div class="row">
@@ -19,13 +31,13 @@
                     <h4>Thông tin</h4>
 
                     <div class="col-md-3">
-                        <img src="@Model.AspNetUsers.avatar" style="width: 200px;" />
+                        <img src="@avatar" style="width: 200px;" />
                     </div>
                     <div class="col-md-9">
                         <table class="table table-bordered">
                             <tr>
                                 <td>Người đặt</td>
-                                <td><strong>@Model.AspNetUsers.HoTen</strong></td>
+                                <td><strong>@Model.HoTen</strong></td>
                             </tr>
 
                             <tr>

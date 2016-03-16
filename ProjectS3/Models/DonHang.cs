@@ -28,6 +28,7 @@ namespace ProjectS3.Models
         public string SoDienThoai { get; set; }
         public System.DateTime NgayTao { get; set; }
         public string Comment { get; set; }
+        public string HoTen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonHang> ChiTietDonHang { get; set; }

@@ -119,6 +119,7 @@ namespace ProjectS3.Controllers
                     dh.TinhTrang = 1;
                     dh.DiaChiGiao = diachi;
                     dh.NgayTao = DateTime.Now;
+                    dh.HoTen = hoten;
 
                     db.DonHang.Add(dh);
 
