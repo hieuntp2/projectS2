@@ -117,7 +117,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
           <Property Name="DiaChiGiao" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ThoiGianGiao" Type="datetime" Nullable="false" />
           <Property Name="TinhTrang" Type="int" Nullable="false" />
@@ -297,18 +297,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DonHang_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SanPham_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
@@ -396,10 +384,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_DonHang_AspNetUsers" Association="Self.FK_DonHang_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="DonHang" EntitySet="DonHang" />
-          </AssociationSet>
           <AssociationSet Name="FK_SanPham_AspNetUsers" Association="Self.FK_SanPham_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="SanPham" EntitySet="SanPham" />
@@ -427,7 +411,6 @@
           <EntitySet Name="BoSanPham" EntityType="ProjectS3Model.BoSanPham" />
           <EntitySet Name="ChiTietBoSanPham" EntityType="ProjectS3Model.ChiTietBoSanPham" />
           <EntitySet Name="ChiTietDonHang" EntityType="ProjectS3Model.ChiTietDonHang" />
-          <EntitySet Name="DonHang" EntityType="ProjectS3Model.DonHang" />
           <EntitySet Name="HeadItem" EntityType="ProjectS3Model.HeadItem" />
           <EntitySet Name="MyDynamicvalue" EntityType="ProjectS3Model.MyDynamicvalue" />
           <EntitySet Name="ProductBranches" EntityType="ProjectS3Model.ProductBranches" />
@@ -443,9 +426,9 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_DonHang_AspNetUsers" Association="ProjectS3Model.FK_DonHang_AspNetUsers">
+          <AssociationSet Name="FK_SanPham_AspNetUsers" Association="ProjectS3Model.FK_SanPham_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietBoSanPham_BoSanPham" Association="ProjectS3Model.FK_ChiTietBoSanPham_BoSanPham">
             <End Role="BoSanPham" EntitySet="BoSanPham" />
@@ -454,10 +437,6 @@
           <AssociationSet Name="FK_ChiTietBoSanPham_SanPham" Association="ProjectS3Model.FK_ChiTietBoSanPham_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="ChiTietBoSanPham" EntitySet="ChiTietBoSanPham" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonHang_DonHang1" Association="ProjectS3Model.FK_ChiTietDonHang_DonHang1">
-            <End Role="DonHang" EntitySet="DonHang" />
-            <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietDonHang_SanPham1" Association="ProjectS3Model.FK_ChiTietDonHang_SanPham1">
             <End Role="SanPham" EntitySet="SanPham" />
@@ -475,9 +454,10 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_SanPham_AspNetUsers" Association="ProjectS3Model.FK_SanPham_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="SanPham" EntitySet="SanPham" />
+          <EntitySet Name="DonHang" EntityType="ProjectS3Model.DonHang" />
+          <AssociationSet Name="FK_ChiTietDonHang_DonHang1" Association="ProjectS3Model.FK_ChiTietDonHang_DonHang1">
+            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -541,9 +521,8 @@
           <Property Name="avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="ProjectS3Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="ProjectS3Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="DonHang" Relationship="ProjectS3Model.FK_DonHang_AspNetUsers" FromRole="AspNetUsers" ToRole="DonHang" />
-          <NavigationProperty Name="AspNetRoles" Relationship="ProjectS3Model.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="SanPham" Relationship="ProjectS3Model.FK_SanPham_AspNetUsers" FromRole="AspNetUsers" ToRole="SanPham" />
+          <NavigationProperty Name="AspNetRoles" Relationship="ProjectS3Model.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="BaiViet">
           <Key>
@@ -589,23 +568,8 @@
           <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DioGia" Type="Double" />
-          <NavigationProperty Name="DonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_DonHang1" FromRole="ChiTietDonHang" ToRole="DonHang" />
           <NavigationProperty Name="SanPham" Relationship="ProjectS3Model.FK_ChiTietDonHang_SanPham1" FromRole="ChiTietDonHang" ToRole="SanPham" />
-        </EntityType>
-        <EntityType Name="DonHang">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChiGiao" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ThoiGianGiao" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TinhTrang" Type="Int32" Nullable="false" />
-          <Property Name="SoDienThoai" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="ProjectS3Model.FK_DonHang_AspNetUsers" FromRole="DonHang" ToRole="AspNetUsers" />
-          <NavigationProperty Name="ChiTietDonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_DonHang1" FromRole="DonHang" ToRole="ChiTietDonHang" />
+          <NavigationProperty Name="DonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_DonHang1" FromRole="ChiTietDonHang" ToRole="DonHang" />
         </EntityType>
         <EntityType Name="HeadItem">
           <Key>
@@ -631,8 +595,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DisplayView" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SanPham" Relationship="ProjectS3Model.FK_SanPham_ProductBranches" FromRole="ProductBranches" ToRole="SanPham" />
           <Property Name="linkBanerImage" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SanPham" Relationship="ProjectS3Model.FK_SanPham_ProductBranches" FromRole="ProductBranches" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="ProductTypes">
           <Key>
@@ -657,13 +621,13 @@
           <Property Name="Color" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UserUpdate" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="ProjectS3Model.FK_SanPham_AspNetUsers" FromRole="SanPham" ToRole="AspNetUsers" />
           <NavigationProperty Name="ChiTietBoSanPham" Relationship="ProjectS3Model.FK_ChiTietBoSanPham_SanPham" FromRole="SanPham" ToRole="ChiTietBoSanPham" />
           <NavigationProperty Name="ChiTietDonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_SanPham1" FromRole="SanPham" ToRole="ChiTietDonHang" />
           <NavigationProperty Name="ProductBranches" Relationship="ProjectS3Model.FK_SanPham_ProductBranches" FromRole="SanPham" ToRole="ProductBranches" />
           <NavigationProperty Name="ProductTypes" Relationship="ProjectS3Model.FK_SanPham_ProductTypes" FromRole="SanPham" ToRole="ProductTypes" />
-          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="UserUpdate" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="ProjectS3Model.FK_SanPham_AspNetUsers" FromRole="SanPham" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -710,15 +674,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DonHang_AspNetUsers">
-          <End Type="ProjectS3Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="ProjectS3Model.DonHang" Role="DonHang" Multiplicity="*" />
+        <Association Name="FK_SanPham_AspNetUsers">
+          <End Type="ProjectS3Model.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="ProjectS3Model.SanPham" Role="SanPham" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="UserID" />
+            <Dependent Role="SanPham">
+              <PropertyRef Name="UserUpdate" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -743,18 +707,6 @@
             </Principal>
             <Dependent Role="ChiTietBoSanPham">
               <PropertyRef Name="IDSanPham" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChiTietDonHang_DonHang1">
-          <End Type="ProjectS3Model.DonHang" Role="DonHang" Multiplicity="1" />
-          <End Type="ProjectS3Model.ChiTietDonHang" Role="ChiTietDonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonHang">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ChiTietDonHang">
-              <PropertyRef Name="IDDonHang" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -798,15 +750,29 @@
           <End Type="ProjectS3Model.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="ProjectS3Model.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <Association Name="FK_SanPham_AspNetUsers">
-          <End Type="ProjectS3Model.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="ProjectS3Model.SanPham" Role="SanPham" Multiplicity="*" />
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiGiao" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiGianGiao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TinhTrang" Type="Int32" Nullable="false" />
+          <Property Name="SoDienThoai" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChiTietDonHang" Relationship="ProjectS3Model.FK_ChiTietDonHang_DonHang1" FromRole="DonHang" ToRole="ChiTietDonHang" />
+        </EntityType>
+        <Association Name="FK_ChiTietDonHang_DonHang1">
+          <End Type="ProjectS3Model.DonHang" Role="DonHang" Multiplicity="1" />
+          <End Type="ProjectS3Model.ChiTietDonHang" Role="ChiTietDonHang" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
+            <Principal Role="DonHang">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="SanPham">
-              <PropertyRef Name="UserUpdate" />
+            <Dependent Role="ChiTietDonHang">
+              <PropertyRef Name="IDDonHang" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -920,20 +886,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DonHang">
-            <EntityTypeMapping TypeName="ProjectS3Model.DonHang">
-              <MappingFragment StoreEntitySet="DonHang">
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-                <ScalarProperty Name="ThoiGianGiao" ColumnName="ThoiGianGiao" />
-                <ScalarProperty Name="DiaChiGiao" ColumnName="DiaChiGiao" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HeadItem">
             <EntityTypeMapping TypeName="ProjectS3Model.HeadItem">
               <MappingFragment StoreEntitySet="HeadItem">
@@ -1017,6 +969,20 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DonHang">
+            <EntityTypeMapping TypeName="ProjectS3Model.DonHang">
+              <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="ThoiGianGiao" ColumnName="ThoiGianGiao" />
+                <ScalarProperty Name="DiaChiGiao" ColumnName="DiaChiGiao" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

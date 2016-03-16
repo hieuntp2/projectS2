@@ -35,12 +35,12 @@ namespace ProjectS3.Models
         public Nullable<System.DateTime> LastUpdateDate { get; set; }
         public string UserUpdate { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietBoSanPham> ChiTietBoSanPham { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonHang> ChiTietDonHang { get; set; }
         public virtual ProductBranches ProductBranches { get; set; }
         public virtual ProductTypes ProductTypes { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

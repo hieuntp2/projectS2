@@ -23,7 +23,7 @@ namespace ProjectS3.Models
         public int ID { get; set; }
         public Nullable<double> DioGia { get; set; }
     
-        public virtual DonHang DonHang { get; set; }
         public virtual SanPham SanPham { get; set; }
+        public virtual DonHang DonHang { get; set; }
     }
 }
