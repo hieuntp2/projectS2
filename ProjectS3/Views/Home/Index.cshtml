@@ -8,7 +8,7 @@
         <!--slider-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-10 no-padding" style="padding-bottom:10px !important;">
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
@@ -22,23 +22,21 @@
                                 if (i == 0)
                                 {
                                     <div class="item active">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12 no-padding">
                                             <a href="@headitems[i].href">
-                                                <img src="@headitems[i].image" class="girl img-responsive" alt="@headitems[i].caption" />
+                                                <img src="@headitems[i].image" class="girl img-responsive" />
                                             </a>
-
                                         </div>
                                     </div>
                                 }
                                 else
                                 {
-                                    <<div class="item">
-                                        <div class="col-sm-12">
-                                            <a href="@headitems[i].href">
-                                                <img src="@headitems[i].image" class="girl img-responsive" alt="@headitems[i].caption" />
-                                            </a>
-
-                                        </div>
+                                    <div class="item">
+                                         <div class="col-sm-12 no-padding">
+                                             <a href="@headitems[i].href">
+                                                 <img src="@headitems[i].image" class="girl img-responsive"/>
+                                             </a>
+                                         </div>
                                     </div>
                                 }
                             }
