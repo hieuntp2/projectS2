@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "User: " + Model.HoTen;
+    ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
+    List<ProjectS3.Models.DonHang> donhangs = db.DonHang.Where(t => t.UserID == Model.Id).OrderByDescending(t => t.ID).ToList();
 }
 @Html.Partial("_my_break_bar_top")
 
@@ -50,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.DonHang)
+                @foreach (var item in donhangs)
                 {
                     <tr style="cursor:pointer;" onclick="chitietdonhang(@item.ID)">
                         <td>@item.ID</td>
