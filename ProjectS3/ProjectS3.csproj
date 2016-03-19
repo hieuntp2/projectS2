@@ -1322,6 +1322,7 @@
     <Content Include="Views\Shared\_my_break_bar_top_moderate.cshtml" />
     <Content Include="Views\Home\branchstyle_3.cshtml" />
     <Content Include="Views\Shared\_header_menu.v2.cshtml" />
+    <Content Include="Views\EmailTemplates\UpdateOrderToUserTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

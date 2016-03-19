@@ -49,7 +49,7 @@ namespace ProjectS3.Controllers
         //[Authorize]
         [HttpPost]
         public async Task<string> xacnhan(string diachi, string dienthoai, string thoigian, string hoten,
-            List<SanPhamTrongGioHang> chitiet, string captval)
+            List<SanPhamTrongGioHang> chitiet, string captval, string email)
         {            
             //secret that was generated in key value pair
             const string secret = "6LdZwRoTAAAAAEOn-B188a6bk-Yr7wrRhf8yLT6j";
@@ -120,7 +120,7 @@ namespace ProjectS3.Controllers
                     dh.DiaChiGiao = diachi;
                     dh.NgayTao = DateTime.Now;
                     dh.HoTen = hoten;
-
+                    dh.Email = email;
                     db.DonHang.Add(dh);
 
                     for (int i = 0; i < chitiet.Count; i++)

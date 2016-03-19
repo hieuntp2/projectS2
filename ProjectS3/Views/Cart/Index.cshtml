@@ -3,6 +3,18 @@
 }
 <script src="~/scripts/my_js/cart_index_controller.js"></script>
 
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="box">
+            <div class="box-header text-center" style="padding-bottom: 0px;"><h3>Thanh toán</h3></div>
+            <div class="box-footer">
+                <a class="btn btn-warning" style="width: 33%; cursor: default;">1. Giỏ hàng</a>
+                <a class="btn btn-default" style="width: 33%; cursor: default;">2. Địa chỉ</a>
+                <a class="btn btn-default" style="width: 33%; cursor: default;">3. Xác nhận thanh toán</a>
+            </div>
+        </div>
+    </div>
+</div>
 <section>
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
@@ -17,7 +29,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <td>Tên</td>
+                                <td>Sản phẩm</td>
                                 <td>Hình ảnh</td>
                                 <td>Đơn giá</td>
                                 <td>Số lượng</td>
@@ -27,10 +39,10 @@
                         </thead>
 
                         <tbody>
-                            <tr ng-repeat="product in products track by product.count_number" >
+                            <tr ng-repeat="product in products track by product.count_number">
                                 <td>
                                     <a ng-href="../../home/sanpham/{{product.id}}">{{product.name}}</a>
-                                   <br />
+                                    <br />
                                     <p>Kích thước: {{product.size}}</p>
                                     <p>Màu: {{product.color}}</p>
                                 </td>
@@ -51,14 +63,14 @@
                                 <td>Tổng tiền</td>
                                 <td style="color:red;">{{totalamount | number}} VNĐ</td>
                                 <td></td>
-                            </tr>                            
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
 
-                <div class="box-footer clearfix">                    
-                    <button style="float:right;" class="btn btn-success" ng-click="muahang()">Mua hàng</button>
-                    <button style="float:right; margin-right:5px;" class="btn btn-danger" ng-click="back()">Tiếp tục mua sắp</button>
+                <div class="box-footer clearfix">
+                    <button style="float:right;" class="btn   btn-danger" ng-click="muahang()">Mua hàng</button>
+                    <button style="float:right; margin-right:5px;" class="btn btn-success" ng-click="back()">Tiếp tục mua sắp</button>
                     <button style="float:left;" class="btn btn-default" ng-cefick="back()">Trở lại</button>
                 </div>
             </div>

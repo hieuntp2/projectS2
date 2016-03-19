@@ -72,7 +72,30 @@ namespace ProjectS3.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+            ProjectS3Entities db = new ProjectS3Entities();
+            AspNetUsers user = db.AspNetUsers.SingleOrDefault(t => t.Id == userId);
+            ViewBag.user = user;
+
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> updateUserInfor(string hoten, string linkavatar, string sodienthoai, string diachi)
+        {
+            ProjectS3Entities db = new ProjectS3Entities();
+            string userid = User.Identity.GetUserId();
+            AspNetUsers user = db.AspNetUsers.SingleOrDefault(t => t.Id == userid);
+
+            user.HoTen = hoten;
+            user.avatar = linkavatar;
+            user.SoDienThoai = sodienthoai;
+            user.DiaChi = diachi;
+
+            db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         //

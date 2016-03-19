@@ -10,8 +10,9 @@
         $scope.validaterobot = "";
         $scope.hoten = "";
         $scope.isProcessing = false;
+        $scope.email = "";
 
-        $scope.init = function (diachi, dienthoai, thoigian, hoten) {
+        $scope.init = function (diachi, dienthoai, thoigian, hoten, email) {
             cart_service.init();
             cart_service.remove_double_item();
             $scope.products = cart_service.getcart();
@@ -21,6 +22,7 @@
             $scope.dienthoai = dienthoai,
             $scope.thoigian = thoigian;
             $scope.hoten = hoten;
+            $scope.email = email;
 
             var form = $('#__AjaxAntiForgeryForm');
             $scope.accecttoken = $('input[name="__RequestVerificationToken"]', form).val();
@@ -70,6 +72,7 @@
                           thoigian: $scope.thoigian,
                           chitiet: $scope.chitiets,
                           hoten: $scope.hoten,
+                          email: $scope.email,
                           captval: response
                       }, config
                   ).

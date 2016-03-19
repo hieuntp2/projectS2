@@ -9,11 +9,22 @@
 }
 <script src="~/scripts/my_js/cart_xacnhan_controller.js"></script>
 
-
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="box">
+            <div class="box-header text-center" style="padding-bottom: 0px;"><h3>Thanh toán</h3></div>
+            <div class="box-footer">
+                <a class="btn btn-success" href="../../cart" style="width: 33%; cursor: pointer;">1. Giỏ hàng</a>
+                <a class="btn btn-success" href="../../cart/thongtin" style="width: 33%; cursor: pointer;">2. Địa chỉ</a>
+                <a class="btn btn-warning" style="width: 33%; cursor: default;">3. Xác nhận thanh toán</a>
+            </div>
+        </div>
+    </div>
+</div>
 <section style="min-height:500px;">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            <div class="box box-info" ng-controller="cart_xacnhan_controller" ng-init="init('@Model.DiaChiGiao', '@Model.SoDienThoai', '@Model.ThoiGianGiao', '@Model.HoTen')">
+            <div class="box box-info" ng-controller="cart_xacnhan_controller" ng-init="init('@Model.DiaChiGiao', '@Model.SoDienThoai', '@Model.ThoiGianGiao', '@Model.HoTen','@Model.Email')">
                 <div class="box-header">
                     <h3>
                         Xác nhận nhận mua hàng
@@ -29,6 +40,9 @@
                             <br />
                             <div class="col-lg-3"><span>Số điện thoại: </span></div>
                             <div class="col-lg-9"><strong>@Model.SoDienThoai</strong></div>
+                            <br />
+                            <div class="col-lg-3"><span>Email: </span></div>
+                            <div class="col-lg-9"><strong>@Model.Email</strong></div>
                             <br />
                             <div class="col-lg-3"><span>Địa chỉ giao hàng: </span></div>
                             <div class="col-lg-9"><strong>@Model.DiaChiGiao</strong></div>

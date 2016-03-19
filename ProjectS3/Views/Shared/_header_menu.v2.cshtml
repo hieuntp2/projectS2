@@ -63,8 +63,9 @@
                                                     <a href="../../admin" style="background-color:white; text-decoration: none; font-size: 15px; font-family: inherit;">Quản lý website</a>
                                                 </div>
                                             </div>
+                                            <div class="clearfix"></div><hr />
                                         }
-                                        <div class="clearfix"></div><hr />
+
                                         @if (User.IsInRole("Moderate"))
                                         {
                                             <div class="row">
@@ -72,8 +73,9 @@
                                                     <a href="../../moderate" style="background-color:white; text-decoration: none; font-size: 15px; font-family: inherit;">Quản lý sản phẩm/ bài viết</a>
                                                 </div>
                                             </div>
+                                            <div class="clearfix"></div><hr />
                                         }
-                                        <div class="clearfix"></div><hr />
+
                                         <div class="row">
                                             <div class="col-sm-12 text-center">
                                                 <a href="../../cart/history" style="background-color:white; text-decoration: none; font-size: 15px; font-family: inherit;">Lịch sử mua hàng</a>
@@ -84,7 +86,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Tài khoản</a>
+                                            <a href="../../manage" class="btn btn-default btn-flat">Tài khoản</a>
                                         </div>
                                         <div class="pull-right">
                                             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
