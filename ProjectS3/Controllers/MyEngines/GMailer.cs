@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System;
 using System.IO;
+using RazorEngine.Templating;
 
 
 namespace ProjectS3.Controllers.MyEngines
@@ -18,17 +19,6 @@ namespace ProjectS3.Controllers.MyEngines
 
             string mysj = "Inthef.vn: " + subject;
             string body = messagebody;
-
-            string templateName = "UpdateOrderToUserTemplate";
-            var templateFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views/EmailTemplates/"+templateName);
-
-            // Create a model for our email
-            var model = new UpdateOrderToUserModel();
-
-            // Generate the email body from the template file.
-            // 'templateFilePath' should contain the absolute path of your template file.
-            var templateService = new TemplateService();
-            var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFolderPath), model, null, null);
 
             var fromAddress = new MailAddress(myfromemail, "Website Inthef.vn");
             var toAddress = new MailAddress(mytoemail, "Admin Inthef.vn");
@@ -54,13 +44,54 @@ namespace ProjectS3.Controllers.MyEngines
                 await smtp.SendMailAsync(message);
             }
         }
+
+        public async Task SendWithUpdateOrderToUserTemplate(string subject, UpdateOrderToUserModel model)
+        {
+            string templateName = "UpdateOrderToUserTemplate.cshtml";
+            var templateFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views/EmailTemplates/" + templateName);
+
+            var templateService = new TemplateService();
+            var body = templateService.Parse(File.ReadAllText(templateFolderPath), model, null, null);
+
+            MyDynamicValues mydynamic = new MyDynamicValues();
+            string mytoemail = model.email;
+            string myfromemail = mydynamic.getValue("fromemail");
+            string mypassword = mydynamic.getValue("password");
+
+            string mysj = "Inthef.vn: " + subject;
+
+            var fromAddress = new MailAddress(myfromemail, "Website Inthef.vn");
+            var toAddress = new MailAddress(mytoemail, "Admin Inthef.vn");
+            string fromPassword = mypassword;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = mysj,
+                Body = body,
+                IsBodyHtml = true
+            })
+            {
+                await smtp.SendMailAsync(message);
+            }
+        }
+
     }
 
     public class UpdateOrderToUserModel
     {
-        public string hoten;
-        public string email;
-        public string iddonhang;
-        public string tinhtrang;
+        public string hoten { get; set; }
+        public string email { get; set; }
+        public string iddonhang { get; set; }
+        public string tinhtrang { get; set; }
     }
 }

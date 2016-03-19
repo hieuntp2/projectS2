@@ -1,4 +1,5 @@
 ﻿
+using ProjectS3.Controllers.MyEngines;
 using ProjectS3.Models;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,25 @@ namespace ProjectS3.Controllers
             await gmail.Send("Test email!", "Nếu bạn thấy email này, có nghĩa website đã được cài đặt thành công gửi email thông báo đến admin.");
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> testSendEmailToUser()
+        {
+            MyEngines.GMailer gmail = new MyEngines.GMailer();
+
+            MyDynamicValues mydynamic = new MyDynamicValues();
+            string mytoemail = mydynamic.getValue("toemail");
+
+            UpdateOrderToUserModel userintfo1 = new UpdateOrderToUserModel();
+            userintfo1.hoten = "Họ tên người dùng";
+            userintfo1.email = mytoemail;
+            userintfo1.iddonhang = "IDTest";
+            userintfo1.tinhtrang = "Mới cập nhật";
+
+            await gmail.SendWithUpdateOrderToUserTemplate("Test Email", userintfo1);
+            return RedirectToAction("Index");
+        }
+
+
 
         public async Task<ActionResult> editemail(string fromemail, string password, string toemail)
         {
