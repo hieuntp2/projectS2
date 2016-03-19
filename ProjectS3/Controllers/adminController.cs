@@ -54,8 +54,6 @@ namespace ProjectS3.Controllers
             return RedirectToAction("Index");
         }
 
-
-
         public async Task<ActionResult> editemail(string fromemail, string password, string toemail)
         {
             MyDynamicValues mydynamic = new MyDynamicValues();
@@ -81,6 +79,22 @@ namespace ProjectS3.Controllers
             {
                 return HttpNotFound();
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> updatecomment(int id, string comment)
+        {
+            DonHang donhang = db.DonHang.SingleOrDefault(t => t.ID == id);
+            if(donhang == null)
+            {
+                return HttpNotFound();
+            }
+
+            donhang.Comment = comment;
+            db.Entry(donhang).State = System.Data.Entity.EntityState.Modified;
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("chitietdonhang", new { id = id });
         }
 
         public async Task<ActionResult> doitrangthaidonhang(int id, int tinhtrang)

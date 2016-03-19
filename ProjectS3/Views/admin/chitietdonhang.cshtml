@@ -16,7 +16,10 @@
         avatar = "../../content/defaultavatar.png";
     }
 
-
+    if (Model.Comment == null)
+    {
+        Model.Comment = "";
+    }
 }
 <section>
     <div class="row">
@@ -38,7 +41,7 @@
                             <tr>
                                 <td>Người đặt</td>
                                 <td>
-                                    @if(Model.UserID != null)
+                                    @if (Model.UserID != null)
                                     {
                                         <strong><a href="../../admin/userinfor/@Model.UserID">@Model.HoTen</a></strong> <span style="color:blue;"> - Thành viên</span>
                                     }
@@ -94,7 +97,14 @@
                         </table>
                     </div>
 
-
+                    <h4>Ghi chú</h4>
+                    <form action="../../admin/updatecomment" method="post">
+                        <input name="id" type="hidden" value="@Model.ID" />
+                        <textarea name="comment" class="form-control" placeholder="Ghi chú của admin" style="height: 100px;">@Model.Comment</textarea>
+                        <br />
+                        <input type="submit" value="Lưu" class="btn btn-warning pull-right" />
+                    </form>
+                    <div class="clearfix"></div>
                     <h4>Chi tiết đơn hàng</h4>
                     <hr />
 
@@ -117,8 +127,8 @@
                                 <tr>
                                     <td>@item.IDSanPham</td>
                                     <td><a href="../../home/sanpham/@item.IDSanPham">@item.SanPham.Ten</a> </td>
-                                    <td>Màu: @item.Color</td>
-                                    <td>Size: @item.Size</td>
+                                    <td>@item.Color</td>
+                                    <td>@item.Size</td>
                                     <td>@item.DioGia</td>
                                     <td>@item.SoLuong</td>
                                     <td style="color: red; text-align: right;">@(((double)(@item.DioGia * @item.SoLuong)).ToString("#,##"))</td>
