@@ -1214,7 +1214,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_footer.cshtml" />
     <Content Include="Views\Shared\_gio_hang_modal.cshtml" />
-    <Content Include="Views\Shared\_header_menu.cshtml" />
     <Content Include="Views\Shared\_main_sidebar.cshtml" />
     <Content Include="Views\Shared\_my_break_bar_top.cshtml" />
     <Content Include="Views\Shared\_relatetiveObject.cshtml" />
