@@ -139,7 +139,7 @@ namespace ProjectS3.Controllers
                         db.ChiTietDonHang.Add(item);
                     }
 
-                    db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
 
                     sendEmail(dh);
                     return dh.ID.ToString();
@@ -158,7 +158,7 @@ namespace ProjectS3.Controllers
             mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
 
             var messagebody = "Đơn đặt hàng mới: " + dh.ID + ". Ngày hết hạn: " + dh.ThoiGianGiao + ". Kiểm tra đơn hàng: " + mylink;
-            await gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
+            gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
 
             // send email to user
             if (dh.Email != null)
@@ -168,7 +168,7 @@ namespace ProjectS3.Controllers
                 usermodel.hoten = dh.HoTen;
                 usermodel.iddonhang = dh.ID.ToString();
                 usermodel.tinhtrang = "Mới đặt";
-                await gmail.SendWithCreateOrderToUserTemplate("Đơn hàng đã được đặt", usermodel);
+                gmail.SendWithCreateOrderToUserTemplate("Đơn hàng đã được đặt", usermodel);
             }
         }
 
