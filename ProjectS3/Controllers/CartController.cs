@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ProjectS3.Controllers.MyEngines;
@@ -142,15 +141,7 @@ namespace ProjectS3.Controllers
 
                     await db.SaveChangesAsync();
 
-                    // sendmessage to gmail
-                    GMailer gmail = new GMailer();
-
-                    string mylink = "http://inthef.vn/admin";
-                    Regex r = new Regex(@"(https?://[^\s]+)");
-                    mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
-
-                    var messagebody = "Đơn đặt hàng mới: " + dh.ID + ". Ngày hết hạn: " + dh.ThoiGianGiao + ". Kiểm tra đơn hàng: " + mylink;
-                    await gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
+                    await sendEmail(dh);
                     return dh.ID.ToString();
                 }
             }
@@ -158,8 +149,32 @@ namespace ProjectS3.Controllers
             return null;
         }
 
+        private static async Task sendEmail(DonHang dh)
+        {
+            // sendmessage to admin
+            GMailer gmail = new GMailer();
+            string mylink = "http://inthef.vn/admin";
+            Regex r = new Regex(@"(https?://[^\s]+)");
+            mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
+
+            var messagebody = "Đơn đặt hàng mới: " + dh.ID + ". Ngày hết hạn: " + dh.ThoiGianGiao + ". Kiểm tra đơn hàng: " + mylink;
+            await gmail.Send("Đơn đặt hàng mới: Mã " + dh.ID, messagebody);
+
+            // send email to user
+            if (dh.Email != null)
+            {
+                UpdateOrderToUserModel usermodel = new UpdateOrderToUserModel();
+                usermodel.email = dh.Email;
+                usermodel.hoten = dh.HoTen;
+                usermodel.iddonhang = dh.ID.ToString();
+                usermodel.tinhtrang = "Mới đặt";
+                await gmail.SendWithCreateOrderToUserTemplate("Đơn hàng đã được đặt", usermodel);
+            }
+        }
+
         public ActionResult thankyou(string ID)
         {
+            GMailer gmail = new GMailer();
             ViewBag.ID = ID;
             return View();
         }

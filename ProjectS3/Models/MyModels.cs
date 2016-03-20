@@ -28,7 +28,6 @@ namespace ProjectS3.Models
         [Display(Name = "Họ và Tên")]
         public string HoTen { get; set; }
 
-        [Required]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

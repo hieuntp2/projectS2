@@ -58,5 +58,27 @@ namespace ProjectS3.Controllers
                return info.value;
             }
         }
+
+        internal async Task increaseValue(string key)
+        {
+            MyDynamicvalue info = db.MyDynamicvalue.SingleOrDefault(t => t.Key == key);
+
+            // If dont have the key, add new key
+            if (info == null)
+            {
+                info = new MyDynamicvalue();
+                info.Key = key;
+                info.value = "0";
+                db.MyDynamicvalue.Add(info);
+                await db.SaveChangesAsync();
+            }
+            else
+            {
+                // set new value for key
+                info.value = (int.Parse(info.value) + 1).ToString(); ;
+                db.Entry(info).State = System.Data.Entity.EntityState.Modified;
+                await db.SaveChangesAsync();
+            }    
+        }
     }
 }

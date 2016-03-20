@@ -12,6 +12,8 @@ namespace ProjectS3.Controllers
         ProjectS3Entities db = new ProjectS3Entities();
         public ActionResult Index()
         {
+            MyDynamicValues dynamic = new MyDynamicValues();
+            dynamic.increaseValue("HOME_COUNT");
             return View();
         }
 

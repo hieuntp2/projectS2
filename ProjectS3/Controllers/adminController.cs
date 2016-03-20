@@ -50,7 +50,7 @@ namespace ProjectS3.Controllers
             userintfo1.iddonhang = "IDTest";
             userintfo1.tinhtrang = "Mới cập nhật";
 
-            await gmail.SendWithUpdateOrderToUserTemplate("Test Email", userintfo1);
+            await gmail.SendWithCreateOrderToUserTemplate("Test Email", userintfo1);
             return RedirectToAction("Index");
         }
 
