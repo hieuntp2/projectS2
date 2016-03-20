@@ -139,9 +139,9 @@ namespace ProjectS3.Controllers
                         db.ChiTietDonHang.Add(item);
                     }
 
-                    await db.SaveChangesAsync();
+                    db.SaveChangesAsync();
 
-                    await sendEmail(dh);
+                    sendEmail(dh);
                     return dh.ID.ToString();
                 }
             }

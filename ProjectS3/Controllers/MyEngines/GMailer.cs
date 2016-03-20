@@ -121,7 +121,18 @@ namespace ProjectS3.Controllers.MyEngines
                 IsBodyHtml = true
             })
             {
-                await smtp.SendMailAsync(message);
+                try
+                {
+                    await smtp.SendMailAsync(message);
+                }
+                catch
+                {
+                    mydynamic.setValue("ERROR LOG_" + DateTime.Now, ": Lỗi khi gửi mail đến: " + toAddress);
+                }
+                finally
+                {
+
+                }
             }
         }
 
