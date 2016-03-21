@@ -6,6 +6,7 @@
     ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
     string userid = User.Identity.GetUserId();
     ProjectS3.Models.AspNetUsers user = db.AspNetUsers.SingleOrDefault(t => t.Id == userid);
+
 }
 <script src="~/scripts/my_js/cart_index_controller.js"></script>
 <link href="~/content/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />

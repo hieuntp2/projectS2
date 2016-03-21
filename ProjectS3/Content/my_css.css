@@ -67,7 +67,7 @@
 
 .my_div_product_image {
     height: 100px;
-    display: -webkit-inline-box;
+    display: inherit;
 }
 
 .my_div_products_banner {
