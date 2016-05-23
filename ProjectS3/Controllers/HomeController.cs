@@ -12,7 +12,7 @@ namespace ProjectS3.Controllers
         ProjectS3Entities db = new ProjectS3Entities();
         public ActionResult Index()
         {
-            MyDynamicValues dynamic = new MyDynamicValues();
+            MyDynamicEngine dynamic = new MyDynamicEngine();
             dynamic.increaseValue("HOME_COUNT");
             return View();
         }
@@ -289,7 +289,7 @@ namespace ProjectS3.Controllers
             }
             set
             {
-                MyDynamicValues dynamic = new MyDynamicValues();
+                MyDynamicEngine dynamic = new MyDynamicEngine();
                 float tygia_WonVND = MyStaticFunction.MyFloatParse(dynamic.getValue("tygia_WonVND"));
                 double temp_Gia = value * tygia_WonVND;
                 float hesonhan = 1;

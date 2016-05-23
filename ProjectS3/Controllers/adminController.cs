@@ -18,7 +18,7 @@ namespace ProjectS3.Controllers
         // GET: /admin/
         public ActionResult Index()
         {
-            MyDynamicValues mydynamic = new MyDynamicValues();
+            MyDynamicEngine mydynamic = new MyDynamicEngine();
             string mytoemail = mydynamic.getValue("toemail");
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");
@@ -41,7 +41,7 @@ namespace ProjectS3.Controllers
         {
             MyEngines.GMailer gmail = new MyEngines.GMailer();
 
-            MyDynamicValues mydynamic = new MyDynamicValues();
+            MyDynamicEngine mydynamic = new MyDynamicEngine();
             string mytoemail = mydynamic.getValue("toemail");
 
             UpdateOrderToUserModel userintfo1 = new UpdateOrderToUserModel();
@@ -56,7 +56,7 @@ namespace ProjectS3.Controllers
 
         public async Task<ActionResult> editemail(string fromemail, string password, string toemail)
         {
-            MyDynamicValues mydynamic = new MyDynamicValues();
+            MyDynamicEngine mydynamic = new MyDynamicEngine();
             await mydynamic.setValue("toemail", toemail);
             await mydynamic.setValue("fromemail", fromemail);
             await mydynamic.setValue("password", password);
@@ -197,7 +197,7 @@ namespace ProjectS3.Controllers
         [HttpPost]
         public async Task<ActionResult> edittygia(string tygia)
         {
-            MyDynamicValues dynamic = new MyDynamicValues();
+            MyDynamicEngine dynamic = new MyDynamicEngine();
             if (MyEngines.MyStaticFunction.MyFloatParse(tygia) <= 0)
             {
                 return RedirectToAction("Index");
@@ -214,7 +214,7 @@ namespace ProjectS3.Controllers
         [HttpPost]
         public async Task<ActionResult> hesonhangia(string my_heso_1, string my_heso_1_2, string my_heso_2_3, string my_heso_3)
         {
-            MyDynamicValues dynamic = new MyDynamicValues();
+            MyDynamicEngine dynamic = new MyDynamicEngine();
             if (MyEngines.MyStaticFunction.MyFloatParse(my_heso_1) <= 0)
             {
                 return RedirectToAction("Index");

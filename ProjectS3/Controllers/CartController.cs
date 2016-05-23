@@ -24,7 +24,19 @@ namespace ProjectS3.Controllers
         //[Authorize]
         public ActionResult thongtin()
         {
-            return View();
+            ThongTinNguoiDungMuaHang model = new ThongTinNguoiDungMuaHang();
+            if(User.Identity.IsAuthenticated)
+            {
+                string userid = User.Identity.GetUserId();
+                AspNetUsers user = db.AspNetUsers.SingleOrDefault(t => t.Id == userid);
+
+                model.DiaChiGiao = user.DiaChi;
+                model.Email = user.Email;
+                model.HoTen = user.HoTen;
+                model.SoDienThoai = user.SoDienThoai;
+                model.ThoiGianGiao = DateTime.Now;
+            }
+            return View(model);
         }
 
         //[Authorize]
@@ -49,7 +61,7 @@ namespace ProjectS3.Controllers
         [HttpPost]
         public async Task<string> xacnhan(string diachi, string dienthoai, string thoigian, string hoten,
             List<SanPhamTrongGioHang> chitiet, string captval, string email)
-        {            
+        {
             //secret that was generated in key value pair
             const string secret = "6LdZwRoTAAAAAEOn-B188a6bk-Yr7wrRhf8yLT6j";
 
@@ -100,7 +112,7 @@ namespace ProjectS3.Controllers
                     {
                         return null;
                     }
-                   
+
                     DonHang dh = db.DonHang.Create();
 
                     if (User.Identity.IsAuthenticated)
@@ -112,7 +124,7 @@ namespace ProjectS3.Controllers
                         // this is default account for user dont login
                         dh.UserID = null;
                     }
-                 
+
                     dh.SoDienThoai = dienthoai;
                     dh.ThoiGianGiao = DateTime.Parse(thoigian);
                     dh.TinhTrang = 1;

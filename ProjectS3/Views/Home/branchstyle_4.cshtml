@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ProjectS3.Controllers.SanPhamReturn>
+
+@{
+    ProjectS3.Models.ProjectS3Entities db = new ProjectS3.Models.ProjectS3Entities();
+    string mybannerimages = (string)ViewBag.BanngerImages;
+    string[] banners = mybannerimages.Trim().Split(';');
+}
+
+<script src="~/scripts/my_js/home/home_branch_controller.js"></script>
+<h1 class="title text-center" style="font-family: 'Galdeano',sans-serif,nanum gothic,dotum,verdana; font-size: 50px;">
+    @ViewBag.Branch
+</h1>
+
+<div ng-controller="home_branch_controller" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model), '@mybannerimages')">
+    <br />  
+
+    <hr />
+    <div class="row">
+        <div class="col-sm-2" style="padding-left: 50px;">
+            <div class="left-sidebar">
+                <h2>Category</h2>
+                <div class="panel-group category-products" id="accordian">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="cursor:pointer;">
+                            <h4 class="panel-title" ng-click="showAllProduct()"><a>Tất cả</a></h4>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" ng-repeat="catelory in catelories">
+                        <div class="panel-heading" style="cursor:pointer;">
+                            <h4 class="panel-title" ng-click="showItemInCatelory(catelory.ID)"><a>{{catelory.Name}}</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-10">
+            <div class="features_items">
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li ng-repeat="img in BannerImages" data-target="#slider-carousel" data-slide-to="{{img.number}}" ng-class="img.number == 0? 'active': ''"></li>
+                            </ol>
+
+                            <div class="carousel-inner">
+                                <div ng-repeat="img in BannerImages" ng-class="img.number == 0? 'my_div_products_banner item active': 'my_div_products_banner item'" style=" padding: 0px; ">
+                                    <img class="my_img_products_banner" ng-src="{{img.link}}" style="max-width:700px; display:block; margin-left:auto; margin-right:auto;"/>
+                                </div>
+                            </div>
+                            <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--First colum-->            
+                <div class="col-sm-4" ng-repeat="product in products" ng-show="product.isShow">
+                    <div class="product-image-wrapper hvr-box-shadow-outset">
+                        <div class="single-products" style="cursor:pointer;">
+                            <a ng-href="../../home/sanpham/{{product.ID}}" style="text-decoration:none;">
+                                <div class="productinfo text-center">
+                                    <div class="home_brand_div_cover_prodcut_image">
+                                        <img ng-src="{{product.currentImage.link}}" alt="" />
+                                    </div>
+                                    <h2>{{product.Price | number}}VND</h2>
+                                    <p>{{product.Name}}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,10 +1,10 @@
 ﻿.box {
-    box-shadow: 5px 5px 5px #D7D7D7;
+    box-shadow: 5px 5px 5px 5px #D7D7D7;
     border: 2px solid #EAEAEA;
 }
 
 .box-img {
-    box-shadow: 5px 5px 5px #D7D7D7;
+    box-shadow: 5px 5px 5px 5px #D7D7D7;
     border-top: 3px solid #FFFFFF !important;
 }
 
@@ -91,10 +91,8 @@
     align-items: center;
 }
 
-.product-image-wrapper:hover{
-
+.product-image-wrapper:hover {
 }
 
-.my_header_menu_li{
-
+.my_header_menu_li {
 }

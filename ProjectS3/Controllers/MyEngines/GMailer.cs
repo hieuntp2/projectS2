@@ -12,7 +12,7 @@ namespace ProjectS3.Controllers.MyEngines
     {
         public async Task Send(string subject, string messagebody)
         {
-            MyDynamicValues mydynamic = new MyDynamicValues();
+            MyDynamicEngine mydynamic = new MyDynamicEngine();
             string mytoemail = mydynamic.getValue("toemail");
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");
@@ -53,7 +53,7 @@ namespace ProjectS3.Controllers.MyEngines
             var templateService = new TemplateService();
             var body = templateService.Parse(File.ReadAllText(templateFolderPath), model, null, null);
 
-            MyDynamicValues mydynamic = new MyDynamicValues();
+            MyDynamicEngine mydynamic = new MyDynamicEngine();
             string mytoemail = model.email;
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");
@@ -93,7 +93,7 @@ namespace ProjectS3.Controllers.MyEngines
             var templateService = new TemplateService();
             var body = templateService.Parse(File.ReadAllText(templateFolderPath), model, null, null);
 
-            MyDynamicValues mydynamic = new MyDynamicValues();
+            MyDynamicEngine mydynamic = new MyDynamicEngine();
             string mytoemail = model.email;
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");

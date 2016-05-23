@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace ProjectS3.Controllers
 {
-    public class MyDynamicValues
+    public class MyDynamicEngine
     {
         ProjectS3Entities db = new ProjectS3Entities();
 

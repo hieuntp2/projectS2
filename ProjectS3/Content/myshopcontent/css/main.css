@@ -653,8 +653,7 @@ ul.sub-menu {
     right: 0;
 }
 
-.category-products {
-    border: 1px solid #F7F7F0;
+.category-products {  
     margin-bottom: 35px;
     padding-bottom: 20px;
     padding-top: 15px;
@@ -847,7 +846,7 @@ h2.title {
 }
 
 .product-image-wrapper {
-    border: 1px solid #F7F7F5;
+    
     overflow: hidden;
     margin-bottom: 30px;
     height: 470px;

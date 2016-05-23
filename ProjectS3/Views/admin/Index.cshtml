@@ -10,7 +10,7 @@
     List<ProjectS3.Models.DonHang> _don_hang_dang_gui = db.DonHang.Where(t => t.TinhTrang == 3).OrderByDescending(t => t.ID).ToList();
     List<ProjectS3.Models.DonHang> _don_hang_bihuy = db.DonHang.Where(t => t.TinhTrang == 4).OrderByDescending(t => t.ID).ToList();
 
-    ProjectS3.Controllers.MyDynamicValues dynamicvalue = new ProjectS3.Controllers.MyDynamicValues();
+    ProjectS3.Controllers.MyDynamicEngine dynamicvalue = new ProjectS3.Controllers.MyDynamicEngine();
 
     System.Globalization.CultureInfo ci = (System.Globalization.CultureInfo)System.Globalization.CultureInfo.CurrentCulture.Clone();
     ci.NumberFormat.CurrencyDecimalSeparator = ".";
@@ -62,7 +62,7 @@
 
     ViewBag.Title = "Quản trị";
 
-    ProjectS3.Controllers.MyDynamicValues dynamic = new ProjectS3.Controllers.MyDynamicValues();
+    ProjectS3.Controllers.MyDynamicEngine dynamic = new ProjectS3.Controllers.MyDynamicEngine();
     string soluongtruycap = dynamic.getValue("HOME_COUNT");
 }
 

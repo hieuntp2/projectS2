@@ -39,153 +39,83 @@
                     <div class="box-body">
 
                         @Html.AntiForgeryToken()
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="form-group">
-                                <div class="col-md-3 control-label">
-                                    <label>Tên người mua</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control", @Value = user.HoTen })
-                                    </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.HoTen)</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.SoDienThoai, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control", @Value = @user.SoDienThoai })
-                                    </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.SoDienThoai)</p>
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-email"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Value = @user.Email })
-                                    </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.Email)</p>
-                                </div>
+                        <div class="form-group">
+                            <div class="col-md-3 control-label">
+                                <label>Tên người mua</label>
                             </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control" })
+                                </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.HoTen)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SoDienThoai, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control" })
+                                </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.SoDienThoai)</p>
+                            </div>
+                        </div>
 
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.DiaChiGiao, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa  fa-map-marker"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.DiaChiGiao, new { @class = "form-control", @Value = @user.DiaChi })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope-o"></i>
                                     </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.DiaChiGiao)</p>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control"})
                                 </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.Email)</p>
                             </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.ThoiGianGiao, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
+                        </div>
 
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.ThoiGianGiao, new { @class = "form-control", @id = "datetimepicker1", @Value = DateTime.Now })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DiaChiGiao, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa  fa-map-marker"></i>
                                     </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.ThoiGianGiao)</p>
+                                    @Html.TextBoxFor(m => m.DiaChiGiao, new { @class = "form-control" })
                                 </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.DiaChiGiao)</p>
                             </div>
+                        </div>
 
-                        }
-                        else
-                        {
-                            <div class="form-group">
-                                <div class="col-md-3 control-label">
-                                    <label>Tên người mua</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control" })
-                                    </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.HoTen)</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.SoDienThoai, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control" })
-                                    </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.SoDienThoai)</p>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ThoiGianGiao, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
 
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-envelope-o"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control"})
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
                                     </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.Email)</p>
+                                    @Html.TextBoxFor(m => m.ThoiGianGiao, new { @class = "form-control", @id = "datetimepicker1", @Value = DateTime.Now })
                                 </div>
+                                <p style="color:red;">@Html.ValidationMessageFor(m => m.ThoiGianGiao)</p>
                             </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.DiaChiGiao, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa  fa-map-marker"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.DiaChiGiao, new { @class = "form-control" })
-                                    </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.DiaChiGiao)</p>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.ThoiGianGiao, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-9">
-
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </div>
-                                        @Html.TextBoxFor(m => m.ThoiGianGiao, new { @class = "form-control", @id = "datetimepicker1", @Value = DateTime.Now })
-                                    </div>
-                                    <p style="color:red;">@Html.ValidationMessageFor(m => m.ThoiGianGiao)</p>
-                                </div>
-                            </div>
+                        </div>
 
 
-                            <p>Hãy <a href="../../account/login?ReturnUrl=%2Fcart%2Fthongtin">đăng nhập</a> bằng tài khoản để được hưởng các lợi ích sau:</p>
-                            <ol>
-                                <li>Xem lịch sử đặt hàng</li>
-                                <li>Quản lý đơn hàng</li>
-                                <li>Thông tin đơn hàng tự động điền mặc định</li>
-                                <li>Nhận được thông tin, áp dụng chương trình khuyến mãi</li>
-                            </ol>
-                        }
+                        <p>Hãy <a href="../../account/login?ReturnUrl=%2Fcart%2Fthongtin">đăng nhập</a> bằng tài khoản để được hưởng các lợi ích sau:</p>
+                        <ol>
+                            <li>Xem lịch sử đặt hàng</li>
+                            <li>Quản lý đơn hàng</li>
+                            <li>Thông tin đơn hàng tự động điền mặc định</li>
+                            <li>Nhận được thông tin, áp dụng chương trình khuyến mãi</li>
+                        </ol>
+
 
                     </div>
                     <div class="box-footer clearfix">
@@ -194,7 +124,7 @@
                         <button style="float:left;" class="btn btn-warning" onclick="continuesshoping()">Tiếp tục mua hàng</button>
                         @if (!User.Identity.IsAuthenticated)
                         {
-                            <a href="../../account/login?ReturnUrl=%2Fcart%2Fthongtin" class="btn btn-primary pull-right" style="margin-right:5px;">đăng nhập</a>
+                        <a href="../../account/login?ReturnUrl=%2Fcart%2Fthongtin" class="btn btn-primary pull-right" style="margin-right:5px;">đăng nhập</a>
                         }
                     </div>
                 }

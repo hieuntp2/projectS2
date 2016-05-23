@@ -7,12 +7,12 @@
 }
 
 <script src="~/scripts/my_js/home/home_branch_controller.js"></script>
-<h1 class="title text-center" style="font-family: 'Galdeano',sans-serif,nanum gothic,dotum,verdana; font-size: 50px;">
+
+<h1 class="title text-center" style="font-family: IrisUPC;margin-top: 0px;font-size: 75px;" id="brandname">
     @ViewBag.Branch
 </h1>
 
 <div ng-controller="home_branch_controller" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model), '@mybannerimages')">
-    <br />
     <div class="row">
         <div class="col-sm-12 no-padding">
             <div id="slider-carousel" class="carousel slide" data-ride="carousel">
@@ -33,14 +33,16 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div>    
+    <div class="clearfix"></div>
+    <br />
 
-    <hr />
+
     <div class="row">
         <div class="col-sm-2" style="padding-left: 50px;">
             <div class="left-sidebar">
-                <h2>Category</h2>
-                <div class="panel-group category-products" id="accordian">
+                <h2 style="margin-bottom:5px;">Danh mục</h2>
+                <div class="panel-group category-products text-center" id="accordian">
                     <div class="panel panel-default">
                         <div class="panel-heading" style="cursor:pointer;">
                             <h4 class="panel-title" ng-click="showAllProduct()"><a>Tất cả</a></h4>
@@ -58,11 +60,9 @@
 
         <div class="col-sm-10">
             <div class="features_items">
-
-                <!--First colum-->
-            
+                <!--First colum-->            
                 <div class="col-sm-4" ng-repeat="product in products" ng-show="product.isShow">
-                    <div class="product-image-wrapper hvr-box-shadow-outset">
+                    <div class="product-image-wrapper hvr-glow">
                         <div class="single-products" style="cursor:pointer;">
                             <a ng-href="../../home/sanpham/{{product.ID}}" style="text-decoration:none;">
                                 <div class="productinfo text-center">
@@ -81,4 +81,49 @@
     </div>
 </div>
 
+<script>
+     window.addEventListener("scroll", function (event) {
+
+         var top = this.scrollY,
+             left = this.scrollX;
+
+         var horizontalScroll = document.querySelector(".horizontalScroll"),
+             verticalScroll = document.querySelector(".verticalScroll");
+
+         if (top < 50) {         
+             //$("#my_nav_top_li_search").show(300);
+             //$("#navbar-collapse").css({ 'margin-top': '0px' });
+         }
+         else {
+             showBrandName();
+             //$("#navbar-collapse").css({ 'margin-top': '10px' });
+             //$("#my_nav_top_li_search").hide(300);
+         }
+
+     }, false);
+
+     function showBrandName()
+     {
+         $("#brandname").css({ 'margin-top': '0px' });
+     }
+
+ 
+
+    function showSearch(){
+        $("#my_nav_top_li_search").show(300);
+        $("#navbar-collapse").css({ 'margin-top': '0px' });
+    }
+
+    function hideSearch() {
+        $("#navbar-collapse").css({ 'margin-top': '10px' });
+        $("#my_nav_top_li_search").hide(300);
+    }
+    function detectUrlforNavBar() {
+        var pathname = window.location.pathname;
+        alert(pathname);
+    }
+
+
+    </script>
+</script>
 
