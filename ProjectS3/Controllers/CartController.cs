@@ -165,7 +165,7 @@ namespace ProjectS3.Controllers
         {
             // sendmessage to admin
             GMailer gmail = new GMailer();
-            string mylink = "http://inthef.vn/admin";
+            string mylink = "http://Mamonde.vn/admin";
             Regex r = new Regex(@"(https?://[^\s]+)");
             mylink = r.Replace(mylink, "<a href=\"$1\">$1</a>");
 

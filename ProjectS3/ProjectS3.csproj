@@ -484,6 +484,7 @@
     <Content Include="Content\dist\js\pages\dashboard2.js" />
     <Content Include="Content\hover-min.css" />
     <Content Include="Content\hover.css" />
+    <Content Include="Content\mamonde.vn-logo.png" />
     <Content Include="Content\myshopcontent\css\animate.css" />
     <Content Include="Content\myshopcontent\css\bootstrap.min.css" />
     <Content Include="Content\myshopcontent\css\font-awesome.min.css" />

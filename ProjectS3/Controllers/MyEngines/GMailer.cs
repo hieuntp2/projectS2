@@ -17,11 +17,11 @@ namespace ProjectS3.Controllers.MyEngines
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");
 
-            string mysj = "Inthef.vn: " + subject;
+            string mysj = "Mamonde.vn: " + subject;
             string body = messagebody;
 
-            var fromAddress = new MailAddress(myfromemail, "Website Inthef.vn");
-            var toAddress = new MailAddress(mytoemail, "Admin Inthef.vn");
+            var fromAddress = new MailAddress(myfromemail, "Website Mamonde.vn");
+            var toAddress = new MailAddress(mytoemail, "Admin Mamonde.vn");
             string fromPassword = mypassword;
 
             var smtp = new SmtpClient
@@ -58,10 +58,10 @@ namespace ProjectS3.Controllers.MyEngines
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");
 
-            string mysj = "Inthef.vn: " + subject;
+            string mysj = "Mamonde.vn: " + subject;
 
-            var fromAddress = new MailAddress(myfromemail, "Website Inthef.vn");
-            var toAddress = new MailAddress(mytoemail, "Admin Inthef.vn");
+            var fromAddress = new MailAddress(myfromemail, "Website Mamonde.vn");
+            var toAddress = new MailAddress(mytoemail, "Admin Mamonde.vn");
             string fromPassword = mypassword;
 
             var smtp = new SmtpClient
@@ -98,10 +98,10 @@ namespace ProjectS3.Controllers.MyEngines
             string myfromemail = mydynamic.getValue("fromemail");
             string mypassword = mydynamic.getValue("password");
 
-            string mysj = "Inthef.vn: " + subject;
+            string mysj = "Mamonde.vn: " + subject;
 
-            var fromAddress = new MailAddress(myfromemail, "Website Inthef.vn");
-            var toAddress = new MailAddress(mytoemail, "Admin Inthef.vn");
+            var fromAddress = new MailAddress(myfromemail, "Website Mamonde.vn");
+            var toAddress = new MailAddress(mytoemail, "Admin Mamonde.vn");
             string fromPassword = mypassword;
 
             var smtp = new SmtpClient
